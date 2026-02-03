@@ -1,0 +1,55 @@
+{% comment %}
+  Renders Product Badges
+  Accepts:
+    - product: {Object} Product Liquid object
+    - template: {String} template name ex: main-product, highlighted-product or empty
+  Usage:
+    {% render 'product-badges', product: product %}
+{% endcomment %}
+
+{% assign style = style | default: '' %}
+
+{%- capture product_badges -%}
+  <link rel="stylesheet" href="{{- 'component-product-badges.css' | asset_url -}}" media="print" onload="this.media='all'">
+
+  {% comment %} Variables | Product Badges {% endcomment %}
+  {%- assign badges = '' -%}
+  {%- if product and product != empty -%}
+    {%- for tag in product.tags -%}
+      {%- if tag contains 'badge:' -%}
+        {%- assign badge = tag | remove: 'badge:' | strip -%}
+        {%- assign badges = badges | append: badge | append: ',' -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if product.available == false -%}
+      {%- assign tag = 'product.sold_out' | t -%}
+      {%- assign badges = badges | append: tag | append: ',' -%}
+    {%- elsif product.compare_at_price > product.price -%}
+      {%- capture discount_percentage -%}
+        {{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | append: '% off' }}
+    {%- endcapture -%}
+      {%- assign badges = badges | append: discount_percentage | append: ',' -%}
+    {%- endif -%}
+  {%- endif -%}
+
+  {% comment %} Render | Product Badges {% endcomment %}
+  {%- if badges -%}
+    {%- assign badges = badges | split: ',' -%}
+    <span class="product-card__badges">
+      {%- for badge in badges -%}
+        {% capture additional_badge_classes %} {% if settings.button_border_radius == "0" %}product-card__badge--square{% else %}product-card__badge--rounded{% endif %}{% endcapture %}
+        {%- assign badge_classes = 'product-card__badge' | append: additional_badge_classes | strip -%}
+        <span class="{{ badge_classes }}">{{- badge -}}</span>
+      {%- endfor -%}
+    </span>
+  {%- endif -%}
+{%- endcapture -%}
+
+{% comment %} Check for render area ( pdp || p-card ) {% endcomment %}
+{% if template %}
+ {{ product_badges }}
+{%- else -%}
+  {%- if settings.show_product_card_badges -%}
+    {{ product_badges }}
+  {%- endif -%}
+{%- endif -%}

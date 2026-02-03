@@ -1,0 +1,272 @@
+<!doctype html>
+
+<html class="no-js" lang="{{ request.locale.iso_code }}"{%- if request.locale.iso_code == 'ar' or request.locale.iso_code == 'he' -%} dir="rtl"{%- endif -%}>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+
+    <!-- Hotjar Tracking Code for https://www.ozellaswim.com -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:5132963,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_heading_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    {% render 'meta-tags' %}
+
+    <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <noscript>
+      <style>
+        img[loading='lazy'] { opacity: 1; }
+      </style>
+    </noscript>
+    <script src="{{ 'cookies.js' | asset_url }}" defer="defer"></script>
+
+    {{ content_for_header }}
+
+    {%- render 'settings' -%}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {% render 'css', css: 'component-drawer.css' %}
+
+    {%- if settings.enable_predictive_search -%}
+      {% render 'css', css: 'component-predictive-search.css' %}
+      <script src="{{- 'predictive-search.js' | asset_url -}}" defer="defer"></script>
+    {%- endif -%}
+
+    {% comment %}theme-check-disable AssetPreload{% endcomment %}
+    {%- unless settings.type_heading_font.system? -%}
+      <link rel="preload" as="font" href="{{ settings.type_heading_font | font_url }}" type="font/woff2" crossorigin>
+    {%- endunless -%}
+    {%- unless settings.type_body_font.system? -%}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+      {%- endunless -%}
+    {% comment %}theme-check-enable AssetPreload{% endcomment %}
+
+<meta name="ahrefs-site-verification" content="add7c2c4d3e470a8d1e7162d3dee4ebb2f95ac69625e9b3ea788bce713a31e4d">
+
+  <meta name="ahrefs-site-verification" content="44a8129854f1381a4e9428b861cc79c8d57f6ca812bc2c82b0f3454359236376">  <!---- By_Emran --->
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+
+    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{- 'bodyScrollLock.min.js' | asset_url -}}" defer="defer"></script>
+
+        <style>
+
+          /* remove border around product pagination */
+          @media screen and (max-width: 749px) {
+              .product__media .swiper-horizontal>.swiper-pagination-bullets, .product__media .swiper-pagination-bullets.swiper-pagination-horizontal {
+                  border: 0rem solid rgba(var(--color-border), var(--alpha-border)) !important;
+              }
+          }
+
+          /* makes according a bigger size */
+          #shopify-section-template--23048718352683__main span, #shopify-section-template--23048718352683__main .product-selector__buttons legend {
+              font-size: calc(var(--font-body-scale)* 1.4rem);
+          }
+
+
+          /* makes the according tab text bigger */
+          summary#Details-Summary-description_qA3HqH span {
+              font-size: calc(var(--font-body-scale)* 1.4rem);
+          }
+
+          /* this makes it so the hero isn't so big on desktop */
+          @media (min-width: 1080px) {
+              #shopify-section-template--23048718025003__1658995208ad05f95f {
+                --inner-height: calc(80vh - var(--hero-banner-top)) !important;
+            }
+          }
+
+
+          .jdgm-rev-widg.jdgm-rev-widg {
+          display: block;
+          padding-inline: var(--page-gutter) !important;
+                max-width: var(--page-width) !important;
+    margin: 0 auto !important;
+      }
+
+        .jdgm-row-media, .jdgm-row-search, .jdgm-subtab, .jdgm-row-actions, .jdgm-quest, .jdgm-rev, .jdgm-paginate {
+            border-top: 1px solid rgba(51, 153, 153, 0.1);
+            border-color: var(--color-heading-text));
+        }
+
+        .jdgm-paginate__page {
+            color: var(--color-heading-text)) !important;
+        }
+
+          .jdgm-rev-widg__title {
+    margin-top: 0;
+    font-size: calc(var(--font-heading-scale) * var(--h3-multiplier)) !important;
+}
+
+
+        @media only screen and (max-width: 768px) {
+          #shopify-section-template--23048718352683__main .product-grid {
+            gap: 0px !important;
+          }
+          h1.product__title.product__block.product__block--gap-1 {
+            margin-block-end: 0px !important;
+          }
+        }
+          
+        .jdgm-carousel-wrapper {
+        overflow-x: hidden !important;
+        touch-action: manipulation !important;
+        pointer-events: none !important; 
+      }
+
+      .jdgm-widget jdgm-carousel jdgm-carousel--default-theme jdgm-carousel--done {
+        overflow-x: hidden !important;
+        touch-action: manipulation !important;
+        pointer-events: none !important; 
+      }
+      .jdgm-carousel__arrows {
+        display: none !important; 
+      }
+
+      .jdgm-widget * {
+        /* line-height: calc(1 + .6 / var(--font-body-scale)) !important; */
+        line-height: 1.7 !important;
+      }
+
+      .jdgm-write-rev-link.jdgm-write-rev-link, .jdgm-btn--solid {
+          text-transform: uppercase;
+          background-color: #BCD4E6 !important;
+          border-color: #BCD4E6 !important;
+          color: #1C1D1D !important; 
+          border-radius: 50px !important; 
+          font-family: var(--font-button-family) !important;
+          font-size: calc(var(--font-button-scale) * 1rem) !important;
+          line-height: calc(1 + 0 / var(--font-button-scale));
+        font-weight: var(--font-button-weight);
+        letter-spacing: var(--font-button-letter-spacing);
+        text-transform: var(--button-text-transform);
+        color: var(--color-button-text);
+        width: 262px !important; 
+        }
+
+      .jdgm-cancel-rev, .jdgm-write-rev-link close-form-btn {
+          text-transform: uppercase;
+          background-color: #BCD4E6 !important;
+          border-color: #BCD4E6 !important;
+          color: #1C1D1D !important; 
+          border-radius: 50px !important; 
+          font-family: var(--font-button-family) !important;
+          font-size: calc(var(--font-button-scale) * 1rem) !important;
+          line-height: calc(1 + 0 / var(--font-button-scale));
+          font-weight: var(--font-button-weight);
+          letter-spacing: var(--font-button-letter-spacing);
+          text-transform: var(--button-text-transform);
+          color: var(--color-button-text);
+          width: 262px !important; 
+        }
+      .jdgm-btn, input[type=submit].jdgm-btn {
+          display: inline-block;
+          padding: 10px 20px;
+          margin: 8px;
+          font-size: 16px;
+          font-weight: normal !important;
+          line-height: 1;
+          text-decoration: none;
+          cursor: pointer;
+      }
+
+      .jdgm-review-widget--small .jdgm-rev-widg, .jdgm-review-widget--medium .jdgm-rev-widg {
+          padding-inline: var(--page-gutter) !important;
+      }
+    </style>
+
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="AMDXt5MT620gVCMEM6OCEg" defer="true"></script>
+  </head>
+
+
+
+  <body class="template template--{{ template.name }}{% if template.suffix %} template--{{- template.suffix -}}{% endif %}">
+    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+      {{- 'theme.accessibility.skip_to_content' | t -}}
+    </a>
+
+    {%- sections 'header-group' -%}
+
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    <footer class="js-animation-fade-in">
+      {%- sections 'footer-group' -%}
+    </footer>
+
+    {%- sections 'overlay-group' -%}
+
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{- 'theme.accessibility.refresh_page' | t -}}</li>
+    </ul>
+
+    <script>
+      window.theme = window.theme || {};
+      theme = {
+        settings: {
+          money_with_currency_format: {{ shop.money_format | json }},
+          cart_free_shipping_threshold: {{ settings.shipping_notification_threshold | times: 100 }},
+          cart_free_shipping_text: `{{ 'cart.free_shipping_text_html' | t: amount: '0' }}`,
+          cart_free_shipping_text_success: `{{ 'cart.free_shipping_text_success' | t }}`,
+        }
+      }
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}'
+      };
+      window.cartStrings = {
+        error: `{{ 'cart.error' | t }}`,
+        quantityError: `{{ 'cart.quantity_error_html' | t: quantity: '[quantity]' }}`
+      }
+      window.variantStrings = {
+        addToCart: '{{ 'theme.actions.add_to_cart' | t }}',
+        unavailable: '{{ 'product.unavailable' | t }}',
+        soldOut: '{{ 'product.sold_out' | t }}',
+        addSubscriptionToCart: 'Add subscription to cart'
+      }
+      window.validationStrings = {
+        invalidEmail: '{{ 'theme.form.invalid_email' | t }}'
+      }
+      window.accessibilityStrings = {
+        recipientFormExpanded: `{{ 'gift_card.recipient.expanded' | t }}`,
+        recipientFormCollapsed: `{{ 'gift_card.recipient.collapsed' | t }}`,
+      };
+    </script>
+
+    {% if settings.enable_back_to_top_button %}
+      {% render 'back-to-top' %}
+    {% endif %}
+
+    {% render 'subify-snippet' %}
+  </body>
+</html>

@@ -1,0 +1,45 @@
+.main-404 {
+  color: rgb(var(--color-foreground));
+  background-color: rgb(var(--color-background));
+  padding: 6.4rem 0;
+}
+
+.main-404__title {
+  margin: 0;
+  word-break: break-word;
+}
+
+@media screen and (max-width: 989px) {
+  .main-404__title,
+  .main-404__title em {
+    font-size: 10.8rem;
+  }
+  .main-404 .container {
+    padding: 0 2.4rem;
+  }
+}
+
+.main-404__subtext {
+  margin: 1.6rem 0 0;
+}
+.main-404__subtext p {
+  margin: 0 0 0.8rem;
+}
+
+.main-404 a {
+  margin: 2.4rem 0 0;
+}
+
+@media screen and (min-width: 990px) {
+  .main-404 {
+    padding: 9.6rem 0;
+  }
+
+  .main-404__subtext {
+    margin: 2.8rem 0 0;
+  }
+
+  .main-404 a {
+    margin: 2.4rem 0 0;
+  }
+}

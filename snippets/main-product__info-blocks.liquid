@@ -1,0 +1,613 @@
+{%- liquid
+  assign product_form_id = 'product-form-' | append: section.id
+  assign product_form_installments_id = 'Product-Installments-' | append: section.id
+-%}
+
+<script src="{{- 'product-form.js' | asset_url -}}" defer="defer"></script>
+<script src="{{- 'product-selector.js' | asset_url -}}" defer="defer"></script>
+
+<div class="product__content product__content--{{ section.settings.grid_content_alignment }}">
+
+  {% assign content_grid_settings = section.blocks | where: 'type', 'content_grid' %}
+
+  {%- for block in section.blocks -%}
+    {%- assign product_block_spacing = '1'  %}
+    {%- if block.settings.spacing_bottom and block.settings.spacing_bottom != 'auto' -%}
+      {%- assign product_block_spacing = block.settings.spacing_bottom -%}
+    {%- endif -%}
+    {%- assign product_block_class = 'product__block product__block--gap-' | append: product_block_spacing -%}
+    {%- case block.type -%}
+      {%- when 'divider' -%}
+        {%- assign product_block_class = 'product__divider' | append: ' ' | append: product_block_class -%}
+        <hr class="{{ product_block_class }}" {{ block.shopify_attributes }}>
+      {%- when 'title' -%}
+        {%- assign product_block_class = 'product__title' | append: ' ' | append: product_block_class -%}
+        <h1 class="{{ product_block_class }}" {{ block.shopify_attributes }}>
+          {{- product.title | escape -}}
+        </h1>
+      {%- when 'badge' -%}
+        {%- assign product_block_class = 'product__badges' | append: ' ' | append: product_block_class -%}
+        <div class="{{ product_block_class }}" {{ block.shopify_attributes }}>
+          {% render 'product-badges', product: product, template: 'main-product' %}
+        </div>
+      {%- when 'text' -%}
+        {%- if product.gift_card? -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- assign product_block_class = 'product__text' | append: ' ' | append: product_block_class -%}
+        <p
+          class="{{ product_block_class }} product__text--{{- block.settings.link_to_resource }} product__text--{{- block.settings.text_style }} caption caption--small"
+          {{ block.shopify_attributes }}
+        >
+          {%- liquid
+            if block.settings.link_to_resource == 'type'
+              if product.type != blank
+                echo product.type | link_to_type: class: 'button button--text'
+              endif
+            elsif block.settings.link_to_resource == 'vendor'
+              echo product.vendor | link_to_vendor: class: 'button button--text'
+            else
+              if block.settings.text_style != 'link' and block.settings.text != blank
+                render 'icon', icon_name: 'theme-check'
+              endif
+              echo block.settings.text
+            endif
+          -%}
+        </p>
+      {%- when 'price' -%}
+        {%- liquid
+          unless product.gift_card?
+            assign current_variant = product.selected_or_first_available_variant
+            assign current_selling_plan_allocation = current_variant.selected_selling_plan_allocation
+            if current_selling_plan_allocation == null and current_variant.requires_selling_plan
+              assign current_selling_plan_allocation = current_variant.selling_plan_allocations | first
+            endif
+          endunless
+        -%}
+        {%- assign product_block_class = 'product__price' | append: ' ' | append: product_block_class -%}
+        <div id="Product-Price-{{- section.id -}}" role="status" {{ block.shopify_attributes }} class="{{ product_block_class }}">
+          {%- unless product.gift_card? -%}
+            <div class="product__price--main">
+              {%- render 'price', product: product, use_variant: true -%}
+              {% if block.settings.show_price_custom_info != blank %}
+                <span class="product__price--info">{{- block.settings.show_price_custom_info-}}</span>
+              {% elsif block.settings.show_price_custom_info == blank and block.settings.show_price_tax_info or block.settings.show_price_shipping_info -%}
+                <span class="product__price--info">
+                  {% liquid
+                    assign taxes_text = ''
+
+                    if cart.taxes_included and block.settings.show_price_tax_info
+                      assign taxes_text = 'product.taxes_included' | t | append: ' '
+                    endif
+
+                    if shop.shipping_policy.body != blank and block.settings.show_price_shipping_info
+                      assign shipping_text = 'product.shipping_policy_html' | t: link: shop.shipping_policy.url
+                      assign taxes_text = taxes_text | append: shipping_text
+                    endif
+                  %}
+                  {{- taxes_text -}}
+                </span>
+              {%- endif -%}
+            </div>
+
+            {% unless current_selling_plan_allocation == null %}
+              <div class="product__price--subscription-info">
+                <p class="product__price--subscription">
+                  {{- 'product.subscription' | t -}}
+                </p>
+                {% if current_selling_plan_allocation.per_delivery_price != blank %}
+                  <p class="product__subscription-price caption caption--small">
+                    {%- liquid
+                      assign selling_plan_price = current_selling_plan_allocation.per_delivery_price | money
+                      echo 'product.from_price_per_html' | t: price: selling_plan_price
+                    -%}
+                  </p>
+                {% endif %}
+              </div>
+            {% endunless %}
+          {%- else -%}
+            {%- render 'price', product: product, use_variant: true -%}
+          {%- endunless -%}
+
+          <div class="product__installments visually-hidden">
+            {%- form 'product', product, id: product_form_installments_id, class: 'installment' -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              {{- form | payment_terms -}}
+            {%- endform -%}
+          </div>
+        </div>
+
+      {%- when 'description' -%}
+        {%- assign product_block_class = 'product__description' | append: ' ' | append: product_block_class -%}
+        <div class="{{ product_block_class }}" {{ block.shopify_attributes }}>
+          {% if block.settings.behaviour == 'plain' %}
+            {%- if product.description != blank -%}
+              <div class="rte">
+                {%- render 'text-truncator', text: product.description, max_lines: block.settings.text_truncate -%}
+              </div>
+            {%- endif -%}
+          {% elsif block.settings.behaviour == 'row' %}
+            {{- 'section-accordions.css' | asset_url | stylesheet_tag -}}
+            <accordion-default class="accordion product__accordion" data-hide-multiple>
+              <details class="accordion__section" id="Details-{{- block.id -}}" {{- block.shopify_attributes -}}>
+                <summary class="accordion__button h5 js-btn" id="Details-Summary-{{- block.id -}}">
+                  <span>
+                    {% liquid
+                      assign icon_alt = block.settings.heading
+                      if block.settings.custom_icon
+                        echo block.settings.custom_icon | image_url: width: 24 | image_tag: alt: icon_alt
+                      elsif block.settings.icon != blank
+                        render 'icon', icon_name: block.settings.icon
+                      endif
+                    %}
+                    {% if block.settings.heading != blank %}
+                      <span>{{- block.settings.heading -}}</span>
+                    {% else %}
+                      <span>{{ 'product.description' | t }}</span>
+                    {% endif %}
+                  </span>
+                  <div class="accordion__icon">
+                    {%- render 'icon', icon_name: 'theme-minus' -%}
+                    {%- render 'icon', icon_name: 'theme-minus' -%}
+                  </div>
+                </summary>
+
+                <div class="accordion__body" id="Details-Content-{{- block.id -}}">
+                  <div class="accordion__body-inner">
+                    {{- product.description -}}
+                  </div>
+                </div>
+              </details>
+            </accordion-default>
+          {% endif %}
+        </div>
+      {%- when 'sku' -%}
+        {%- assign product_first_available_variant = product.selected_or_first_available_variant -%}
+        {%- if product_first_available_variant.sku != blank -%}
+          {%- assign product_block_class = 'product__sku' | append: ' ' | append: product_block_class -%}
+          <div class="{{ product_block_class }}" {{ block.shopify_attributes }}>
+            <span>{{- product_first_available_variant.sku | prepend: '#' -}}</span>
+          </div>
+        {%- endif -%}
+      {%- when 'custom_liquid' -%}
+        {%- if product.gift_card? -%}
+          {%- continue -%}
+        {%- endif -%}
+        {{- block.settings.custom_liquid -}}
+
+
+      {%- when 'variant_picker' -%}
+        {%- render 'main-product__variant-picker',
+          product: product,
+          section: section,
+          block: block,
+          product_form_id: product_form_id,
+          product_form_installments_id: product_form_installments_id,
+          product_block_class: product_block_class
+        -%}
+
+      {%- when 'purchase_options' -%}
+        {%- render 'main-product__purchase-options',
+          product: product,
+          section: section,
+          block: block,
+          product_form_id: product_form_id,
+          product_block_class: product_block_class
+        -%}
+
+      {%- when 'buy_buttons' -%}
+        {%- assign product_block_class = 'product__buy-buttons' | append: ' ' | append: product_block_class -%}
+          <div class="{{ product_block_class }}" {{ block.shopify_attributes }}>
+          {%- liquid
+            assign current_variant = product.selected_or_first_available_variant
+            assign current_selling_plan_allocation = current_variant.selected_selling_plan_allocation
+            if current_selling_plan_allocation == null and current_variant.requires_selling_plan
+              assign current_selling_plan_allocation = current_variant.selling_plan_allocations | first
+            endif
+
+            assign gift_card_recipient_feature_active = false
+            if block.settings.show_gift_card_recipient and product.gift_card?
+              assign gift_card_recipient_feature_active = true
+            endif
+          -%}
+          <product-form
+            id="ProductForm-{{- section.id -}}"
+            data-section-id="{{- section.id -}}"
+            {% unless current_selling_plan_allocation == null %}
+              data-has-selling-plan
+            {% endunless %}
+          >
+            {%- liquid
+              assign form_class = 'product__form'
+              if block.settings.show_quantity and block.settings.quantity_type != 'separate'
+                assign form_class = form_class | append: ' product__form--' | append: block.settings.quantity_type
+              endif
+            -%}
+
+            {%- form 'product', product, id: product_form_id, class: form_class, novalidate: 'novalidate' -%}
+              {%- if gift_card_recipient_feature_active -%}
+                {% style %}
+                  @media screen and (min-width: 750px) {
+                    .product__form--inline {
+                      grid-template-rows: auto 5rem auto auto;
+                    }
+                  }
+                {% endstyle %}
+                {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+              {%- endif -%}
+
+              <div class="product-selector__quantity {% unless block.settings.show_quantity %} hidden {% endunless %}">
+                {%- render 'quantity-input', product_ref: product, hide_label: true -%}
+              </div>
+
+              {%- if product.variants.size == 1 -%}
+                <input type="hidden" name="id" value="{{- product.selected_or_first_available_variant.id -}}">
+              {%- endif -%}
+
+              {%- liquid
+                assign value = 'product.sold_out' | t
+                assign disabled = true
+                unless product.has_only_default_variant and product.selected_or_first_available_variant.available == false
+                  assign disabled = false
+                  assign value = 'theme.actions.add_to_cart' | t
+                endunless
+
+                assign button_style = 'default'
+                if block.settings.show_dynamic_checkout
+                  assign button_style = 'solid'
+                endif
+                render 'button', type: 'submit', name: 'add', style: button_style, value: value, class: 'button product-selector__submit no-js-hidden', disabled: disabled
+                assign value = null
+                assign disabled = null
+
+                assign no_js_value = 'theme.actions.add_to_cart' | t
+                render 'button', type: 'submit', name: 'add', style: button_style, value: no_js_value, class: 'button product-selector__submit no-js'
+              -%}
+
+              <p class="color-alert hidden" data-error-wrapper></p>
+
+              {%- if block.settings.show_dynamic_checkout -%}
+                {{- form | payment_button -}}
+              {%- endif -%}
+            {%- endform -%}
+          </product-form>
+        </div>
+      {%- when 'inventory_notice' -%}
+        {%- if product.gift_card? -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- assign current_variant = product.selected_or_first_available_variant -%}
+        {%- if current_variant.inventory_quantity <= block.settings.inventory_threshold
+          and current_variant.available
+          and current_variant.inventory_management == 'shopify'
+        -%}
+          {%- assign product_block_class = 'product__inventory-notice' | append: ' ' | append: product_block_class -%}
+          <div class="{{ product_block_class }} product__text product__text--body caption" data-inventory-notice {{ block.shopify_attributes }}>
+            {%- render 'icon', icon_name: 'theme-timer' -%}
+            {%- if block.settings.notice_just_text -%}
+              {{- 'product.inventory_low_stock' | t -}}
+            {%- else -%}
+              {{- 'product.inventory_low_stock_show_count' | t: quantity: current_variant.inventory_quantity -}}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+      {%- when 'pickup-availability' -%}
+        {%- liquid
+          if product.gift_card?
+            continue
+          endif
+        -%}
+        {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities | where: 'pick_up_enabled', true -%}
+        {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
+          {%- assign product_block_class = 'product__pickup-availabilities' | append: ' ' | append: product_block_class -%}
+          <div class="{{ product_block_class }}" {{ block.shopify_attributes }}>
+            {{- 'component-pickup-availability.css' | asset_url | stylesheet_tag -}}
+            <pickup-availability
+              class="no-js-hidden"
+              available
+              data-root-url="{{ routes.root_url }}"
+              data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+              data-has-only-default-variant="{{ product.has_only_default_variant }}"
+            >
+              <template>
+                <pickup-availability-preview class="pickup-availability-preview">
+                  <div class="pickup-availability-info">
+                    <p class="pickup-availability-info__title">
+                      {{- 'product.pickup_unavailable' | t -}}
+                    </p>
+                    <span class="ink link--hover-none">
+                      {{- 'product.pickup_refresh_availability' | t -}}
+                    </span>
+                  </div>
+                </pickup-availability-preview>
+              </template>
+            </pickup-availability>
+            <script src="{{- 'pickup-availability.js' | asset_url -}}" defer></script>
+          </div>
+        {% endif %}
+
+      {%- when 'complementary_products' -%}
+        {%- assign product_block_class = 'product__complementaries' | append: ' ' | append: product_block_class -%}
+        <div class="{{ product_block_class }}" {{ block.shopify_attributes }}>
+          {%- render 'product-recommendations', area: 'product', title: block.settings.heading, icon: block.settings.icon, limit: block.settings.limit -%}
+        </div>
+
+      {%- when 'content_block' -%}
+        {% unless block.settings.behaviour == 'tab' %}
+          {{- 'section-accordions.css' | asset_url | stylesheet_tag -}}
+          {%- assign product_block_class = 'product__accordion' | append: ' ' | append: product_block_class -%}
+          <accordion-default class="accordion {{ product_block_class }}" data-hide-multiple>
+            <details
+              class="accordion__section"
+              id="Details-{{- block.id -}}"
+              {{- block.shopify_attributes -}}
+            >
+              <summary class="accordion__button h5 js-btn" id="Details-Summary-{{- block.id -}}">
+                <span>
+                  {% unless block.settings.icon == blank %}
+                    {% render 'icon', icon_name: block.settings.icon %}
+                  {% endunless %}
+                  {% unless block.type == 'description' %}
+                    {{- block.settings.heading | escape -}}
+                  {% else %}
+                    {% if block.settings.heading != blank %}
+                      <span>{{- block.settings.heading -}}</span>
+                    {% else %}
+                      <span>{{ 'product.description' | t }}</span>
+                    {% endif %}
+                  {% endunless %}
+                </span>
+                <div class="accordion__icon">
+                  {%- render 'icon', icon_name: 'theme-minus' -%}
+                  {%- render 'icon', icon_name: 'theme-minus' -%}
+                </div>
+              </summary>
+
+              <div class="accordion__body" id="Details-Content-{{- block.id -}}">
+                <div class="accordion__body-inner">
+                  {% unless block.type == 'description' %}
+                    {%- if block.settings.page != blank and block.settings.page.content != blank -%}
+                      {{- block.settings.page.content -}}
+                    {%- elsif block.settings.row_content != blank -%}
+                      {{- block.settings.row_content -}}
+                    {%- endif -%}
+                  {% else %}
+                    {{- product.description -}}
+                  {% endunless %}
+                </div>
+              </div>
+            </details>
+          </accordion-default>
+        {% endunless %}
+
+      {%- when 'content_tabs' -%}
+        {% assign collapsible_rows = section.blocks | where: 'type', 'content_block' %}
+        {% assign description = section.blocks | where: 'type', 'description' %}
+        {% if description[0].settings.behaviour == 'tab' %}
+          {% assign collapsible_rows = description | concat: collapsible_rows %}
+        {% endif %}
+
+        <script src="{{- 'tabs-main-product.js' | asset_url -}}" defer="defer"></script>
+
+        {% liquid
+          assign tabs_alignment = block.settings.tabs_alignment
+          if tabs_alignment == 'start'
+            assign main_product_tabs_justify_content = 'flex-start'
+            assign main_product_tabs_button_margin = '0 0.8rem -0.1rem 0'
+          elsif tabs_alignment == 'center'
+            assign main_product_tabs_justify_content = 'center'
+            assign main_product_tabs_button_margin = '0 0.8rem -0.1rem'
+          elsif tabs_alignment == 'end'
+            assign main_product_tabs_justify_content = 'flex-end'
+            assign main_product_tabs_button_margin = '0 0 -0.1rem 0.8rem'
+          endif
+
+          assign tabs_content_alignment = block.settings.tabs_content_alignment
+        %}
+
+        {% style %}
+          #block-{{ block.id }} .product__tabs {
+            justify-content: {{ main_product_tabs_justify_content }};
+          }
+          #block-{{ block.id }} .product__tabs button {
+            margin: {{ main_product_tabs_button_margin }};
+          }
+          #block-{{ block.id }} .product__tab-content {
+            text-align: {{ tabs_content_alignment }};
+          }
+        {% endstyle %}
+
+        {%- if collapsible_rows.size > 0 -%}
+          {%- assign product_block_class = 'product__tabs' | append: ' ' | append: product_block_class -%}
+          <div class="product__tabs-wrapper" id="block-{{- block.id -}}">
+            <div class="{{ product_block_class }}" {{ block.shopify_attributes }}>
+              {% for row in collapsible_rows %}
+                {% if row.settings.behaviour == 'tab' %}
+                  {% assign tab_id = 'tab-' | append: forloop.index | append: '-' | append: block.id %}
+                  <button
+                    class="product__tab"
+                    onclick="openTab(event,'{{- tab_id -}}', 'block-{{- block.id -}}')"
+                    {% if forloop.index == 1 %}
+                      data-default-open="{{ tab_id }}"
+                    {% endif %}
+                  >
+                    {% unless row.settings.icon == blank %}
+                      {% render 'icon', icon_name: row.settings.icon %}
+                    {% endunless %}
+                    {% unless row.type == 'description' %}
+                      <span>{{- row.settings.heading -}}</span>
+                    {% else %}
+                      {% if row.settings.heading != blank %}
+                        <span>{{- row.settings.heading -}}</span>
+                      {% else %}
+                        <span>{{ 'product.description' | t }}</span>
+                      {% endif %}
+                    {% endunless %}
+                  </button>
+                  {% if forloop.index == 4 %}
+                    {% break %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% for row in collapsible_rows %}
+              {% if row.settings.behaviour == 'tab' %}
+                {% assign tab_id = 'tab-' | append: forloop.index | append: '-' | append: block.id %}
+                <div id="{{- tab_id -}}" class="product__tab-content">
+                  {% unless row.type == 'description' %}
+                    {%- if row.settings.page != blank and row.settings.page.content != blank -%}
+                      {{- row.settings.page.content -}}
+                    {%- elsif row.settings.row_content != blank -%}
+                      {{- row.settings.row_content -}}
+                    {%- endif -%}
+                  {% else %}
+                    {{- product.description -}}
+                  {% endunless %}
+                </div>
+                {% if forloop.index == 4 %}
+                  {% break %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {%- endif -%}
+
+
+      {%- when 'content_grid' -%}
+        {% assign content_grid_first = content_grid_settings | first %}
+        {% if block.id == content_grid_first.id %}
+          {%- assign product_block_class = 'product__content-grid' | append: ' ' | append: product_block_class -%}
+          <div class="{{ product_block_class }}{% if content_grid_settings.size == 1 %} product__content-grid--single{% elsif content_grid_settings.size > 1 %} small-hide{% endif %}" {{ block.shopify_attributes }}>
+            {% for item in content_grid_settings %}
+              <div class="product__content-grid-item icon">
+                {%- liquid
+                  assign icon_alt = item.settings.icon_alt | default: item.settings.heading
+                  if item.settings.custom_icon
+                    echo item.settings.custom_icon | image_url: width: 24 | image_tag: alt: icon_alt
+                  elsif item.settings.icon != blank
+                    render 'icon', icon_name: item.settings.icon
+                  endif
+                -%}
+                {% if item.settings.heading != blank %}
+                  <span>{{- item.settings.heading -}}</span>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          {% if content_grid_settings.size > 1 %}
+            <div class="swiper swiper__content-grid small-up-hide">
+              <div class="swiper-wrapper">
+                {% for item in content_grid_settings %}
+                  <div class="swiper-slide icon">
+                    {%- liquid
+                      assign icon_alt = item.settings.icon_alt | default: item.settings.heading
+                      if item.settings.custom_icon
+                        echo item.settings.custom_icon | image_url: width: 24 | image_tag: alt: icon_alt
+                      elsif item.settings.icon != blank
+                        render 'icon', icon_name: item.settings.icon
+                      endif
+                    -%}
+                    {% if item.settings.heading != blank %}
+                      <span>{{- item.settings.heading -}}</span>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+
+          <script>
+            document.addEventListener("DOMContentLoaded", () => {
+              function initSwiper() {
+                const sliderContentGrid = document.querySelector(".swiper__content-grid");
+                if (window.innerWidth < 750 &&sliderContentGrid) {
+                  const swiperContentGrid = new Swiper(sliderContentGrid, {
+                    slidesPerView: 1,
+                    spaceBetween: 16,
+                    autoplay: {
+                      delay: 3000
+                    },
+                    loop: true
+                  })
+                }
+              }
+              initSwiper();
+              window.addEventListener("resize", initSwiper);
+            });
+          </script>
+        {% endif %}
+
+      {%- else -%}
+        <div class="product__app-block" {{ block.shopify_attributes }}>
+          {%- render block -%}
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
+</div>
+
+{% if section.settings.enable_actions_bar %}
+  <div class="product__sticky-cart is-hidden">
+    <div class="product__sticky-cart-wrapper">
+        {%- assign product_sticky = product.selected_or_first_available_variant -%}
+        <div class="product__sticky-cart--info">
+          <div class="media">
+            {%- render 'image', image: product.featured_image, image_url_width: 240 -%}
+          </div>
+          <div class="product__sticky-cart--info-text">
+            <h5 class="product__title">{{- product.title -}}</h5>
+            <div>
+              {%- if product_sticky.options.size > 0 -%}
+                <span class="product__sticky-cart--price">
+                  {%- render 'price', product: product_sticky -%}
+                </span>
+                {%- for option in product_sticky.options -%}
+                  <span class="product__sticky-cart--separator"></span>
+                  <span class="product__sticky-cart--opt-label">{{- option -}}</span>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+        <div class="product__sticky-cart--action">
+          {%- assign button_attr = 'form="' | append: product_form_id | append: '"' -%}
+          {%- assign value = 'product.sold_out' | t -%}
+          {%- assign disabled = true -%}
+          {%- if product_sticky.available -%}
+            {%- assign value = 'theme.actions.add_to_cart' | t -%}
+            {%- assign disabled = false -%}
+          {%- endif -%}
+          {%- capture value -%}
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.4987 2.5L4.23203 5.66667M10.4987 2.5L11.7654 5.66667M6.83203 13.5H3.16536L1.83203 5.83333H14.1654L13.8177 7.83233M9.16536 12H11.332M11.332 12H13.4987M11.332 12V9.83333M11.332 12V14.1667" stroke="white" stroke-width="1.5" stroke-linecap="square"/>
+            </svg>
+            <span>{{- value -}}</span>
+          {%- endcapture -%}
+          {%- render 'button', type: 'submit', name: 'add', style: 'solid', value: value, class: 'button product-bar__submit', disabled: disabled, attr: button_attr %}
+        </div>
+    </div>
+    <script>
+      let callback = (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting && window.scrollY > document.querySelector("section.re-product").offsetHeight) {
+            document.querySelector(".product__sticky-cart").classList.remove("is-hidden");
+          } else {
+            document.querySelector(".product__sticky-cart").classList.add("is-hidden");
+          }
+        });
+      };
+      let observer = new IntersectionObserver(callback);
+
+      document.addEventListener("DOMContentLoaded", initStickyCart);
+      if (Shopify.designMode) {
+        document.addEventListener("shopify:section:load", initStickyCart);
+        document.addEventListener("shopify:section:unload", () => {
+          observer.unobserve(document.querySelector("section.re-product"));
+        });
+      }
+      function initStickyCart() {
+        observer.observe(document.querySelector("section.re-product"));
+      }
+    </script>
+  </div>
+ {% endif %}
