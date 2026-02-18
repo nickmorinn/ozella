@@ -196,6 +196,7 @@
     },
     "text_and_image_EXKhiV": {
       "type": "text-and-image",
+      "disabled": true,
       "custom_css": [
         "@media only screen and (max-width: 959px) {.feature-row-wrapper .feature-row__images {padding-top: 0px; }}"
       ],
@@ -220,6 +221,7 @@
     },
     "text_and_image_4prHt6": {
       "type": "text-and-image",
+      "disabled": true,
       "custom_css": [
         "@media only screen and (max-width: 959px) {.feature-row-wrapper .feature-row__images {padding-top: 0px; }}"
       ],
@@ -346,137 +348,6 @@
         "space_around": false
       }
     },
-    "slideshow_XqpH9b": {
-      "type": "slideshow",
-      "blocks": {
-        "image_BiBhhz": {
-          "type": "image",
-          "settings": {
-            "top_subheading": "",
-            "title": "SHIPPED FROM \nTHE USA",
-            "title_size": 100,
-            "subheading": "We get your order out the door ASAP. For everyone in the United States, it's typically at your door in just 3-5 days. Shipping is on us if you spend over $100. ☻",
-            "link": "",
-            "link_text": "",
-            "link_2": "",
-            "link_text_2": "",
-            "color_accent": "rgba(0,0,0,0)",
-            "text_align": "vertical-center horizontal-center",
-            "image": "shopify://shop_images/boat-no-text.png",
-            "parallax_direction": "top",
-            "overlay_opacity": 0
-          }
-        },
-        "image_N4kAJG": {
-          "type": "image",
-          "settings": {
-            "top_subheading": "",
-            "title": "PREMIUM\nFABRICS",
-            "title_size": 100,
-            "subheading": "Slip into something that feels great against your skin. Our fabrics are carefully selected to provide the perfect amount of stretch, support, and softness.",
-            "link": "",
-            "link_text": "",
-            "link_2": "",
-            "link_text_2": "",
-            "color_accent": "rgba(0,0,0,0)",
-            "text_align": "vertical-center horizontal-center",
-            "image": "shopify://shop_images/fabric-no-text.png",
-            "parallax_direction": "top",
-            "overlay_opacity": 0
-          }
-        },
-        "image_9BzfDa": {
-          "type": "image",
-          "settings": {
-            "top_subheading": "",
-            "title": "HAVE QUESTIONS?",
-            "title_size": 100,
-            "subheading": "If you're unsure about sizes or have any questions regarding your order, feel free to drop us a DM on Instagram. We're quick and usually respond within the same day.",
-            "link": "https://www.instagram.com/ozellaswim",
-            "link_text": "",
-            "link_2": "",
-            "link_text_2": "",
-            "color_accent": "rgba(0,0,0,0)",
-            "text_align": "vertical-center horizontal-center",
-            "image": "shopify://shop_images/question-no-text.png",
-            "parallax_direction": "top",
-            "overlay_opacity": 0
-          }
-        }
-      },
-      "block_order": [
-        "image_BiBhhz",
-        "image_N4kAJG",
-        "image_9BzfDa"
-      ],
-      "disabled": true,
-      "custom_css": [
-        "@media (min-width: 768px) {h2 {font-size: 100px !important; }}",
-        "@media (max-width: 768px) {h2.h1.hero__title {font-size: 70px !important; } .hero__subtitle {font-size: 18px; }}",
-        ".hero__text-wrap {color: #1c1d1d;}",
-        ".slideshow-wrapper {padding-top: 20px;}"
-      ],
-      "settings": {
-        "section_height": "650px",
-        "mobile_height": "auto",
-        "parallax": false,
-        "style": "dots",
-        "autoplay": false,
-        "autoplay_speed": 5,
-        "lazyload_images": true
-      }
-    },
-    "faq_Ed8PYb": {
-      "type": "faq",
-      "blocks": {
-        "question_hTA87q": {
-          "type": "question",
-          "settings": {
-            "title": "How long will it take for my order to come in?",
-            "text": "<p>We get your order out the door ASAP. For everyone in the United States, it's typically at your door in just 3-5 days. Shipping is on us if you spend over $100. ☻</p>"
-          }
-        },
-        "question_MRBFN7": {
-          "type": "question",
-          "settings": {
-            "title": "How's the quality?",
-            "text": "<p>Our fabrics are carefully selected to provide the perfect amount of stretch, support, and softness. Slip into something that feels great against your skin. </p>"
-          }
-        },
-        "question_6nqkQf": {
-          "type": "question",
-          "settings": {
-            "title": "How do I reach out?",
-            "text": "<p>If you're unsure about sizes or have any questions regarding your order, feel free to drop us a <a href=\"https://www.instagram.com/ozellaswim\" title=\"https://www.instagram.com/ozellaswim\">DM on Instagram</a>. We're quick and usually respond within the same day.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "question_hTA87q",
-        "question_MRBFN7",
-        "question_6nqkQf"
-      ],
-      "disabled": true,
-      "custom_css": [
-        "@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 0px; }}",
-        "@media (max-width: 768px) {h2 {font-size: 31px !important; padding-bottom: 0px; padding-top: 0px !important; }"
-      ],
-      "settings": {
-        "title": ""
-      }
-    },
-    "map_bByD7m": {
-      "type": "map",
-      "custom_css": [],
-      "settings": {
-        "map_title": "Based in Austin, TX",
-        "address": "<p>We offer a super flexible local pickup option for our Austin, TX friends. We don't have a brick-and-mortar store, but no worries – we can meet you at a spot that's convenient for you. Just slide into our <a href=\"https://www.instagram.com/ozellaswim/\" title=\"https://www.instagram.com/ozellaswim/\">Instagram DMs</a> to set up the perfect pickup location. Make sure to use the code <a href=\"https://ozellaswim.com/discount/ATXPICKUP\" title=\"https://ozellaswim.com/discount/ATXPICKUP\">ATXPICKUP</a> to waive the shipping fee. <br/><br/>For everyone else in the United States, we'll ship to your door with an estimated delivery time of 3-5 days. </p>",
-        "map_address": "Downtown Austin, TX",
-        "api_key": "AIzaSyC_Ictz_ct-sm1TyE_bbx6voz9xNNHfQ3s",
-        "show_button": false,
-        "lazyload_images": true
-      }
-    },
     "rich_text_Dfkmrz": {
       "type": "rich-text",
       "blocks": {
@@ -593,9 +464,6 @@
     "hotspots_BCfGmk",
     "promo_grid_pkXfNV",
     "170654652145997a70",
-    "slideshow_XqpH9b",
-    "faq_Ed8PYb",
-    "map_bByD7m",
     "rich_text_Dfkmrz",
     "1717358326f1e64cf2",
     "57d144b4-c05f-4c17-80d1-6f48e8243989"
