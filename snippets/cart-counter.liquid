@@ -1,7 +1,0 @@
-{%- render 'icon', icon_name: 'theme-cart', text: 'Cart', class: 'header__utils-link--icon' -%}
-<span class="small-hide medium-hide">{{- 'cart.label' | t -}}</span>
-{%- unless cart.item_count == 0 -%}
-  <span class="cart-count-badge">
-    {%- if cart.item_count > 99 -%}+{%- else -%}{%- unless cart.item_count == 0 -%}{{- cart.item_count -}}{%- endunless -%}{%- endif -%}
-  </span>
-{%- endunless -%}

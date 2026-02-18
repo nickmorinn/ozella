@@ -1,60 +1,86 @@
-{%- comment -%}
-  Accepts:
+{% if settings.show_breadcrumbs %}
 
-  -class: {String} - Class to be applied
-  -alignment?: {String} - Alignemnt of the links. Accepts: 'center'
-  -product_collection?: {Collection} - Add's first collection if assigned to the breadcrumb
-{%- endcomment -%}
+{% unless template.name == 'index' or template.name == 'cart' %}
+  <nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+    <a href="{{ routes.root_url }}" title="{{ 'general.breadcrumbs.home_link_title' | t }}">{{ 'general.breadcrumbs.home' | t }}</a>
 
-{%- assign alignment = alignment | default: '' -%}
-{%- assign class = class | default: '' | append: 'breadcrumbs--' | append: alignment -%}
+    {% if template.name == 'product' %}
 
-<nav class="breadcrumbs {{ class }}" role="navigation" aria-label="{{- 'theme.breadcrumb.label' | t -}}">
-  <ul class="breadcrumbs__list list-unstyled no-scrollbar" role="list">
-    <li>
-      <a href="{{- routes.root_url -}}" class="breadcrumbs__link">
-        {{- 'theme.breadcrumb.home' | t -}}
-      </a>
-    </li>
+      {% if collection %}
+        {% if settings.show_breadcrumbs_collection_link %}
+          <span class="breadcrumb__divider" aria-hidden="true">/</span>
+          <a href="{{ routes.collections_url }}">{{ 'general.search.collections' | t | replace: ':', ''}}</a>
+        {% endif %}
 
-    <li class="breadcrumbs__separator">/</li>
+        <span class="breadcrumb__divider" aria-hidden="true">/</span>
+        {% if collection.handle %}
+          {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
+          {{ collection.title | link_to: url }}
+        {% endif %}
+      {% endif %}
+      <span class="breadcrumb__divider" aria-hidden="true">/</span>
 
-    {%- if product and collection -%}
-      <li>
-        <a href="{{- collection.url -}}" class="breadcrumbs__link">
-          {{- collection.title | escape -}}
-        </a>
-      </li>
+    {% elsif template.name == 'collection' and collection.handle %}
+      {% if settings.show_breadcrumbs_collection_link %}
+        <span class="breadcrumb__divider" aria-hidden="true">/</span>
+        <a href="{{ routes.collections_url }}">{{ 'general.search.collections' | t | replace: ':', ''}}</a>
+      {% endif %}
 
-      <li class="breadcrumbs__separator">/</li>
-    {%- endif -%}
+      <span class="breadcrumb__divider" aria-hidden="true">/</span>
 
-    {%- if product_collection -%}
-      <li>
-        <a href="{{- product_collection.url -}}" class="breadcrumbs__link">
-          {{- product_collection.title | escape -}}
-        </a>
-      </li>
+      {% if current_tags %}
 
-      <li class="breadcrumbs__separator">/</li>
-    {%- endif -%}
+        {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
+        {{ collection.title | link_to: url }}
 
-    {%- if template.name == 'article' -%}
-      <li>
-        <a href="{{- blog.url -}}" class="breadcrumbs__link" title="{{- blog.title | escape -}}">
-          {{- blog.title | escape -}}
-        </a>
-      </li>
-      <li class="breadcrumbs__separator">/</li>
-    {%- endif -%}
-    <li>
-      <span>
-        {%- if template.name != 'search' -%}
-          {{- page_title | escape -}}
-        {%- else -%}
-          {{- 'theme.breadcrumb.search' | t -}}
-        {%- endif -%}
-      </span>
-    </li>
-  </ul>
-</nav>
+        <span class="breadcrumb__divider" aria-hidden="true">/</span>
+
+        {% for tag in current_tags %}
+          {% if tag contains "_" %}{%- assign tag_starts_with = tag | slice: 0 -%}{% if tag_starts_with == "_" %}{% if tag_count %}{%- assign tag_count = tag_count | minus: 1 | at_least: 0 -%}{% endif %}{% continue %}{% endif %}{% endif %}
+
+          {% assign tag_name = tag | strip %}
+          {% assign tag_text = tag_name | capitalize %}
+          <span>{{ tag_text }}</span>
+
+          {% unless forloop.last %}
+            <span>+</span>
+          {% endunless %}
+
+        {% endfor %}
+      {% endif %}
+
+    {% elsif template.name == 'blog' %}
+
+      <span class="breadcrumb__divider" aria-hidden="true">/</span>
+      {% if current_tags %}
+        {{ blog.title | link_to: blog.url }}
+        <span class="breadcrumb__divider" aria-hidden="true">/</span>
+        <span>{{ current_tags | join: " + " }}</span>
+      {% endif %}
+
+    {% elsif template.name == 'article' %}
+
+      <span class="breadcrumb__divider" aria-hidden="true">/</span>
+      {{ blog.title | link_to: blog.url }}
+      <span class="breadcrumb__divider" aria-hidden="true">/</span>
+
+    {% elsif template.name == 'page' %}
+
+      <span class="breadcrumb__divider" aria-hidden="true">/</span>
+      <span>{{ page.title }}</span>
+
+    {% elsif template.name == 'search' %}
+
+      <span class="breadcrumb__divider" aria-hidden="true">/</span>
+      <span>{{ page_title | replace: '*', '' }}</span>
+
+    {% else %}
+
+      <span class="breadcrumb__divider" aria-hidden="true">/</span>
+      <span>{{ page_title }}</span>
+
+    {% endif %}
+  </nav>
+{% endunless %}
+
+{% endif %}
