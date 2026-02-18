@@ -1,1 +1,81 @@
-{"type":"header","name":"t:sections.header-group.name","sections":{"announcement":{"type":"announcement","blocks":{"announcement-0":{"type":"announcement","settings":{"text":"FREE LOCAL PICKUP IN AUSTIN, TX","link_text":"Code: ATXPICKUP","link":""}},"announcement-1":{"type":"announcement","settings":{"text":"FREE SHIPPING OVER $100","link_text":"For US Customers ☻","link":""}}},"block_order":["announcement-0","announcement-1"],"custom_css":[".announcement-bar {border: none;}"],"settings":{"announcement_compact":true}},"header":{"type":"header","blocks":{"header-0":{"type":"logo","settings":{"logo":"shopify:\/\/shop_images\/ozella-hw2.svg","desktop_logo_width":150,"mobile_logo_width":100}}},"block_order":["header-0"],"custom_css":["\/* .header-wrapper--sticky {background: linear-gradient( 180deg, rgb(0 0 0 \/ 0%) 0%, transparent ) !important;}"," *\/.site-header__logo-link {padding-top: 40% !important;}",".is-light .site-nav__link {color: #1c1d1d !important;}",".toolbar {color: #1c1d1d !important;}",".toolbar--transparent a {color: #1c1d1d !important;}","a.site-nav__link.site-nav__link--icon.small--hide {padding-right: 0px;}","svg#Livello_2 {height: 26px !important;}"],"settings":{"main_menu_link_list":"main-menu","hover_menu":true,"mega_menu_images":true,"main_menu_alignment":"left","header_style":"sticky","sticky_index":false,"sticky_collection":false,"toolbar_menu":"","toolbar_social":true,"show_locale_selector":true,"show_currency_selector":true,"show_currency_flags":true}}},"order":["announcement","header"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "t:sections.header-group.name",
+  "sections": {
+    "announcement": {
+      "type": "announcement",
+      "blocks": {
+        "announcement-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "FREE LOCAL PICKUP IN AUSTIN, TX",
+            "link_text": "Code: ATXPICKUP",
+            "link": ""
+          }
+        },
+        "announcement-1": {
+          "type": "announcement",
+          "settings": {
+            "text": "FREE SHIPPING OVER $100",
+            "link_text": "For US Customers ☻",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement-0",
+        "announcement-1"
+      ],
+      "custom_css": [
+        ".announcement-bar {border: none;}"
+      ],
+      "settings": {
+        "announcement_compact": true
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "header-0": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/ozella-hw2.svg",
+            "desktop_logo_width": 150,
+            "mobile_logo_width": 100
+          }
+        }
+      },
+      "block_order": [
+        "header-0"
+      ],
+      "custom_css": [],
+      "settings": {
+        "main_menu_link_list": "main-menu",
+        "hover_menu": true,
+        "mega_menu_images": true,
+        "main_menu_alignment": "left",
+        "header_style": "sticky",
+        "sticky_index": false,
+        "sticky_collection": false,
+        "toolbar_menu": "",
+        "toolbar_social": true,
+        "show_locale_selector": true,
+        "show_currency_selector": true,
+        "show_currency_flags": true
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}
