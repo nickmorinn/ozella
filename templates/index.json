@@ -1,1 +1,609 @@
-{"sections":{"hero_video_NnQqke":{"type":"hero-video","settings":{"title":"YOUR \nHottest \nsummer \nyet","title_size":81,"subheading":"","link_text":"Shop Now","link":"shopify:\/\/collections\/everything","color_accent":"#bcd4e6","text_align":"vertical-bottom horizontal-left","video_url":"https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/b89cef4e8efd49e983f333051673a7fb.mp4","overlay_opacity":12,"section_height":"650px","mobile_height":"500px"}},"featured_collection_KXwbkR":{"type":"featured-collection","disabled":true,"custom_css":["@media only screen and (max-width: 768px) {.grid__item {padding-left: 2px !important; } .grid {margin-left: -17px !important; margin-right: -15px !important; }}"],"settings":{"title":"TIME TO SHINE","home_featured_products":"the-enchanted-collection","per_row":3,"rows":2,"mobile_scrollable":false,"view_all":false,"divider":false}},"scrolling_text_tCjAbN":{"type":"scrolling-text","disabled":true,"custom_css":[],"settings":{"text":"<h2>NEW ARRIVALS<\/h2>","link":"","text_size":26,"text_spacing":true,"direction":"right","speed":150}},"featured_collection_pk3p9x":{"type":"featured-collection","custom_css":["@media (min-width: 768px) {h2 {font-size: 40px !important; }}","@media (max-width: 768px) {h2 {font-size: 32px !important; }}","@media only screen and (max-width: 768px) {.grid__item {padding-left: 2px !important; } .grid {margin-left: -17px !important; margin-right: -15px !important; }}",".section-header {padding-top: 30px; margin-bottom: 20px;}",".index-section {margin-bottom: 10px;}"],"settings":{"title":"NEW ARRIVALS","home_featured_products":"new-arrivals","per_row":5,"rows":1,"mobile_scrollable":true,"view_all":false,"divider":false}},"featured_collections_ewL9PC":{"type":"featured-collections","blocks":{"collection_Qc9tmh":{"type":"collection","settings":{"collection":"the-enchanted-collection","title":"","focal_point":"top center"}},"collection_HJPq7Q":{"type":"collection","settings":{"collection":"the-kawaii-collection","title":"","focal_point":"top center"}},"collection_RUNL9N":{"type":"collection","settings":{"collection":"the-stargirl-collection","title":"","focal_point":"top center"}},"collection_YUHbdp":{"type":"collection","disabled":true,"settings":{"collection":"","title":"","focal_point":"center center"}}},"block_order":["collection_Qc9tmh","collection_HJPq7Q","collection_RUNL9N","collection_YUHbdp"],"disabled":true,"custom_css":["@media (min-width: 768px) {h2 {font-size: 50px !important; }}","@media (max-width: 768px) {h2 {font-size: 30px !important; }}","@media only screen and (max-width: 768px) {.grid__item {padding-left: 2px !important; } .grid {margin-left: -17px !important; margin-right: -15px !important; }}"],"settings":{"title":"The Collections","divider":false,"per_row":2,"enable_gutter":false}},"featured-collection":{"type":"featured-collection","disabled":true,"custom_css":["@media (min-width: 768px) {h2 {font-size: 90px !important; }}","@media (max-width: 768px) {h2 {font-size: 30px !important; }}","@media only screen and (max-width: 768px) {.grid__item {padding-left: 2px !important; } .grid {margin-left: -17px !important; margin-right: -15px !important; }}"],"settings":{"title":"THE STARGIRL COLLECTION","home_featured_products":"the-stargirl-collection","per_row":3,"rows":4,"mobile_scrollable":false,"view_all":false,"divider":false}},"promo_grid_JkKnpF":{"type":"promo-grid","blocks":{"advanced_ingbtj":{"type":"advanced","settings":{"subheading":"BEST SELLER","heading":"THE STARGIRL COLLECTION","textarea":"","cta_text1":"SHOP NOW","cta_link1":"shopify:\/\/collections\/the-stargirl-collection","cta_text2":"","cta_link2":"","image":"shopify:\/\/shop_images\/IMG_5454_1dfa7b75-e711-442f-a686-c69f4f82c8f3.jpg","video_url":"","width":"100","height":800,"text_size":170,"text_align":"vertical-center horizontal-center","color_accent":"#bcd4e6","boxed":false,"framed":false}}},"block_order":["advanced_ingbtj"],"settings":{"full_width":true,"gutter_size":0,"space_above":false,"space_below":true,"lazyload_images":true}},"featured_collection_pJMYQP":{"type":"featured-collection","custom_css":["@media (min-width: 768px) {h2 {font-size: 50px !important; }}","@media (max-width: 768px) {h2 {font-size: 31px !important; }}","@media only screen and (max-width: 768px) {.grid__item {padding-left: 2px !important; } .grid {margin-left: -17px !important; margin-right: -15px !important; }}"],"settings":{"title":"","home_featured_products":"the-stargirl-collection","per_row":5,"rows":1,"mobile_scrollable":true,"view_all":false,"divider":false}},"text_and_image_EXKhiV":{"type":"text-and-image","custom_css":["@media only screen and (max-width: 959px) {.feature-row-wrapper .feature-row__images {padding-top: 0px; }}"],"settings":{"image":"shopify:\/\/shop_images\/IMG_5423.jpg","image_mask":"none","image2_mask":"none","subtitle":"","title":"RUN IT BACK","text":"<p>Our bikinis come with a thong bottom to show off your cheeks and minimize tan lines. Give yourself a sexy look that is guaranteed to turn you into this summer's next big influencer (probably).<\/p>","button_label":"","button_link":"shopify:\/\/collections\/all","button_style":"primary","align_text":"left","image_width":"50","layout":"right","divider":false,"top_padding":false,"bottom_padding":true,"lazyload_images":true}},"text_and_image_4prHt6":{"type":"text-and-image","custom_css":["@media only screen and (max-width: 959px) {.feature-row-wrapper .feature-row__images {padding-top: 0px; }}"],"settings":{"image":"shopify:\/\/shop_images\/IMG_5456.jpg","image_mask":"none","image2_mask":"none","subtitle":"","title":"TWO PLEASE","text":"<p>Our bikinis are double lined, giving you support and a luxurious feel. The fabrics have no visible seams and perfectly conforms to the shape of your 🔥 body. <\/p>","button_label":"Shop All","button_link":"shopify:\/\/collections\/everything","button_style":"primary","align_text":"left","image_width":"66","layout":"left","divider":false,"top_padding":false,"bottom_padding":true,"lazyload_images":true}},"hotspots_BCfGmk":{"type":"hotspots","blocks":{"product_bNLCUk":{"type":"product","settings":{"featured_product":"star-girl-bikini-set-in-almond","vertical":44,"horizontal":25}},"product_iqJQtP":{"type":"product","settings":{"featured_product":"enchanted-bikini-set","vertical":78,"horizontal":80}}},"block_order":["product_bNLCUk","product_iqJQtP"],"disabled":true,"custom_css":["@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 20px; }}","@media (max-width: 768px) {h2 {font-size: 31px !important; padding-bottom: 0px; padding-top: 20px !important; }}"],"settings":{"title":"Shop the look","heading_size":"h1","heading_position":"center","image":"shopify:\/\/shop_images\/38349B30-4DED-49C9-B168-4D06D2F24377.jpg","indent_image":false,"image_position":"left","hotspot_style":"dot","hotspot_color":"#1c1d1d","lazyload_images":true}},"promo_grid_pkXfNV":{"type":"promo-grid","blocks":{"advanced_Gdb7Kz":{"type":"advanced","settings":{"subheading":"","heading":"GET SUMMER READY","textarea":"","cta_text1":"SHOP ALL","cta_link1":"shopify:\/\/collections\/everything","cta_text2":"","cta_link2":"","image":"shopify:\/\/shop_images\/kawaii-white-new-girl_b8f4391a-823a-42e5-bfb1-74afce1922fc.png","video_url":"","width":"100","height":800,"text_size":170,"text_align":"vertical-center horizontal-center","color_accent":"#bcd4e6","boxed":false,"framed":false}}},"block_order":["advanced_Gdb7Kz"],"custom_css":[],"settings":{"full_width":true,"gutter_size":0,"space_above":true,"space_below":true,"lazyload_images":true}},"170654652145997a70":{"type":"apps","blocks":{"judge_me_reviews_featured_carousel_KNQejP":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/featured_carousel\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{"maxwidth":1500}}},"block_order":["judge_me_reviews_featured_carousel_KNQejP"],"custom_css":["@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 10px; }}","@media (max-width: 768px) {h2 {font-size: 32px !important; padding-bottom: 10px; padding-top: 10px !important; }}",".jdgm-carousel-item__product {height: 71% !important;}",".jdgm-carousel-wrapper .jdgm-carousel-item__review {height: calc(72% - 15em) !important;}",".jdgm-carousel-wrapper {padding-top: 0px; padding-bottom: 4px; margin-bottom: 41px;}",".jdgm-carousel-item__timestamp.jdgm-ellipsis {display: none;}"],"settings":{"full_width":false,"space_around":false}},"slideshow_XqpH9b":{"type":"slideshow","blocks":{"image_BiBhhz":{"type":"image","settings":{"top_subheading":"","title":"SHIPPED FROM \nTHE USA","title_size":100,"subheading":"We get your order out the door ASAP. For everyone in the United States, it's typically at your door in just 3-5 days. Shipping is on us if you spend over $100. ☻","link":"","link_text":"","link_2":"","link_text_2":"","color_accent":"rgba(0,0,0,0)","text_align":"vertical-center horizontal-center","image":"shopify:\/\/shop_images\/boat-no-text.png","parallax_direction":"top","overlay_opacity":0}},"image_N4kAJG":{"type":"image","settings":{"top_subheading":"","title":"PREMIUM\nFABRICS","title_size":100,"subheading":"Slip into something that feels great against your skin. Our fabrics are carefully selected to provide the perfect amount of stretch, support, and softness.","link":"","link_text":"","link_2":"","link_text_2":"","color_accent":"rgba(0,0,0,0)","text_align":"vertical-center horizontal-center","image":"shopify:\/\/shop_images\/fabric-no-text.png","parallax_direction":"top","overlay_opacity":0}},"image_9BzfDa":{"type":"image","settings":{"top_subheading":"","title":"HAVE QUESTIONS?","title_size":100,"subheading":"If you're unsure about sizes or have any questions regarding your order, feel free to drop us a DM on Instagram. We're quick and usually respond within the same day.","link":"https:\/\/www.instagram.com\/ozellaswim","link_text":"","link_2":"","link_text_2":"","color_accent":"rgba(0,0,0,0)","text_align":"vertical-center horizontal-center","image":"shopify:\/\/shop_images\/question-no-text.png","parallax_direction":"top","overlay_opacity":0}}},"block_order":["image_BiBhhz","image_N4kAJG","image_9BzfDa"],"disabled":true,"custom_css":["@media (min-width: 768px) {h2 {font-size: 100px !important; }}","@media (max-width: 768px) {h2.h1.hero__title {font-size: 70px !important; } .hero__subtitle {font-size: 18px; }}",".hero__text-wrap {color: #1c1d1d;}",".slideshow-wrapper {padding-top: 20px;}"],"settings":{"section_height":"650px","mobile_height":"auto","parallax":false,"style":"dots","autoplay":false,"autoplay_speed":5,"lazyload_images":true}},"faq_Ed8PYb":{"type":"faq","blocks":{"question_hTA87q":{"type":"question","settings":{"title":"How long will it take for my order to come in?","text":"<p>We get your order out the door ASAP. For everyone in the United States, it's typically at your door in just 3-5 days. Shipping is on us if you spend over $100. ☻<\/p>"}},"question_MRBFN7":{"type":"question","settings":{"title":"How's the quality?","text":"<p>Our fabrics are carefully selected to provide the perfect amount of stretch, support, and softness. Slip into something that feels great against your skin. <\/p>"}},"question_6nqkQf":{"type":"question","settings":{"title":"How do I reach out?","text":"<p>If you're unsure about sizes or have any questions regarding your order, feel free to drop us a <a href=\"https:\/\/www.instagram.com\/ozellaswim\" title=\"https:\/\/www.instagram.com\/ozellaswim\">DM on Instagram<\/a>. We're quick and usually respond within the same day.<\/p>"}}},"block_order":["question_hTA87q","question_MRBFN7","question_6nqkQf"],"disabled":true,"custom_css":["@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 0px; }}","@media (max-width: 768px) {h2 {font-size: 31px !important; padding-bottom: 0px; padding-top: 0px !important; }"],"settings":{"title":""}},"map_bByD7m":{"type":"map","custom_css":[],"settings":{"map_title":"Based in Austin, TX","address":"<p>We offer a super flexible local pickup option for our Austin, TX friends. We don't have a brick-and-mortar store, but no worries – we can meet you at a spot that's convenient for you. Just slide into our <a href=\"https:\/\/www.instagram.com\/ozellaswim\/\" title=\"https:\/\/www.instagram.com\/ozellaswim\/\">Instagram DMs<\/a> to set up the perfect pickup location. Make sure to use the code <a href=\"https:\/\/ozellaswim.com\/discount\/ATXPICKUP\" title=\"https:\/\/ozellaswim.com\/discount\/ATXPICKUP\">ATXPICKUP<\/a> to waive the shipping fee. <br\/><br\/>For everyone else in the United States, we'll ship to your door with an estimated delivery time of 3-5 days. <\/p>","map_address":"Downtown Austin, TX","api_key":"AIzaSyC_Ictz_ct-sm1TyE_bbx6voz9xNNHfQ3s","show_button":false,"lazyload_images":true}},"rich_text_Dfkmrz":{"type":"rich-text","blocks":{"heading_aGPG8x":{"type":"heading","settings":{"title":"SEEN ON INSTAGRAM"}},"text_tNk4RA":{"type":"text","settings":{"enlarge_text":false,"text":"<p>Tag <a href=\"https:\/\/www.instagram.com\/ozellaswim\" title=\"https:\/\/www.instagram.com\/ozellaswim\">@ozellaswim<\/a> on Instagram for a chance to be featured on our gallery. <\/p>"}}},"block_order":["heading_aGPG8x","text_tNk4RA"],"custom_css":["@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 0px; }}","@media (max-width: 768px) {h2 {font-size: 32px !important; padding-top: 0px !important; }}",".theme-block {margin-bottom: 15px;}"],"settings":{"align_text":"center","narrow_column":true,"divider":false}},"1717358326f1e64cf2":{"type":"apps","blocks":{"instafeed_app_block_QcBahG":{"type":"shopify:\/\/apps\/instafeed\/blocks\/app-block\/c447db20-095d-4a10-9725-b5977662c9d5","settings":{"title":"","title_color":"","alignment":"center","html_area":""}}},"block_order":["instafeed_app_block_QcBahG"],"custom_css":["@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 0px; }}","@media (max-width: 768px) {h2 {font-size: 31px !important; padding-top: 0px !important; }}"],"settings":{"full_width":false,"space_around":true}},"57d144b4-c05f-4c17-80d1-6f48e8243989":{"type":"advanced-content","blocks":{"liquid_btjtTK":{"type":"liquid","settings":{"code":"<lottie-player id=\"test7\" src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0716\/4392\/2731\/files\/Ozella_Bikinis_Text_Lottie_Animation_Typing_Version_01_Final.json?v=1706843142\" style=\"width: 100%;\" loop autoplay><\/lottie-player>","width":"100%","alignment":"center"}},"liquid_yPLe8K":{"type":"liquid","disabled":true,"settings":{"code":"<img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0716\/4392\/2731\/files\/collage-centered.png\" width=\"100%\">","width":"50%","alignment":"center"}}},"block_order":["liquid_btjtTK","liquid_yPLe8K"],"disabled":true,"custom_css":[".custom__item {padding-bottom: 18px !important; padding-top: 20px;}"],"settings":{"full_width":false,"space_around":false,"lazyload_images":false}}},"order":["hero_video_NnQqke","featured_collection_KXwbkR","scrolling_text_tCjAbN","featured_collection_pk3p9x","featured_collections_ewL9PC","featured-collection","promo_grid_JkKnpF","featured_collection_pJMYQP","text_and_image_EXKhiV","text_and_image_4prHt6","hotspots_BCfGmk","promo_grid_pkXfNV","170654652145997a70","slideshow_XqpH9b","faq_Ed8PYb","map_bByD7m","rich_text_Dfkmrz","1717358326f1e64cf2","57d144b4-c05f-4c17-80d1-6f48e8243989"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_video_NnQqke": {
+      "type": "hero-video",
+      "settings": {
+        "title": "Your \nHottest \nSummer \nYet",
+        "title_size": 81,
+        "subheading": "",
+        "link_text": "Shop Now",
+        "link": "shopify://collections/everything",
+        "color_accent": "#bcd4e6",
+        "text_align": "vertical-bottom horizontal-left",
+        "video_url": "https://cdn.shopify.com/videos/c/o/v/b89cef4e8efd49e983f333051673a7fb.mp4",
+        "overlay_opacity": 12,
+        "section_height": "650px",
+        "mobile_height": "500px"
+      }
+    },
+    "featured_collection_KXwbkR": {
+      "type": "featured-collection",
+      "disabled": true,
+      "custom_css": [
+        "@media only screen and (max-width: 768px) {.grid__item {padding-left: 2px !important; } .grid {margin-left: -17px !important; margin-right: -15px !important; }}"
+      ],
+      "settings": {
+        "title": "TIME TO SHINE",
+        "home_featured_products": "the-enchanted-collection",
+        "per_row": 3,
+        "rows": 2,
+        "mobile_scrollable": false,
+        "view_all": false,
+        "divider": false
+      }
+    },
+    "scrolling_text_tCjAbN": {
+      "type": "scrolling-text",
+      "disabled": true,
+      "custom_css": [],
+      "settings": {
+        "text": "<h2>NEW ARRIVALS</h2>",
+        "link": "",
+        "text_size": 26,
+        "text_spacing": true,
+        "direction": "right",
+        "speed": 150
+      }
+    },
+    "featured_collection_pk3p9x": {
+      "type": "featured-collection",
+      "custom_css": [
+        "@media (min-width: 768px) {h2 {font-size: 40px !important; }}",
+        "@media (max-width: 768px) {h2 {font-size: 32px !important; }}",
+        "@media only screen and (max-width: 768px) {.grid__item {padding-left: 2px !important; } .grid {margin-left: -17px !important; margin-right: -15px !important; }}",
+        ".section-header {padding-top: 30px; margin-bottom: 20px;}",
+        ".index-section {margin-bottom: 10px;}"
+      ],
+      "settings": {
+        "title": "NEW ARRIVALS",
+        "home_featured_products": "new-arrivals",
+        "per_row": 5,
+        "rows": 1,
+        "mobile_scrollable": true,
+        "view_all": false,
+        "divider": false
+      }
+    },
+    "featured_collections_ewL9PC": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_Qc9tmh": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-enchanted-collection",
+            "title": "",
+            "focal_point": "top center"
+          }
+        },
+        "collection_HJPq7Q": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-kawaii-collection",
+            "title": "",
+            "focal_point": "top center"
+          }
+        },
+        "collection_RUNL9N": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-stargirl-collection",
+            "title": "",
+            "focal_point": "top center"
+          }
+        },
+        "collection_YUHbdp": {
+          "type": "collection",
+          "disabled": true,
+          "settings": {
+            "collection": "",
+            "title": "",
+            "focal_point": "center center"
+          }
+        }
+      },
+      "block_order": [
+        "collection_Qc9tmh",
+        "collection_HJPq7Q",
+        "collection_RUNL9N",
+        "collection_YUHbdp"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "@media (min-width: 768px) {h2 {font-size: 50px !important; }}",
+        "@media (max-width: 768px) {h2 {font-size: 30px !important; }}",
+        "@media only screen and (max-width: 768px) {.grid__item {padding-left: 2px !important; } .grid {margin-left: -17px !important; margin-right: -15px !important; }}"
+      ],
+      "settings": {
+        "title": "The Collections",
+        "divider": false,
+        "per_row": 2,
+        "enable_gutter": false
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "disabled": true,
+      "custom_css": [
+        "@media (min-width: 768px) {h2 {font-size: 90px !important; }}",
+        "@media (max-width: 768px) {h2 {font-size: 30px !important; }}",
+        "@media only screen and (max-width: 768px) {.grid__item {padding-left: 2px !important; } .grid {margin-left: -17px !important; margin-right: -15px !important; }}"
+      ],
+      "settings": {
+        "title": "THE STARGIRL COLLECTION",
+        "home_featured_products": "the-stargirl-collection",
+        "per_row": 3,
+        "rows": 4,
+        "mobile_scrollable": false,
+        "view_all": false,
+        "divider": false
+      }
+    },
+    "promo_grid_JkKnpF": {
+      "type": "promo-grid",
+      "blocks": {
+        "advanced_ingbtj": {
+          "type": "advanced",
+          "settings": {
+            "subheading": "BEST SELLER",
+            "heading": "THE STARGIRL COLLECTION",
+            "textarea": "",
+            "cta_text1": "SHOP NOW",
+            "cta_link1": "shopify://collections/the-stargirl-collection",
+            "cta_text2": "",
+            "cta_link2": "",
+            "image": "shopify://shop_images/IMG_5454_1dfa7b75-e711-442f-a686-c69f4f82c8f3.jpg",
+            "video_url": "",
+            "width": "100",
+            "height": 800,
+            "text_size": 170,
+            "text_align": "vertical-center horizontal-center",
+            "color_accent": "#bcd4e6",
+            "boxed": false,
+            "framed": false
+          }
+        }
+      },
+      "block_order": [
+        "advanced_ingbtj"
+      ],
+      "settings": {
+        "full_width": true,
+        "gutter_size": 0,
+        "space_above": false,
+        "space_below": true,
+        "lazyload_images": true
+      }
+    },
+    "featured_collection_pJMYQP": {
+      "type": "featured-collection",
+      "custom_css": [
+        "@media (min-width: 768px) {h2 {font-size: 50px !important; }}",
+        "@media (max-width: 768px) {h2 {font-size: 31px !important; }}",
+        "@media only screen and (max-width: 768px) {.grid__item {padding-left: 2px !important; } .grid {margin-left: -17px !important; margin-right: -15px !important; }}"
+      ],
+      "settings": {
+        "title": "",
+        "home_featured_products": "the-stargirl-collection",
+        "per_row": 5,
+        "rows": 1,
+        "mobile_scrollable": true,
+        "view_all": false,
+        "divider": false
+      }
+    },
+    "text_and_image_EXKhiV": {
+      "type": "text-and-image",
+      "custom_css": [
+        "@media only screen and (max-width: 959px) {.feature-row-wrapper .feature-row__images {padding-top: 0px; }}"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/IMG_5423.jpg",
+        "image_mask": "none",
+        "image2_mask": "none",
+        "subtitle": "",
+        "title": "RUN IT BACK",
+        "text": "<p>Our bikinis come with a thong bottom to show off your cheeks and minimize tan lines. Give yourself a sexy look that is guaranteed to turn you into this summer's next big influencer (probably).</p>",
+        "button_label": "",
+        "button_link": "shopify://collections/all",
+        "button_style": "primary",
+        "align_text": "left",
+        "image_width": "50",
+        "layout": "right",
+        "divider": false,
+        "top_padding": false,
+        "bottom_padding": true,
+        "lazyload_images": true
+      }
+    },
+    "text_and_image_4prHt6": {
+      "type": "text-and-image",
+      "custom_css": [
+        "@media only screen and (max-width: 959px) {.feature-row-wrapper .feature-row__images {padding-top: 0px; }}"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/IMG_5456.jpg",
+        "image_mask": "none",
+        "image2_mask": "none",
+        "subtitle": "",
+        "title": "TWO PLEASE",
+        "text": "<p>Our bikinis are double lined, giving you support and a luxurious feel. The fabrics have no visible seams and perfectly conforms to the shape of your 🔥 body. </p>",
+        "button_label": "Shop All",
+        "button_link": "shopify://collections/everything",
+        "button_style": "primary",
+        "align_text": "left",
+        "image_width": "66",
+        "layout": "left",
+        "divider": false,
+        "top_padding": false,
+        "bottom_padding": true,
+        "lazyload_images": true
+      }
+    },
+    "hotspots_BCfGmk": {
+      "type": "hotspots",
+      "blocks": {
+        "product_bNLCUk": {
+          "type": "product",
+          "settings": {
+            "featured_product": "star-girl-bikini-set-in-almond",
+            "vertical": 44,
+            "horizontal": 25
+          }
+        },
+        "product_iqJQtP": {
+          "type": "product",
+          "settings": {
+            "featured_product": "enchanted-bikini-set",
+            "vertical": 78,
+            "horizontal": 80
+          }
+        }
+      },
+      "block_order": [
+        "product_bNLCUk",
+        "product_iqJQtP"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 20px; }}",
+        "@media (max-width: 768px) {h2 {font-size: 31px !important; padding-bottom: 0px; padding-top: 20px !important; }}"
+      ],
+      "settings": {
+        "title": "Shop the look",
+        "heading_size": "h1",
+        "heading_position": "center",
+        "image": "shopify://shop_images/38349B30-4DED-49C9-B168-4D06D2F24377.jpg",
+        "indent_image": false,
+        "image_position": "left",
+        "hotspot_style": "dot",
+        "hotspot_color": "#1c1d1d",
+        "lazyload_images": true
+      }
+    },
+    "promo_grid_pkXfNV": {
+      "type": "promo-grid",
+      "blocks": {
+        "advanced_Gdb7Kz": {
+          "type": "advanced",
+          "settings": {
+            "subheading": "",
+            "heading": "GET SUMMER READY",
+            "textarea": "",
+            "cta_text1": "SHOP ALL",
+            "cta_link1": "shopify://collections/everything",
+            "cta_text2": "",
+            "cta_link2": "",
+            "image": "shopify://shop_images/kawaii-white-new-girl_b8f4391a-823a-42e5-bfb1-74afce1922fc.png",
+            "video_url": "",
+            "width": "100",
+            "height": 800,
+            "text_size": 170,
+            "text_align": "vertical-center horizontal-center",
+            "color_accent": "#bcd4e6",
+            "boxed": false,
+            "framed": false
+          }
+        }
+      },
+      "block_order": [
+        "advanced_Gdb7Kz"
+      ],
+      "custom_css": [],
+      "settings": {
+        "full_width": true,
+        "gutter_size": 0,
+        "space_above": true,
+        "space_below": true,
+        "lazyload_images": true
+      }
+    },
+    "170654652145997a70": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_featured_carousel_KNQejP": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1500
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_featured_carousel_KNQejP"
+      ],
+      "custom_css": [
+        "@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 10px; }}",
+        "@media (max-width: 768px) {h2 {font-size: 32px !important; padding-bottom: 10px; padding-top: 10px !important; }}",
+        ".jdgm-carousel-item__product {height: 71% !important;}",
+        ".jdgm-carousel-wrapper .jdgm-carousel-item__review {height: calc(72% - 15em) !important;}",
+        ".jdgm-carousel-wrapper {padding-top: 0px; padding-bottom: 4px; margin-bottom: 41px;}",
+        ".jdgm-carousel-item__timestamp.jdgm-ellipsis {display: none;}"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": false
+      }
+    },
+    "slideshow_XqpH9b": {
+      "type": "slideshow",
+      "blocks": {
+        "image_BiBhhz": {
+          "type": "image",
+          "settings": {
+            "top_subheading": "",
+            "title": "SHIPPED FROM \nTHE USA",
+            "title_size": 100,
+            "subheading": "We get your order out the door ASAP. For everyone in the United States, it's typically at your door in just 3-5 days. Shipping is on us if you spend over $100. ☻",
+            "link": "",
+            "link_text": "",
+            "link_2": "",
+            "link_text_2": "",
+            "color_accent": "rgba(0,0,0,0)",
+            "text_align": "vertical-center horizontal-center",
+            "image": "shopify://shop_images/boat-no-text.png",
+            "parallax_direction": "top",
+            "overlay_opacity": 0
+          }
+        },
+        "image_N4kAJG": {
+          "type": "image",
+          "settings": {
+            "top_subheading": "",
+            "title": "PREMIUM\nFABRICS",
+            "title_size": 100,
+            "subheading": "Slip into something that feels great against your skin. Our fabrics are carefully selected to provide the perfect amount of stretch, support, and softness.",
+            "link": "",
+            "link_text": "",
+            "link_2": "",
+            "link_text_2": "",
+            "color_accent": "rgba(0,0,0,0)",
+            "text_align": "vertical-center horizontal-center",
+            "image": "shopify://shop_images/fabric-no-text.png",
+            "parallax_direction": "top",
+            "overlay_opacity": 0
+          }
+        },
+        "image_9BzfDa": {
+          "type": "image",
+          "settings": {
+            "top_subheading": "",
+            "title": "HAVE QUESTIONS?",
+            "title_size": 100,
+            "subheading": "If you're unsure about sizes or have any questions regarding your order, feel free to drop us a DM on Instagram. We're quick and usually respond within the same day.",
+            "link": "https://www.instagram.com/ozellaswim",
+            "link_text": "",
+            "link_2": "",
+            "link_text_2": "",
+            "color_accent": "rgba(0,0,0,0)",
+            "text_align": "vertical-center horizontal-center",
+            "image": "shopify://shop_images/question-no-text.png",
+            "parallax_direction": "top",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_BiBhhz",
+        "image_N4kAJG",
+        "image_9BzfDa"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "@media (min-width: 768px) {h2 {font-size: 100px !important; }}",
+        "@media (max-width: 768px) {h2.h1.hero__title {font-size: 70px !important; } .hero__subtitle {font-size: 18px; }}",
+        ".hero__text-wrap {color: #1c1d1d;}",
+        ".slideshow-wrapper {padding-top: 20px;}"
+      ],
+      "settings": {
+        "section_height": "650px",
+        "mobile_height": "auto",
+        "parallax": false,
+        "style": "dots",
+        "autoplay": false,
+        "autoplay_speed": 5,
+        "lazyload_images": true
+      }
+    },
+    "faq_Ed8PYb": {
+      "type": "faq",
+      "blocks": {
+        "question_hTA87q": {
+          "type": "question",
+          "settings": {
+            "title": "How long will it take for my order to come in?",
+            "text": "<p>We get your order out the door ASAP. For everyone in the United States, it's typically at your door in just 3-5 days. Shipping is on us if you spend over $100. ☻</p>"
+          }
+        },
+        "question_MRBFN7": {
+          "type": "question",
+          "settings": {
+            "title": "How's the quality?",
+            "text": "<p>Our fabrics are carefully selected to provide the perfect amount of stretch, support, and softness. Slip into something that feels great against your skin. </p>"
+          }
+        },
+        "question_6nqkQf": {
+          "type": "question",
+          "settings": {
+            "title": "How do I reach out?",
+            "text": "<p>If you're unsure about sizes or have any questions regarding your order, feel free to drop us a <a href=\"https://www.instagram.com/ozellaswim\" title=\"https://www.instagram.com/ozellaswim\">DM on Instagram</a>. We're quick and usually respond within the same day.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_hTA87q",
+        "question_MRBFN7",
+        "question_6nqkQf"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 0px; }}",
+        "@media (max-width: 768px) {h2 {font-size: 31px !important; padding-bottom: 0px; padding-top: 0px !important; }"
+      ],
+      "settings": {
+        "title": ""
+      }
+    },
+    "map_bByD7m": {
+      "type": "map",
+      "custom_css": [],
+      "settings": {
+        "map_title": "Based in Austin, TX",
+        "address": "<p>We offer a super flexible local pickup option for our Austin, TX friends. We don't have a brick-and-mortar store, but no worries – we can meet you at a spot that's convenient for you. Just slide into our <a href=\"https://www.instagram.com/ozellaswim/\" title=\"https://www.instagram.com/ozellaswim/\">Instagram DMs</a> to set up the perfect pickup location. Make sure to use the code <a href=\"https://ozellaswim.com/discount/ATXPICKUP\" title=\"https://ozellaswim.com/discount/ATXPICKUP\">ATXPICKUP</a> to waive the shipping fee. <br/><br/>For everyone else in the United States, we'll ship to your door with an estimated delivery time of 3-5 days. </p>",
+        "map_address": "Downtown Austin, TX",
+        "api_key": "AIzaSyC_Ictz_ct-sm1TyE_bbx6voz9xNNHfQ3s",
+        "show_button": false,
+        "lazyload_images": true
+      }
+    },
+    "rich_text_Dfkmrz": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_aGPG8x": {
+          "type": "heading",
+          "settings": {
+            "title": "SEEN ON INSTAGRAM"
+          }
+        },
+        "text_tNk4RA": {
+          "type": "text",
+          "settings": {
+            "enlarge_text": false,
+            "text": "<p>Tag <a href=\"https://www.instagram.com/ozellaswim\" title=\"https://www.instagram.com/ozellaswim\">@ozellaswim</a> on Instagram for a chance to be featured on our gallery. </p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_aGPG8x",
+        "text_tNk4RA"
+      ],
+      "custom_css": [
+        "@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 0px; }}",
+        "@media (max-width: 768px) {h2 {font-size: 32px !important; padding-top: 0px !important; }}",
+        ".theme-block {margin-bottom: 15px;}"
+      ],
+      "settings": {
+        "align_text": "center",
+        "narrow_column": true,
+        "divider": false
+      }
+    },
+    "1717358326f1e64cf2": {
+      "type": "apps",
+      "blocks": {
+        "instafeed_app_block_QcBahG": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "title": "",
+            "title_color": "",
+            "title_size_v2": 0,
+            "alignment": "center",
+            "instafeed_margin_top": 0,
+            "instafeed_margin_bottom": 0,
+            "instafeed_margin_sides": 0,
+            "show_instagram_link": false,
+            "link_alignment": "left",
+            "link_color": "#000000",
+            "background_color": "",
+            "feed_id": "",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "instafeed_app_block_QcBahG"
+      ],
+      "custom_css": [
+        "@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 0px; }}",
+        "@media (max-width: 768px) {h2 {font-size: 31px !important; padding-top: 0px !important; }}"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": true
+      }
+    },
+    "57d144b4-c05f-4c17-80d1-6f48e8243989": {
+      "type": "advanced-content",
+      "blocks": {
+        "liquid_btjtTK": {
+          "type": "liquid",
+          "settings": {
+            "code": "<lottie-player id=\"test7\" src=\"https://cdn.shopify.com/s/files/1/0716/4392/2731/files/Ozella_Bikinis_Text_Lottie_Animation_Typing_Version_01_Final.json?v=1706843142\" style=\"width: 100%;\" loop autoplay></lottie-player>",
+            "width": "100%",
+            "alignment": "center"
+          }
+        },
+        "liquid_yPLe8K": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "code": "<img src=\"https://cdn.shopify.com/s/files/1/0716/4392/2731/files/collage-centered.png\" width=\"100%\">",
+            "width": "50%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "liquid_btjtTK",
+        "liquid_yPLe8K"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".custom__item {padding-bottom: 18px !important; padding-top: 20px;}"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": false,
+        "lazyload_images": false
+      }
+    }
+  },
+  "order": [
+    "hero_video_NnQqke",
+    "featured_collection_KXwbkR",
+    "scrolling_text_tCjAbN",
+    "featured_collection_pk3p9x",
+    "featured_collections_ewL9PC",
+    "featured-collection",
+    "promo_grid_JkKnpF",
+    "featured_collection_pJMYQP",
+    "text_and_image_EXKhiV",
+    "text_and_image_4prHt6",
+    "hotspots_BCfGmk",
+    "promo_grid_pkXfNV",
+    "170654652145997a70",
+    "slideshow_XqpH9b",
+    "faq_Ed8PYb",
+    "map_bByD7m",
+    "rich_text_Dfkmrz",
+    "1717358326f1e64cf2",
+    "57d144b4-c05f-4c17-80d1-6f48e8243989"
+  ]
+}
