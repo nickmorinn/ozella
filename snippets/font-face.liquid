@@ -5,6 +5,32 @@
 {%- assign base_font_bold_italic = base_font_bold | font_modify: 'style', 'italic' -%}
 
 {%- style -%}
+  @font-face {
+    font-family: "Freight Text Pro";
+    src: url({{ 'freighttext-pro-book-regular.woff2' | asset_url }}) format('woff2'),
+      url({{ 'freighttext-pro-book-regular.woff' | asset_url }}) format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Contempora Sans";
+    src: url({{ 'ContemporaSans-BoldCondensed.woff2' | asset_url }}) format('woff2'),
+      url({{ 'ContemporaSans-BoldCondensed.woff' | asset_url }}) format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Prestige Elite Std";
+    src: url({{ 'PrestigeEliteStd-Bd.otf' | asset_url }}) format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
   {{ header_font | font_face: font_display: 'swap' }}
   {{ base_font | font_face: font_display: 'swap' }}
 

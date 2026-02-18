@@ -100,8 +100,8 @@
       /* ========================= */
       
       /* Body Font Styles */
-      --element-text-font-family--body: {{ settings.type_base_font_family.family }};
-      --element-text-font-family-fallback--body: {{ settings.type_base_font_family.fallback_families }};
+      --element-text-font-family--body: "Freight Text Pro";
+      --element-text-font-family-fallback--body: {{ settings.type_base_font_family.family }}, {{ settings.type_base_font_family.fallback_families }};
       --element-text-font-weight--body: {{ settings.type_base_font_family.weight }};
       --element-text-letter-spacing--body: {{ settings.type_base_spacing | default: '50' | divided_by: 1000.00 | append: 'em' }};
       --element-text-text-transform--body: none;
@@ -117,8 +117,8 @@
       --element-text-line-height--body: {{ settings.type_base_line_height | default: 1.4 }};
 
       /* Heading Font Styles */
-      --element-text-font-family--heading: {{ settings.type_header_font_family.family }};
-      --element-text-font-family-fallback--heading: {{ settings.type_header_font_family.fallback_families }};
+      --element-text-font-family--heading: "Contempora Sans";
+      --element-text-font-family-fallback--heading: {{ settings.type_header_font_family.family }}, {{ settings.type_header_font_family.fallback_families }};
       --element-text-font-weight--heading: {{ settings.type_header_font_family.weight }};
       --element-text-letter-spacing--heading: {{ settings.type_header_spacing | default: '25' | divided_by: 1000.00 | append: 'em' }};
       
@@ -150,7 +150,9 @@
 
       --element-button-padding-block: 12px;
       --element-button-text-transform: uppercase;
-      --element-button-font-weight: 800;
+      --element-button-font-family: var(--typeAccentPrimary);
+      --element-button-font-family-fallback: var(--typeAccentFallback);
+      --element-button-font-weight: 700;
       --element-button-font-size: max(calc(var(--typeBaseSize) - 4px), 13px);
       --element-button-letter-spacing: .3em;
 
