@@ -56,20 +56,14 @@
     },
     "featured_collection_pk3p9x": {
       "type": "featured-collection",
-      "custom_css": [
-        "@media (min-width: 768px) {h2 {font-size: 40px !important; }}",
-        "@media (max-width: 768px) {h2 {font-size: 32px !important; }}",
-        "@media only screen and (max-width: 768px) {.grid__item {padding-left: 2px !important; } .grid {margin-left: -17px !important; margin-right: -15px !important; }}",
-        ".section-header {padding-top: 30px; margin-bottom: 20px;}",
-        ".index-section {margin-bottom: 10px;}"
-      ],
+      "custom_css": [],
       "settings": {
         "title": "NEW ARRIVALS",
         "home_featured_products": "new-arrivals",
-        "per_row": 5,
+        "per_row": 4,
         "rows": 1,
         "mobile_scrollable": true,
-        "view_all": false,
+        "view_all": true,
         "divider": false
       }
     },
@@ -193,7 +187,7 @@
       "settings": {
         "title": "",
         "home_featured_products": "the-stargirl-collection",
-        "per_row": 5,
+        "per_row": 4,
         "rows": 1,
         "mobile_scrollable": true,
         "view_all": false,
