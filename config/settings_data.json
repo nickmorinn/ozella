@@ -290,8 +290,6 @@
     }
   },
   "platform_customizations": {
-    "custom_css": [
-      ".page-content--product {padding-bottom: 5px;}"
-    ]
+    "custom_css": []
   }
 }
