@@ -1,1 +1,138 @@
-{"type":"footer","name":"t:sections.footer-group.name","sections":{"303bc312-e67d-48c1-a3fb-9a6a471de938":{"type":"advanced-content","blocks":{"sections--21936446341419__303bc312-e67d-48c1-a3fb-9a6a471de938-liquid-1":{"type":"liquid","settings":{"code":"<img src=\"\/\/ozellaswim.com\/cdn\/shop\/files\/footer-pastel-fixed_430x.svg\">","width":"100%","alignment":"center"}}},"block_order":["sections--21936446341419__303bc312-e67d-48c1-a3fb-9a6a471de938-liquid-1"],"custom_css":[".custom__item {margin-bottom: 0px !important; margin-top: 30px; }"],"settings":{"full_width":true,"space_around":false,"lazyload_images":true}},"footer-promotions":{"type":"footer-promotions","blocks":{"footer-promotions-0":{"type":"promotion","settings":{"enable_image":true,"image_mask":"none","title":"Site-wide promotion","text":"<p>Use this section to promote content throughout every page of your site. Add images for further impact.<\/p>","button_label":"Optional button","button_link":""}},"footer-promotions-1":{"type":"promotion","settings":{"enable_image":true,"image_mask":"none","title":"Site-wide promotion","text":"<p>Use this section to promote content throughout every page of your site. Add images for further impact.<\/p>","button_label":"Optional button","button_link":""}},"footer-promotions-2":{"type":"promotion","settings":{"enable_image":true,"image_mask":"none","title":"Site-wide promotion","text":"<p>Use this section to promote content throughout every page of your site. Add images for further impact.<\/p>","button_label":"Optional button","button_link":""}}},"block_order":["footer-promotions-0","footer-promotions-1","footer-promotions-2"],"disabled":true,"settings":{"hide_homepage":false}},"footer":{"type":"footer","blocks":{"footer-0":{"type":"logo_social","settings":{"logo":"shopify:\/\/shop_images\/ozella-white-logo-transp.svg","desktop_logo_height":120,"container_width":95}},"footer-1":{"type":"menu","settings":{"show_footer_title":false,"menu":"footer","container_width":38}},"footer2":{"type":"newsletter","settings":{"show_footer_title":true,"title":"NEVER MISS A DROP","text":"<p>Subscribe to our emails and we'll send you a 15% off code for your first order ☻<\/p>","container_width":33}}},"block_order":["footer-0","footer-1","footer2"],"custom_css":[".footer__logo {padding-top: 20px;}",".image-element {max-width: 300px !important; max-height: 150px;}"],"settings":{"show_locale_selector":true,"show_currency_selector":true,"show_currency_flags":true,"show_payment_icons":false,"show_copyright":false,"copyright_text":""}}},"order":["303bc312-e67d-48c1-a3fb-9a6a471de938","footer-promotions","footer"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "t:sections.footer-group.name",
+  "sections": {
+    "303bc312-e67d-48c1-a3fb-9a6a471de938": {
+      "type": "advanced-content",
+      "blocks": {
+        "sections--21936446341419__303bc312-e67d-48c1-a3fb-9a6a471de938-liquid-1": {
+          "type": "liquid",
+          "settings": {
+            "code": "<img src=\"//ozellaswim.com/cdn/shop/files/footer-pastel-fixed_430x.svg\">",
+            "width": "100%",
+            "alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "sections--21936446341419__303bc312-e67d-48c1-a3fb-9a6a471de938-liquid-1"
+      ],
+      "custom_css": [
+        ".custom__item {margin-bottom: 0px !important; margin-top: 30px;}"
+      ],
+      "settings": {
+        "full_width": true,
+        "space_around": false,
+        "lazyload_images": true
+      }
+    },
+    "footer-promotions": {
+      "type": "footer-promotions",
+      "blocks": {
+        "footer-promotions-0": {
+          "type": "promotion",
+          "settings": {
+            "enable_image": true,
+            "image_mask": "none",
+            "title": "Site-wide promotion",
+            "text": "<p>Use this section to promote content throughout every page of your site. Add images for further impact.</p>",
+            "button_label": "Optional button",
+            "button_link": ""
+          }
+        },
+        "footer-promotions-1": {
+          "type": "promotion",
+          "settings": {
+            "enable_image": true,
+            "image_mask": "none",
+            "title": "Site-wide promotion",
+            "text": "<p>Use this section to promote content throughout every page of your site. Add images for further impact.</p>",
+            "button_label": "Optional button",
+            "button_link": ""
+          }
+        },
+        "footer-promotions-2": {
+          "type": "promotion",
+          "settings": {
+            "enable_image": true,
+            "image_mask": "none",
+            "title": "Site-wide promotion",
+            "text": "<p>Use this section to promote content throughout every page of your site. Add images for further impact.</p>",
+            "button_label": "Optional button",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "footer-promotions-0",
+        "footer-promotions-1",
+        "footer-promotions-2"
+      ],
+      "disabled": true,
+      "settings": {
+        "hide_homepage": false
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "footer-0": {
+          "type": "logo_social",
+          "settings": {
+            "logo": "shopify://shop_images/logo-softer.svg",
+            "desktop_logo_height": 120,
+            "container_width": 95
+          }
+        },
+        "footer-1": {
+          "type": "menu",
+          "settings": {
+            "show_footer_title": false,
+            "menu": "footer",
+            "container_width": 38
+          }
+        },
+        "footer2": {
+          "type": "newsletter",
+          "settings": {
+            "show_footer_title": true,
+            "title": "NEVER MISS A DROP",
+            "text": "<p>Subscribe to our emails and we'll send you a 15% off code for your first order ☻</p>",
+            "container_width": 33
+          }
+        }
+      },
+      "block_order": [
+        "footer-0",
+        "footer-1",
+        "footer2"
+      ],
+      "custom_css": [
+        ".footer__logo {padding-top: 20px;}",
+        ".image-element {max-width: 300px !important; max-height: 150px;}"
+      ],
+      "settings": {
+        "show_locale_selector": true,
+        "show_currency_selector": true,
+        "show_currency_flags": true,
+        "show_payment_icons": false,
+        "show_copyright": false,
+        "copyright_text": ""
+      }
+    }
+  },
+  "order": [
+    "303bc312-e67d-48c1-a3fb-9a6a471de938",
+    "footer-promotions",
+    "footer"
+  ]
+}
