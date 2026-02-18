@@ -48,7 +48,7 @@
         "header-0": {
           "type": "logo",
           "settings": {
-            "logo": "shopify://shop_images/ozella-hw2.svg",
+            "logo": "shopify://shop_images/logo-softer.svg",
             "desktop_logo_width": 150,
             "mobile_logo_width": 100
           }
