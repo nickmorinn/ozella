@@ -27,25 +27,56 @@
 {% capture variant_selector %}
   {%- unless product.has_only_default_variant -%}
     {% for option in product.options_with_values %}
+      {%- liquid
+        assign is_color_option = false
+        assign is_size_option = false
+        assign downcased_option = option.name | downcase
+        assign size_trigger = 'products.general.size_trigger' | t | downcase
+
+        if downcased_option contains size_trigger
+          assign is_size_option = true
+        endif
+
+        if downcased_option contains 'color' or downcased_option contains 'colour'
+          assign is_color_option = true
+        endif
+
+        for option_value in option.values
+          if option_value.swatch
+            assign is_color_option = true
+          endif
+        endfor
+      -%}
+
       {% case variant_selector_type %}
         {% when 'radio' %}
-          {% capture option_name_content %}
-            {% assign option_name = option.name | append: ':' %}
-            {% render 'element.text', as: 'span', text: option_name, style: 'font-weight: 600;' %}
-            {% render 'element.text', as: 'span', text: product.selected_or_first_available_variant.options[forloop.index0], style: 'opacity: 0.75;' %}
-          {% endcapture %}
-
           {% capture option_name %}
-            {% render 'element.text', variant: 'body-sm', text: option_name_content %}
+            <p class="flex-pdp-variant-picker__option-label{% if is_color_option %} is-color{% endif %}{% if is_size_option %} is-size{% endif %}">
+              <span class="flex-pdp-variant-picker__option-name">{{ option.name }}</span>
+              {% if is_color_option %}
+                <span class="flex-pdp-variant-picker__option-separator"> - </span>
+                <span class="flex-pdp-variant-picker__option-value">{{ product.selected_or_first_available_variant.options[forloop.index0] }}</span>
+              {% endif %}
+            </p>
           {% endcapture %}
 
           {% capture option_values %}
             {% for value in option.values %}
-              {% unless value.available %}
-                {%- assign classlist = 'disabled' -%}
-              {% else %}
-                {%- assign classlist = '' -%}
-              {% endunless %}
+              {%- liquid
+                assign classlist = 'flex-pdp-variant-picker__value'
+                if is_color_option
+                  assign classlist = classlist | append: ' flex-pdp-variant-picker__value--color'
+                endif
+                if is_size_option
+                  assign classlist = classlist | append: ' flex-pdp-variant-picker__value--size'
+                endif
+                if value.selected
+                  assign classlist = classlist | append: ' is-selected'
+                endif
+                unless value.available
+                  assign classlist = classlist | append: ' disabled'
+                endunless
+              -%}
 
               {%- capture input_id -%}
                 {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
@@ -61,12 +92,12 @@
                   {% endif %}
 
                   {%- render 'element.text', text: value, visually_hidden: true -%}
-                  {%- render 'element.swatch', swatch: value.swatch, large: true, selected: value.selected, disabled: swatch_disabled -%}
+                  {%- render 'element.swatch', swatch: value.swatch, large: true, selected: value.selected, disabled: swatch_disabled, classlist: 'flex-pdp-variant-picker__swatch' -%}
                 {% else %}
                   {% if value.selected %}
-                    {%- render 'element.button', as: 'span', text: value, size: 'sm', style: '--element-button-color-primary: var(--color-primary); --element-button-color-secondary: var(--color-secondary);' -%}
+                    {%- render 'element.button', as: 'span', text: value, size: 'sm', classlist: 'flex-pdp-variant-picker__value-button is-selected', style: '--element-button-color-primary: var(--color-primary); --element-button-color-secondary: var(--color-secondary);' -%}
                   {% else %}
-                    {%- render 'element.button', as: 'span', text: value, inverted: true, size: 'sm', style: '--element-button-color-primary: var(--color-primary); --element-button-color-secondary: var(--color-secondary);' -%}
+                    {%- render 'element.button', as: 'span', text: value, inverted: true, size: 'sm', classlist: 'flex-pdp-variant-picker__value-button', style: '--element-button-color-primary: var(--color-primary); --element-button-color-secondary: var(--color-secondary);' -%}
                   {% endif %}
                 {% endif %}
               {%- endcapture -%}
@@ -90,10 +121,11 @@
 
           {% capture option_stack %}
             {{ option_name }}
-            {% render 'layout.stack', horizontal: true, gap: 'xs', slot: option_values %}
+            {% render 'layout.stack', horizontal: true, gap: 'xs', wrap: 'wrap', slot: option_values, classlist: 'flex-pdp-variant-picker__values' %}
           {% endcapture %}
 
-          {% render 'layout.stack', gap: 'xs', horizontal: false, slot: option_stack %}
+          {% capture option_classlist %}flex-pdp-variant-picker__option{% if is_color_option %} flex-pdp-variant-picker__option--color{% endif %}{% if is_size_option %} flex-pdp-variant-picker__option--size{% endif %}{% endcapture %}
+          {% render 'layout.stack', gap: 'xs', horizontal: false, slot: option_stack, classlist: option_classlist %}
         {% when 'select' %}
           {%- capture input_id -%}
             {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
@@ -120,7 +152,7 @@
           {% endcapture %}
 
           {% capture option_stack %}
-            {% render 'element.text', as: 'label', variant: 'body-sm', text: option.name, style: 'font-weight: 600;' %}
+            {% render 'element.text', as: 'label', variant: 'body-sm', text: option.name, classlist: 'flex-pdp-variant-picker__option-label', style: 'font-weight: 600;' %}
             {% render 'element.select',
               name: option.name,
               slot: options,
@@ -130,10 +162,102 @@
             %}
           {% endcapture %}
 
-          {% render 'layout.stack', gap: 'xs', horizontal: false, slot: option_stack %}
+          {% render 'layout.stack', gap: 'xs', horizontal: false, slot: option_stack, classlist: 'flex-pdp-variant-picker__option' %}
       {% endcase %}
     {% endfor %}
   {%- endunless -%}
 {% endcapture %}
 
-{% render 'layout.stack', gap: 'sm', slot: variant_selector %}
+<div class="flex-pdp-variant-picker">
+  {% render 'layout.stack', gap: 'sm', slot: variant_selector, classlist: 'flex-pdp-variant-picker__list' %}
+</div>
+
+{% stylesheet %}
+  .flex-pdp-variant-picker__option-label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    margin: 0;
+  }
+
+  .flex-pdp-variant-picker__option-name,
+  .flex-pdp-variant-picker__option-value {
+    font-weight: 500;
+  }
+
+  .flex-pdp-variant-picker__option-value {
+    opacity: 0.75;
+  }
+
+  .flex-pdp-variant-picker__values {
+    row-gap: 0.5rem;
+  }
+
+  .flex-pdp-variant-picker__value {
+    --element-radio-gap: 0;
+  }
+
+  .flex-pdp-variant-picker__value-button .element-text {
+    text-transform: uppercase;
+  }
+
+  .flex-pdp-variant-picker__option--color {
+    --element-swatch-size-large: 1.75rem;
+    --element-swatch-size-mobile-ratio: 1;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .flex-pdp-variant-picker__list {
+      gap: 1.25rem;
+    }
+
+    .flex-pdp-variant-picker__option-label {
+      font-size: 0.95rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__values {
+      column-gap: 0.9rem;
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__values {
+      column-gap: 0.9rem;
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value-button,
+    .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value-button {
+      --element-button-color-primary: transparent;
+      --element-button-color-secondary: var(--colorTextBody);
+      --element-button-padding-block: 0;
+      --element-button-padding-inline: 0;
+      --element-button-box-shadow: none;
+      --element-button-shade-background: 0%;
+      --element-button-shade-border: 0%;
+      --element-button-shade-background--hover: 0%;
+      --element-button-shade-border--hover: 0%;
+      --element-button-shade-background--active: 0%;
+      --element-button-shade-border--active: 0%;
+    }
+
+    .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value-button .element-text,
+    .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value-button .element-text {
+      font-size: 1rem;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value:has(input[type='radio']:checked) .flex-pdp-variant-picker__value-button .element-text,
+    .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value-button.is-selected .element-text,
+    .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value:has(input[type='radio']:checked) .flex-pdp-variant-picker__value-button .element-text,
+    .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value-button.is-selected .element-text {
+      text-decoration: underline;
+      text-underline-offset: 0.16em;
+    }
+  }
+{% endstylesheet %}

@@ -7,11 +7,6 @@
     endif
 
     assign enable_dynamic_buttons = false
-    if show_dynamic_checkout and gift_card_recipient_feature_active == false
-      unless template contains 'preorder'
-        assign enable_dynamic_buttons = true
-      endunless
-    endif
   -%}
 
   {%- if gift_card_recipient_feature_active -%}
@@ -45,15 +40,9 @@
       </span>
     </button>
 
-    {%- if enable_dynamic_buttons -%}
-      {{ form | payment_button }}
-    {%- endif -%}
-
   {%- if enable_dynamic_buttons -%}
     </div>
   {%- endif -%}
-
-  <div class="shopify-payment-terms product__policies">{{ form | payment_terms }}</div>
 
   <select name="id" data-product-select class="product-single__variants no-js">
     {%- for variant in product.variants -%}

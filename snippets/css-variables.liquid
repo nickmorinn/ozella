@@ -126,6 +126,148 @@
     text-transform: uppercase;
     }
 
+    .add-to-cart {
+    line-height: 1;
+    }
+
+    .add-to-cart [data-add-to-cart-text] {
+    display: block;
+    transform: translateY(0.12em);
+    }
+
+    .product-block--tab .collapsible-trigger-btn {
+    line-height: 1;
+    padding-top: 17px;
+    padding-bottom: 13px;
+    }
+
+    .product-block--tab .collapsible-trigger-btn--borders {
+    padding-top: 15px;
+    padding-bottom: 11px;
+    }
+
+    @media only screen and (min-width: 769px) {
+    .product-block--tab .collapsible-trigger-btn--borders {
+      padding-top: 18px;
+      padding-bottom: 14px;
+    }
+    }
+
+    @media only screen and (max-width: 768px) {
+    .product-single__meta {
+      text-align: left;
+    }
+
+    .product-single__meta .product-single__title {
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .product-single__meta .product-block--header + .product-block--price {
+      margin-top: 8px;
+    }
+
+    .product-single__meta .product-block--price {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .product-single__meta .product__price {
+      display: block;
+      margin-right: 0;
+      margin-top: 4px;
+    }
+
+    .product-single__meta .jdgm-widget,
+    .product-single__meta .jdgm-preview-badge,
+    .product-single__meta .jdgm-prev-badge,
+    .product-single__meta .spr-badge {
+      text-align: left !important;
+    }
+
+    .product-single__meta .jdgm-prev-badge,
+    .product-single__meta .jdgm-widget .jdgm-prev-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: flex-start;
+      margin: 0 0 8px;
+    }
+
+    .product-single__meta .variant-wrapper + .variant-wrapper {
+      margin-top: 20px;
+    }
+
+    .product-single__meta .variant__label[for] {
+      align-items: baseline;
+      display: flex;
+      font-size: 14px;
+      gap: 4px;
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .product-single__meta .variant__label-info {
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      opacity: 0.75;
+      text-transform: uppercase;
+    }
+
+    .product-single__meta .variant-input-wrap:is([data-handle*='color'], [data-handle*='colour']) {
+      margin-bottom: 0;
+      text-align: left;
+    }
+
+    .product-single__meta .variant-input-wrap:is([data-handle*='color'], [data-handle*='colour']) .color-swatch {
+      height: 30px;
+      margin: 0 8px 0 0;
+      width: 30px;
+    }
+
+    .product-single__meta .variant-input-wrap:is([data-handle*='color'], [data-handle*='colour']) label:not(.color-swatch) {
+      background: transparent;
+      box-shadow: none;
+      font-size: 16px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin: 0 12px 0 0;
+      padding: 0;
+      text-transform: none;
+    }
+
+    .product-single__meta .variant-input-wrap:is([data-handle*='color'], [data-handle*='colour']) input[type=radio]:focus + label:not(.color-swatch),
+    .product-single__meta .variant-input-wrap:is([data-handle*='color'], [data-handle*='colour']) input[type=radio]:checked + label:not(.color-swatch) {
+      box-shadow: none;
+      text-decoration: underline;
+      text-underline-offset: 0.16em;
+    }
+
+    .product-single__meta .variant-input-wrap:is([data-handle*='size']) {
+      margin-bottom: 0;
+      text-align: left;
+    }
+
+    .product-single__meta .variant-input-wrap:is([data-handle*='size']) label:not(.color-swatch) {
+      background: transparent;
+      box-shadow: none;
+      font-size: 16px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin: 0 12px 0 0;
+      padding: 0;
+      text-transform: uppercase;
+    }
+
+    .product-single__meta .variant-input-wrap:is([data-handle*='size']) input[type=radio]:focus + label,
+    .product-single__meta .variant-input-wrap:is([data-handle*='size']) input[type=radio]:checked + label {
+      box-shadow: none;
+      text-decoration: underline;
+      text-underline-offset: 0.16em;
+    }
+    }
+
     .placeholder-content {
     background-image: linear-gradient(100deg, {{ settings.color_small_image_bg }} 40%, {{ settings.color_small_image_bg | color_darken: 3 }} 63%, {{ settings.color_small_image_bg }} 79%);
     }

@@ -4071,9 +4071,28 @@ button[disabled],html input[disabled]{
     min-height:50px;
   }
 
+.add-to-cart,
+.add-to-cart:hover,
+.add-to-cart.btn--secondary,
+.add-to-cart.btn--secondary:hover{
+  align-items:center;
+  background-color:#B5D8D8;
+  border-color:#B5D8D8;
+  color:var(--colorBtnPrimaryText);
+  display:flex;
+  justify-content:center;
+  line-height:1.2;
+}
+
+[data-button_style=angled] .add-to-cart:after,
+[data-button_style=angled] .add-to-cart:before{
+    background-color:#B5D8D8;
+    border-color:#B5D8D8;
+  }
+
 .add-to-cart.btn--secondary{
   border:1px solid;
-  border-color:var(--colorTextBody);
+  border-color:#B5D8D8;
 }
 
 [data-button_style=angled] .add-to-cart.btn--secondary{
@@ -4082,7 +4101,7 @@ button[disabled],html input[disabled]{
 }
 
 [data-button_style=angled] .add-to-cart.btn--secondary:after,[data-button_style=angled] .add-to-cart.btn--secondary:before{
-      border-color:var(--colorTextBody);
+      border-color:#B5D8D8;
     }
 
 .add-to-cart.btn--secondary.disabled,.add-to-cart.btn--secondary[disabled]{
@@ -5739,14 +5758,14 @@ form+.footer__social{
 
 .site-header{
   background:var(--colorNav);
-  padding:7px 0;
+  padding:4px 0;
   position:relative;
 }
 
 @media only screen and (min-width:769px){
 
 .site-header{
-    padding:20px 0;
+    padding:10px 0;
 }
 
 .toolbar+.header-sticky-wrapper .site-header{
@@ -5772,7 +5791,7 @@ form+.footer__social{
 @media only screen and (min-width:769px){
 
 .site-header--stuck{
-    padding:10px 0;
+    padding:6px 0;
 }
   }
 
@@ -5790,7 +5809,7 @@ form+.footer__social{
 .site-header__logo{
   display:block;
   font-size:30px;
-  margin:10px 0;
+  margin:4px 0;
   position:relative;
   z-index:6;
 }
@@ -5798,7 +5817,7 @@ form+.footer__social{
 @media only screen and (min-width:769px){
 
 .text-center .site-header__logo{
-      margin:10px auto;
+      margin:4px auto;
       padding-right:0;
 }
   }
@@ -5823,10 +5842,8 @@ form+.footer__social{
   }
 
 .site-header .site-header__logo img{
-      left:50%;
-      position:absolute;
-      top:50%;
-      transform:translate(-50%, -50%);
+      position:static;
+      transform:none;
   }
 
 .site-header__logo-link{

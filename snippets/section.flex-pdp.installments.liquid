@@ -18,14 +18,6 @@
 {% enddoc %}
 
 
-{% capture payment_terms_content %}
-  {% form 'product', product %}
-    {% capture payment_terms %}
-      {{ form | payment_terms }}
-    {% endcapture %}
-  {% endform %}
-{% endcapture %}
-
-{% if payment_terms != blank %}
- {% render 'element.text', variant: 'body-sm', text: payment_terms %}
-{% endif %}
+{% comment %}
+  Shopify installments intentionally hidden on product pages.
+{% endcomment %}

@@ -54,8 +54,7 @@
       <a
         href="{{ routes.root_url }}"
         itemprop="url"
-        class="site-header__logo-link{% if block.settings.logo-inverted %} logo--has-inverted{% endif %}"
-        style="padding-top: {{ 100 | divided_by: block.settings.logo.aspect_ratio }}%">
+        class="site-header__logo-link{% if block.settings.logo-inverted %} logo--has-inverted{% endif %}">
 
         {% comment %} Desktop logo {% endcomment %}
         {%- assign width = block.settings.desktop_logo_width | times: 2 -%}
@@ -97,8 +96,7 @@
         <a
           href="{{ routes.root_url }}"
           itemprop="url"
-          class="site-header__logo-link logo--inverted"
-          style="padding-top: {{ 100 | divided_by: block.settings.logo-inverted.aspect_ratio }}%">
+          class="site-header__logo-link logo--inverted">
 
           {% comment %} Desktop logo {% endcomment %}
           {%- assign width = block.settings.desktop_logo_width | times: 2 -%}
