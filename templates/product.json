@@ -270,8 +270,6 @@
     "product-recommendations": {
       "type": "product-recommendations",
       "custom_css": [
-        ".index-section {padding-top: 0px; padding-bottom: 50px;}",
-        "h3 {font-size: 27px !important;}"
       ],
       "settings": {
         "product_recommendations_heading": "You may also like",

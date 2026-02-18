@@ -1,16 +1,19 @@
 {%- if block.settings.logo -%}
+  {%- liquid
+    assign display_logo_height = block.settings.desktop_logo_height | times: 150 | divided_by: 100 | round
+  -%}
   {%- style -%}
     .footer__logo a {
-      height: {{ block.settings.desktop_logo_height }}px;
+      height: {{ display_logo_height }}px;
     }
   {%- endstyle -%}
   <div class="footer__logo">
     <a href="{{ routes.root_url }}">
-      {%- assign width = block.settings.desktop_logo_height | times: block.settings.logo.aspect_ratio | times: 2 -%}
-      {%- assign height = block.settings.desktop_logo_height -%}
-      {%- capture sizes -%}{{ block.settings.desktop_logo_height | times: block.settings.logo.aspect_ratio }}px{%- endcapture -%}
-      {%- capture widths -%}{{ block.settings.desktop_logo_height | times: block.settings.logo.aspect_ratio }}, {{ block.settings.desktop_logo_height | times: block.settings.logo.aspect_ratio | times: 2 }}{%- endcapture -%}
-      {%- capture style -%}max-width: {{ block.settings.desktop_logo_height | times: block.settings.logo.aspect_ratio }}px;max-height: {{ block.settings.desktop_logo_height }}px;{%- endcapture -%}
+      {%- assign width = display_logo_height | times: block.settings.logo.aspect_ratio | times: 2 -%}
+      {%- assign height = display_logo_height -%}
+      {%- capture sizes -%}{{ display_logo_height | times: block.settings.logo.aspect_ratio }}px{%- endcapture -%}
+      {%- capture widths -%}{{ display_logo_height | times: block.settings.logo.aspect_ratio }}, {{ display_logo_height | times: block.settings.logo.aspect_ratio | times: 2 }}{%- endcapture -%}
+      {%- capture style -%}max-width: {{ display_logo_height | times: block.settings.logo.aspect_ratio }}px;max-height: {{ display_logo_height }}px;{%- endcapture -%}
 
       {%- render 'image-element',
         img: block.settings.logo,

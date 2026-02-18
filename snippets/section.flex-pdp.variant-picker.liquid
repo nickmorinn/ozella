@@ -206,6 +206,48 @@
     --element-swatch-size-mobile-ratio: 1;
   }
 
+  .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__values,
+  .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__values {
+    column-gap: 0.9rem;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value-button,
+  .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value-button {
+    --element-button-color-primary: transparent;
+    --element-button-color-secondary: var(--colorTextBody);
+    --element-button-padding-block: 0;
+    --element-button-padding-inline: 0;
+    --element-button-box-shadow: none;
+    --element-button-shade-background: 0%;
+    --element-button-shade-border: 0%;
+    --element-button-shade-background--hover: 0%;
+    --element-button-shade-border--hover: 0%;
+    --element-button-shade-background--active: 0%;
+    --element-button-shade-border--active: 0%;
+    --_padding-block: 0;
+    --_padding-inline: 0;
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value-button .element-text,
+  .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value-button .element-text {
+    font-size: 1rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value:has(input[type='radio']:checked) .flex-pdp-variant-picker__value-button .element-text,
+  .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value-button.is-selected .element-text,
+  .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value:has(input[type='radio']:checked) .flex-pdp-variant-picker__value-button .element-text,
+  .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value-button.is-selected .element-text {
+    text-decoration: underline;
+    text-underline-offset: 0.16em;
+  }
+
   @media only screen and (max-width: 768px) {
     .flex-pdp-variant-picker__list {
       gap: 1.25rem;
@@ -217,47 +259,5 @@
       text-transform: uppercase;
     }
 
-    .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__values {
-      column-gap: 0.9rem;
-      justify-content: flex-start;
-      text-align: left;
-    }
-
-    .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__values {
-      column-gap: 0.9rem;
-      justify-content: flex-start;
-      text-align: left;
-    }
-
-    .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value-button,
-    .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value-button {
-      --element-button-color-primary: transparent;
-      --element-button-color-secondary: var(--colorTextBody);
-      --element-button-padding-block: 0;
-      --element-button-padding-inline: 0;
-      --element-button-box-shadow: none;
-      --element-button-shade-background: 0%;
-      --element-button-shade-border: 0%;
-      --element-button-shade-background--hover: 0%;
-      --element-button-shade-border--hover: 0%;
-      --element-button-shade-background--active: 0%;
-      --element-button-shade-border--active: 0%;
-    }
-
-    .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value-button .element-text,
-    .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value-button .element-text {
-      font-size: 1rem;
-      line-height: 1;
-      letter-spacing: 0.02em;
-      text-decoration: none;
-    }
-
-    .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value:has(input[type='radio']:checked) .flex-pdp-variant-picker__value-button .element-text,
-    .flex-pdp-variant-picker__option--size .flex-pdp-variant-picker__value-button.is-selected .element-text,
-    .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value:has(input[type='radio']:checked) .flex-pdp-variant-picker__value-button .element-text,
-    .flex-pdp-variant-picker__option--color .flex-pdp-variant-picker__value-button.is-selected .element-text {
-      text-decoration: underline;
-      text-underline-offset: 0.16em;
-    }
   }
 {% endstylesheet %}
