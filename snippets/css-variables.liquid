@@ -176,6 +176,14 @@
     padding-right: 0;
     }
 
+    .site-footer {
+    border-top: 0 !important;
+    }
+
+    .site-footer .grid__item:after {
+    display: none !important;
+    }
+
     .variant-input-wrap:is([data-handle*='color'], [data-handle*='colour'], [data-handle*='size']) {
     margin-bottom: 0;
     text-align: left;
@@ -246,10 +254,17 @@
     .template-product .jdgm-rev-widg__summary-inner {
     align-items: flex-start !important;
     justify-content: flex-start !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     text-align: left !important;
+    width: 100% !important;
     }
 
     .template-product .jdgm-rev-widg__summary {
+    display: block !important;
     gap: 12px 28px;
     margin-bottom: 18px;
     }
@@ -257,21 +272,67 @@
     .template-product .jdgm-rev-widg__summary > *,
     .template-product .jdgm-rev-widg__summary-inner > * {
     border: 0 !important;
+    float: none !important;
     margin: 0 !important;
+    margin-left: 0 !important;
+    max-width: none !important;
     padding: 0 !important;
+    padding-left: 0 !important;
+    width: 100% !important;
+    }
+
+    .template-product .jdgm-row-actions,
+    .template-product .jdgm-widget-actions-wrapper {
+    display: none !important;
+    }
+
+    .template-product .jdgm-row-stars {
+    border: 0 !important;
+    display: block !important;
+    float: none !important;
+    margin: 0 !important;
+    margin-left: 0 !important;
+    max-width: none !important;
+    padding: 0 !important;
+    padding-left: 0 !important;
+    text-align: left !important;
+    width: 100% !important;
+    }
+
+    .template-product .jdgm-row-stars .jdgm-rev-widg__summary-text {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    text-align: left !important;
+    }
+
+    .template-product .jdgm-row-stars .jdgm-stars {
+    justify-content: flex-start !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    text-align: left !important;
     }
 
     .template-product .jdgm-rev-widg__medias {
     margin-top: 14px;
+    max-width: none !important;
+    padding-left: 0 !important;
     text-align: left !important;
+    width: 100% !important;
     }
 
     .template-product .jdgm-medias {
     display: grid !important;
     gap: 10px;
     grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+    justify-content: flex-start;
     margin: 10px 0 0 !important;
-    max-width: 600px;
+    max-width: none !important;
+    width: 100% !important;
+    }
+
+    .template-product .jdgm-rev-widg__summary .jdgm-medias {
+    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(112px, 112px));
     }
 
     .template-product .jdgm-medias__item,
@@ -288,6 +349,32 @@
     height: 100%;
     object-fit: cover;
     width: 100%;
+    }
+
+    .template-product .jdgm-rev-widg__summary .jdgm-medias img {
+    height: 112px;
+    width: 112px;
+    }
+
+    .template-product .jdgm-rev-widg__medias .jdgm-medias {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    width: auto !important;
+    }
+
+    .template-product .jdgm-rev-widg__medias .jdgm-medias__item,
+    .template-product .jdgm-rev-widg__medias .jdgm-medias__item-wrapper {
+    flex: 0 0 132px;
+    max-width: 132px;
+    width: 132px !important;
+    }
+
+    .template-product .jdgm-rev-widg__medias .jdgm-medias img {
+    height: 132px;
+    width: 132px;
     }
 
     .template-product .jdgm-paginate {
@@ -358,6 +445,27 @@
     }
 
     @media only screen and (min-width: 769px) {
+    .site-footer .footer__logo {
+      text-align: center;
+      width: 100%;
+    }
+
+    .site-footer .footer__logo a {
+      display: block;
+      height: auto !important;
+      margin: 0 auto;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .site-footer .footer__logo img {
+      display: block;
+      margin: 0 auto;
+      max-height: none !important;
+      max-width: 100% !important;
+      width: 100%;
+    }
+
     .template-product .jdgm-widget,
     .template-product .jdgm-rev-widg {
       margin-left: 0 !important;
@@ -381,12 +489,56 @@
     }
 
     @media only screen and (max-width: 768px) {
+    .mobile-nav__item:not(.mobile-nav__item--secondary) + .mobile-nav__item--secondary {
+      margin-top: 0 !important;
+    }
+
+    .mobile-nav__item--secondary .mobile-nav__link {
+      font-size: 1.4em;
+      padding-bottom: 15px;
+      padding-top: 15px;
+    }
+
+    .mobile-nav.mobile-nav--heading-style .mobile-nav__item--secondary .mobile-nav__link {
+      font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback);
+      font-weight: var(--typeHeaderWeight);
+      letter-spacing: var(--typeHeaderSpacing);
+      line-height: var(--typeHeaderLineHeight);
+    }
+
+    .mobile-nav__social-item--instagram {
+      border: 0;
+      flex: 0 0 100%;
+      margin: 0;
+      text-align: left;
+    }
+
+    .mobile-nav__social-item--instagram a {
+      display: flex;
+      justify-content: flex-start;
+      padding: 12px 0 !important;
+    }
+
     .template-product .jdgm-medias {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
+    .template-product .jdgm-rev-widg__medias .jdgm-medias__item,
+    .template-product .jdgm-rev-widg__medias .jdgm-medias__item-wrapper {
+      flex-basis: 96px;
+      max-width: 96px;
+      width: 96px !important;
+    }
+
+    .template-product .jdgm-rev-widg__medias .jdgm-medias img {
+      height: 96px;
+      width: 96px;
+    }
+
     .site-footer .footer__logo {
-      margin: 4px 0 -28px;
+      margin: 8px 0 14px;
+      text-align: center;
+      width: 100%;
     }
 
     .template-product .jdgm-paginate {
@@ -402,14 +554,16 @@
     }
 
     .site-footer .footer__logo a {
-      display: inline-block;
+      display: block;
       height: auto !important;
-      width: min(88vw, 340px);
+      margin: 0 auto;
+      max-width: 100%;
+      width: 100%;
     }
 
     .site-footer .footer__logo img {
       display: block;
-      margin-bottom: -34%;
+      margin-bottom: 0;
       max-height: none !important;
       max-width: 100% !important;
       width: 100%;
