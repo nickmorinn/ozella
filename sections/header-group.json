@@ -16,6 +16,7 @@
       "blocks": {
         "announcement-0": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "FREE LOCAL PICKUP IN AUSTIN, TX",
             "link_text": "Code: ATXPICKUP",
@@ -26,7 +27,7 @@
           "type": "announcement",
           "settings": {
             "text": "FREE SHIPPING OVER $100",
-            "link_text": "For US Customers ☻",
+            "link_text": "",
             "link": ""
           }
         }
