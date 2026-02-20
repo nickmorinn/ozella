@@ -212,6 +212,11 @@
       line-height: 1.42 !important;
     }
 
+    .element-button .element-text {
+      position: relative;
+      top: var(--typeAccentOpticalShift);
+    }
+
     /* When dynamic checkout is enabled */
     product-form:has(.element-button--shopify-payment-wrapper) {
       --element-button-color: {{ settings.color_body_text }};

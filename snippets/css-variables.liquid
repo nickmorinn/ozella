@@ -19,7 +19,9 @@
 
     --typeAccentPrimary: "Prestige Elite Std";
     --typeAccentFallback: {{ settings.type_header_font_family.family }}, {{ settings.type_header_font_family.fallback_families }};
-    --typeAccentOpticalOffset: 0.00em;
+    /* Positive values push accent text down; negative values pull it up */
+    --typeAccentOpticalOffset: 0.01em;
+    --typeAccentOpticalShift: var(--typeAccentOpticalOffset);
 
     --element-button-font-family: var(--typeAccentPrimary);
     --element-button-font-family-fallback: var(--typeAccentFallback);
@@ -129,8 +131,45 @@
     text-transform: uppercase;
     }
 
+    .btn:not(.add-to-cart),
+    .rte .btn:not(.add-to-cart),
+    .shopify-payment-button .shopify-payment-button__button--unbranded {
+    padding-bottom: max(0px, calc(11px - var(--typeAccentOpticalShift)));
+    padding-top: calc(11px + var(--typeAccentOpticalShift));
+    }
+
+    .btn--small:not(.add-to-cart),
+    .rte .btn--small:not(.add-to-cart),
+    .shopify-payment-button .shopify-payment-button__button--unbranded.btn--small {
+    padding-bottom: max(0px, calc(8px - var(--typeAccentOpticalShift)));
+    padding-top: calc(8px + var(--typeAccentOpticalShift));
+    }
+
+    .btn--large:not(.add-to-cart),
+    .rte .btn--large:not(.add-to-cart),
+    .shopify-payment-button .shopify-payment-button__button--unbranded.btn--large {
+    padding-bottom: max(0px, calc(15px - var(--typeAccentOpticalShift)));
+    padding-top: calc(15px + var(--typeAccentOpticalShift));
+    }
+
+    .btn--full:not(.add-to-cart),
+    .rte .btn--full:not(.add-to-cart),
+    .shopify-payment-button .shopify-payment-button__button--unbranded.btn--full {
+    padding-bottom: max(0px, calc(13px - var(--typeAccentOpticalShift)));
+    padding-top: calc(13px + var(--typeAccentOpticalShift));
+    }
+
+    @media only screen and (max-width: 768px) {
+    .btn:not(.add-to-cart),
+    .rte .btn:not(.add-to-cart),
+    .shopify-payment-button .shopify-payment-button__button--unbranded {
+    padding-bottom: max(0px, calc(9px - var(--typeAccentOpticalShift)));
+    padding-top: calc(9px + var(--typeAccentOpticalShift));
+    }
+    }
+
     .is-safari {
-    --typeAccentOpticalOffset: 0.10em;
+    --typeAccentOpticalOffset: 0.20em;
     }
 
     .is-safari .btn,
@@ -153,7 +192,8 @@
     display: flex;
     justify-content: flex-start;
     line-height: 1.12;
-    transform: translateY(var(--typeAccentOpticalOffset));
+    position: relative;
+    top: var(--typeAccentOpticalShift);
     }
 
     [data-center-text=true] .is-safari .collapsible-trigger-btn {
@@ -342,7 +382,8 @@
 
     #CartDrawer .cart__checkout span {
     display: inline-block;
-    transform: translateY(var(--typeAccentOpticalOffset));
+    position: relative;
+    top: var(--typeAccentOpticalShift);
     }
 
     #CartDrawer .cart__checkout:hover {
@@ -411,7 +452,8 @@
 
     .add-to-cart [data-add-to-cart-text] {
     display: block;
-    transform: translateY(var(--typeAccentOpticalOffset));
+    position: relative;
+    top: var(--typeAccentOpticalShift);
     }
 
     .product-block--tab .collapsible-trigger-btn {

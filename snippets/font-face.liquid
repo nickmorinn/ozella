@@ -30,6 +30,10 @@
     font-weight: 400;
     font-style: normal;
     font-display: swap;
+    /* Normalize vertical metrics for better baseline alignment across browsers */
+    ascent-override: 84%;
+    descent-override: 16%;
+    line-gap-override: 0%;
   }
 
   @font-face {
@@ -39,6 +43,10 @@
     font-weight: 700;
     font-style: normal;
     font-display: swap;
+    /* Normalize vertical metrics for better baseline alignment across browsers */
+    ascent-override: 84%;
+    descent-override: 16%;
+    line-gap-override: 0%;
   }
 
   {{ header_font | font_face: font_display: 'swap' }}
