@@ -4647,7 +4647,7 @@ theme.recentlyViewed = {
     }
   
     function scrollHandler() {
-      if (window.scrollY > 250) {
+      if (window.scrollY > 0) {
         if (config.stickyActive) {
           return;
         }
@@ -7480,6 +7480,14 @@ theme.recentlyViewed = {
           thumb.classList.toggle(classes.hidden, thumb.dataset.group !== set);
         });
       },
+
+      // Show/hide main slides based on current image set.
+      // Required for custom desktop grid layouts where all slides are visible.
+      updateImageSetSlides: function(set) {
+        this.cache.mainSlider.querySelectorAll(selectors.slide).forEach(slide => {
+          slide.classList.toggle(classes.hidden, slide.dataset.group !== set);
+        });
+      },
   
       getImageSetName: function(string) {
         return string.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '');
@@ -7882,6 +7890,7 @@ theme.recentlyViewed = {
           var imageSetArgs = this.imageSetArguments(variant);
           mainSliderArgs = Object.assign({}, mainSliderArgs, imageSetArgs);
           this.updateImageSetThumbs(mainSliderArgs.imageSet);
+          this.updateImageSetSlides(mainSliderArgs.imageSet);
         }
   
         this.flickity = new theme.Slideshow(this.cache.mainSlider, mainSliderArgs);

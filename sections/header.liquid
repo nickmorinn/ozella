@@ -25,6 +25,18 @@
   if template_name contains 'collection' and collection.image and section.settings.sticky_collection
     assign overlay_header = true
   endif
+
+  assign shop_link_url = '/collections/all'
+  assign contact_link_url = '/pages/contact'
+  for link in main_menu.links
+    assign link_title_handle = link.title | handleize
+    if link_title_handle contains 'shop'
+      assign shop_link_url = link.url
+    endif
+    if link_title_handle contains 'contact'
+      assign contact_link_url = link.url
+    endif
+  endfor
 -%}
 
 {%- render 'drawer-menu',
@@ -50,7 +62,7 @@
     }
   {% endif %}
 
-  {% if mainmenu.length > 6 %}
+  {% if main_menu.links.size > 6 %}
     .site-nav__link {
       padding-left: 10px;
       padding-right: 10px;
@@ -68,103 +80,183 @@
       border-top: 0;
     }
   {%- endif -%}
+
+  .header-wrapper,
+  .header-wrapper--sticky,
+  .site-header,
+  .site-header--stuck,
+  .site-header--opening {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .header-wrapper,
+  .header-wrapper--sticky {
+    left: auto !important;
+    position: relative !important;
+    right: auto !important;
+    top: auto !important;
+    width: 100%;
+    z-index: 30;
+  }
+
+  .header-sticky-wrapper {
+    position: relative;
+    z-index: 30;
+  }
+
+  .site-header,
+  .site-header--stuck,
+  .site-header--opening {
+    transition: none !important;
+  }
+
+  .site-header--stuck {
+    transform: translateZ(0) !important;
+  }
+
+  .oz-header {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    min-height: 72px;
+    width: 100%;
+  }
+
+  .oz-header__left,
+  .oz-header__right {
+    align-items: center;
+    display: flex;
+  }
+
+  .oz-header__right {
+    justify-content: flex-end;
+  }
+
+  .oz-header__center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .oz-header__center .site-header__logo {
+    margin: 0 !important;
+  }
+
+  .oz-header__left-links,
+  .oz-header__right-links {
+    align-items: center;
+    display: flex;
+    gap: 22px;
+    white-space: nowrap;
+  }
+
+  .oz-header__link {
+    color: var(--colorNavText);
+    display: inline-block;
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .oz-header__button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .oz-header__button:hover,
+  .oz-header__link:hover {
+    color: var(--colorNavText);
+  }
+
+  .oz-header__menu,
+  .oz-header__mobile-cart {
+    display: none;
+  }
+
+  .site-header {
+    padding: 0;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .oz-header {
+      min-height: 58px;
+    }
+
+    .oz-header__left-links,
+    .oz-header__right-links {
+      display: none;
+    }
+
+    .oz-header__menu,
+    .oz-header__mobile-cart {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .oz-header__link {
+      font-size: 16px;
+      letter-spacing: 0.1em;
+    }
+  }
 </style>
 
 <div data-section-id="{{ section.id }}" data-section-type="header">
-
-  {%- unless overlay_header -%}
-    {%- if section.settings.show_locale_selector or section.settings.show_currency_selector or section.settings.toolbar_social or section.settings.toolbar_menu != blank -%}
-      {%- render 'toolbar',
-        section: section,
-        toolbar_menu: toolbar_menu,
-        overlay_header: overlay_header
-      -%}
-    {%- endif -%}
-  {%- endunless -%}
-
   <div class="header-sticky-wrapper">
     <div id="HeaderWrapper" class="header-wrapper{% if overlay_header %} header-wrapper--sticky is-light{% endif %}">
-
-      {%- if overlay_header -%}
-        {%- if section.settings.show_locale_selector or section.settings.show_currency_selector or section.settings.toolbar_social or section.settings.toolbar_menu != blank -%}
-          {%- render 'toolbar',
-            section: section,
-            toolbar_menu: toolbar_menu,
-            overlay_header: overlay_header
-          -%}
-        {%- endif -%}
-      {%- endif -%}
       <header
         id="SiteHeader"
         class="site-header{% if settings.type_navigation_style == 'heading' %} site-header--heading-style{% endif %}"
-        data-sticky="{{ sticky_header }}"
+        data-sticky="true"
         data-overlay="{{ overlay_header }}">
         <div class="page-width">
-          <div
-            class="header-layout header-layout--{{ section.settings.main_menu_alignment }}"
-            data-logo-align="{{ logo_alignment }}">
+          <div class="oz-header" data-logo-align="center">
+            <div class="oz-header__left">
+              <nav class="oz-header__left-links small--hide" role="navigation" aria-label="Primary">
+                <a href="{{ shop_link_url }}" class="oz-header__link">SHOP</a>
+                <a href="{{ contact_link_url }}" class="oz-header__link">CONTACT US</a>
+              </nav>
+              <button
+                type="button"
+                class="oz-header__link oz-header__button oz-header__menu js-drawer-open-nav medium-up--hide"
+                aria-controls="NavDrawer">
+                MENU
+              </button>
+            </div>
 
-            {%- if logo_alignment == 'left' -%}
+            <div class="oz-header__center">
               <div class="header-item header-item--logo">
                 {%- render 'header-logo-block', section: section -%}
               </div>
-            {%- endif -%}
+            </div>
 
-            {%- if logo_alignment == 'left' and section.settings.main_menu_alignment != 'left-drawer' -%}
-              <div class="header-item header-item--navigation{% if section.settings.main_menu_alignment == 'left-center' %} text-center{% endif %}" role="navigation" aria-label="Primary">
-                {%- render 'header-desktop-nav', main_menu: main_menu, dropdown_alignment: dropdown_alignment, hover_menu: section.settings.hover_menu -%}
-              </div>
-            {%- endif -%}
-
-            {%- if logo_alignment == 'center' -%}
-              <div class="header-item header-item--left header-item--navigation">
-                {%- if section.settings.main_menu_alignment == 'center' or section.settings.main_menu_alignment == 'center-split' -%}
-                  {%- if settings.search_enable -%}
-                    <div class="site-nav small--hide">
-                      <a href="{{ routes.search_url }}" class="site-nav__link site-nav__link--icon js-search-header">
-                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 64 64"><title>icon-search</title><path d="M47.16 28.58A18.58 18.58 0 1 1 28.58 10a18.58 18.58 0 0 1 18.58 18.58ZM54 54 41.94 42"/></svg>
-                        <span class="icon__fallback-text">{{ 'general.search.title' | t }}</span>
-                      </a>
-                    </div>
-                  {%- endif -%}
+            <div class="oz-header__right">
+              <div class="oz-header__right-links small--hide">
+                {%- if shop.customer_accounts_enabled -%}
+                  <a class="oz-header__link" href="{{ routes.account_url }}">
+                    {%- if customer -%}
+                      {{ 'layout.customer.account' | t }}
+                    {%- else -%}
+                      {{ 'layout.customer.log_in' | t }}
+                    {%- endif -%}
+                  </a>
                 {%- endif -%}
-
-                {%- if section.settings.main_menu_alignment == 'center-left' -%}
-                  {%- render 'header-desktop-nav', main_menu: main_menu, dropdown_alignment: dropdown_alignment, hover_menu: section.settings.hover_menu -%}
-                {%- endif -%}
-
-                <div class="site-nav{% unless section.settings.main_menu_alignment == 'center-drawer' %} medium-up--hide{% endunless %}">
-                  <button
-                    type="button"
-                    class="site-nav__link site-nav__link--icon js-drawer-open-nav"
-                    aria-controls="NavDrawer">
-                    <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-hamburger" viewBox="0 0 64 64"><title>icon-hamburger</title><path d="M7 15h51M7 32h43M7 49h51"/></svg>
-                    <span class="icon__fallback-text">{{ 'general.drawers.navigation' | t }}</span>
-                  </button>
-                </div>
+                <a href="{{ routes.cart_url }}" class="oz-header__link js-drawer-open-cart" aria-controls="CartDrawer">
+                  CART(<span class="cart-link__bubble-num">{{ cart.item_count }}</span>)
+                </a>
               </div>
 
-              {%- if section.settings.main_menu_alignment == 'center-split' -%}
-                {%- render 'header-split-nav', main_menu: main_menu, section: section, dropdown_alignment: dropdown_alignment, hover_menu: section.settings.hover_menu -%}
-              {%- endif -%}
-
-              {%- if section.settings.main_menu_alignment != 'center-split' -%}
-                <div class="header-item header-item--logo">
-                  {%- render 'header-logo-block', section: section -%}
-                </div>
-              {%- endif -%}
-            {%- endif -%}
-
-            <div class="header-item header-item--icons">
-              {%- render 'header-icons', section: section -%}
+              <a href="{{ routes.cart_url }}" class="oz-header__link oz-header__mobile-cart js-drawer-open-cart medium-up--hide" aria-controls="CartDrawer">
+                CART(<span class="cart-link__bubble-num">{{ cart.item_count }}</span>)
+              </a>
             </div>
           </div>
-
-          {%- if section.settings.main_menu_alignment == 'center' -%}
-            <div class="text-center">
-              {%- render 'header-desktop-nav', main_menu: main_menu, dropdown_alignment: dropdown_alignment, hover_menu: section.settings.hover_menu -%}
-            </div>
-          {%- endif -%}
         </div>
         <div class="site-header__search-container">
           <div class="site-header__search">
