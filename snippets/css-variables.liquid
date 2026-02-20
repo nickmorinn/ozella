@@ -1000,6 +1000,24 @@
       margin-right: 8px;
     }
 
+    .template-product product-recommendations[data-intent='related'] .grid-overflow-wrapper .grid {
+      margin-left: -10px;
+    }
+
+    .template-product product-recommendations[data-intent='related'] .grid-overflow-wrapper .grid__item {
+      flex: 0 0 44vw;
+      padding-left: 10px;
+      width: 44vw;
+    }
+
+    .template-product product-recommendations[data-intent='related'] .grid-overflow-wrapper .grid__item:first-child {
+      margin-left: 10px;
+    }
+
+    .template-product product-recommendations[data-intent='related'] .grid-overflow-wrapper .grid__item:last-child:after {
+      margin-right: 10px;
+    }
+
     .template-product .jdgm-medias {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
