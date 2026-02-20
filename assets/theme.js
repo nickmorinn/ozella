@@ -7105,8 +7105,6 @@ theme.recentlyViewed = {
 
         var stickyState = {
           button: addToCartBtn,
-          anchorVisible: true,
-          footerVisible: false,
           footer: document.querySelector('.site-footer')
         };
 
@@ -7122,7 +7120,17 @@ theme.recentlyViewed = {
 
         stickyState.apply = function() {
           var isMobile = window.matchMedia('(max-width: 768px)').matches;
-          var shouldStick = isMobile && !stickyState.anchorVisible && !stickyState.footerVisible;
+          var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+          var anchorRect = stickyState.anchor.getBoundingClientRect();
+          var hasPassedAddToCart = anchorRect.top <= 0;
+          var isFooterVisible = false;
+
+          if (stickyState.footer) {
+            var footerRect = stickyState.footer.getBoundingClientRect();
+            isFooterVisible = footerRect.top < viewportHeight;
+          }
+
+          var shouldStick = isMobile && hasPassedAddToCart && !isFooterVisible;
 
           if (shouldStick) {
             if (!stickyState.button.classList.contains('is-sticky-atc')) {
@@ -7145,46 +7153,9 @@ theme.recentlyViewed = {
           }
         };
 
-        if ('IntersectionObserver' in window) {
-          stickyState.anchorObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-              stickyState.anchorVisible = entry.isIntersecting;
-            });
-            stickyState.apply();
-          }, { threshold: 0 });
-          stickyState.anchorObserver.observe(stickyState.anchor);
-
-          if (stickyState.footer) {
-            stickyState.footerObserver = new IntersectionObserver((entries) => {
-              entries.forEach((entry) => {
-                stickyState.footerVisible = entry.isIntersecting;
-              });
-              stickyState.apply();
-            }, { threshold: 0 });
-            stickyState.footerObserver.observe(stickyState.footer);
-          }
-        } else {
-          stickyState.fallbackUpdate = () => {
-            var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-            var anchorRect = stickyState.anchor.getBoundingClientRect();
-            stickyState.anchorVisible = anchorRect.bottom > 0 && anchorRect.top < viewportHeight;
-
-            if (stickyState.footer) {
-              var footerRect = stickyState.footer.getBoundingClientRect();
-              stickyState.footerVisible = footerRect.top < viewportHeight;
-            } else {
-              stickyState.footerVisible = false;
-            }
-
-            stickyState.apply();
-          };
-
-          window.addEventListener('scroll', stickyState.fallbackUpdate, { passive: true });
-          window.addEventListener('resize', stickyState.fallbackUpdate);
-          stickyState.fallbackUpdate();
-        }
-
+        stickyState.scrollHandler = theme.utils.throttle(40, stickyState.apply);
         stickyState.resizeHandler = theme.utils.debounce(150, stickyState.apply);
+        window.addEventListener('scroll', stickyState.scrollHandler, { passive: true });
         window.addEventListener('resize', stickyState.resizeHandler);
         stickyState.apply();
 
@@ -8226,15 +8197,8 @@ theme.recentlyViewed = {
             this.stickyAddToCart.button.classList.remove('is-sticky-atc');
             this.stickyAddToCart.button.classList.remove('is-sticky-atc-visible');
           }
-          if (this.stickyAddToCart.anchorObserver) {
-            this.stickyAddToCart.anchorObserver.disconnect();
-          }
-          if (this.stickyAddToCart.footerObserver) {
-            this.stickyAddToCart.footerObserver.disconnect();
-          }
-          if (this.stickyAddToCart.fallbackUpdate) {
-            window.removeEventListener('scroll', this.stickyAddToCart.fallbackUpdate);
-            window.removeEventListener('resize', this.stickyAddToCart.fallbackUpdate);
+          if (this.stickyAddToCart.scrollHandler) {
+            window.removeEventListener('scroll', this.stickyAddToCart.scrollHandler);
           }
           if (this.stickyAddToCart.resizeHandler) {
             window.removeEventListener('resize', this.stickyAddToCart.resizeHandler);
