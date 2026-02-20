@@ -1126,22 +1126,16 @@
       padding-bottom: 14px;
     }
 
-    .page-content--product .product-single__form [data-add-to-cart-anchor] {
-      display: block;
-      height: 1px;
-      width: 100%;
-    }
-
     .template-product .page-content--product .product-single__form .add-to-cart,
     .page-content--product .product-single__form .add-to-cart {
       transition: opacity 180ms ease, transform 180ms ease;
     }
 
-    .template-product .page-content--product .product-single__form .add-to-cart.is-sticky-atc,
-    .page-content--product .product-single__form .add-to-cart.is-sticky-atc {
+    .template-product .page-content--product .product-single__form .add-to-cart-sticky-clone,
+    .page-content--product .product-single__form .add-to-cart-sticky-clone {
       bottom: calc(10px + env(safe-area-inset-bottom));
       box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
-      display: block !important;
+      display: none !important;
       left: 14px !important;
       margin: 0 !important;
       max-width: none !important;
@@ -1152,14 +1146,25 @@
       z-index: 24;
       opacity: 0;
       pointer-events: none;
-      transform: translateY(10px);
+      transform: translateY(14px) scale(0.985);
+      filter: saturate(0.95);
+      transition: opacity 280ms cubic-bezier(0.22, 1, 0.36, 1), transform 280ms cubic-bezier(0.22, 1, 0.36, 1), filter 280ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
     }
 
-    .template-product .page-content--product .product-single__form .add-to-cart.is-sticky-atc.is-sticky-atc-visible,
-    .page-content--product .product-single__form .add-to-cart.is-sticky-atc.is-sticky-atc-visible {
+    @media only screen and (max-width: 768px) {
+      .template-product .page-content--product .product-single__form .add-to-cart-sticky-clone,
+      .page-content--product .product-single__form .add-to-cart-sticky-clone {
+        display: block !important;
+      }
+    }
+
+    .template-product .page-content--product .product-single__form .add-to-cart-sticky-clone.is-sticky-atc-visible,
+    .page-content--product .product-single__form .add-to-cart-sticky-clone.is-sticky-atc-visible {
       opacity: 1;
       pointer-events: auto;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
+      filter: saturate(1);
     }
 
     .js-drawer-open .template-product .page-content--product .product-single__form .add-to-cart,

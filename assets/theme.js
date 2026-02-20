@@ -7121,27 +7121,53 @@ theme.recentlyViewed = {
           buttonHeight: addToCartBtn.offsetHeight || 0
         };
 
-        var existingAnchor = form.querySelector('[data-add-to-cart-anchor]');
-        if (existingAnchor) {
-          stickyState.anchor = existingAnchor;
-        } else {
-          stickyState.anchor = document.createElement('span');
-          stickyState.anchor.setAttribute('data-add-to-cart-anchor', '');
-          stickyState.anchor.setAttribute('aria-hidden', 'true');
-          form.insertBefore(stickyState.anchor, addToCartBtn);
-        }
+        stickyState.clone = addToCartBtn.cloneNode(true);
+        stickyState.clone.classList.add('add-to-cart-sticky-clone');
+        stickyState.clone.classList.remove('is-sticky-atc');
+        stickyState.clone.classList.remove('is-sticky-atc-visible');
+        stickyState.clone.removeAttribute('data-add-to-cart');
+        stickyState.clone.setAttribute('type', 'button');
+        stickyState.clone.setAttribute('aria-hidden', 'true');
+        stickyState.clone.tabIndex = -1;
+        form.appendChild(stickyState.clone);
+
+        stickyState.syncClone = function() {
+          var sourceText = stickyState.button.querySelector('[data-add-to-cart-text]');
+          var cloneText = stickyState.clone.querySelector('[data-add-to-cart-text]');
+
+          stickyState.clone.disabled = stickyState.button.disabled;
+          stickyState.clone.classList.toggle(classes.disabled, stickyState.button.classList.contains(classes.disabled));
+          stickyState.clone.classList.toggle('btn--loading', stickyState.button.classList.contains('btn--loading'));
+
+          if (sourceText && cloneText && cloneText.textContent !== sourceText.textContent) {
+            cloneText.textContent = sourceText.textContent;
+          }
+
+          stickyState.buttonHeight = stickyState.button.offsetHeight || stickyState.buttonHeight || 0;
+        };
+
+        stickyState.cloneClickHandler = function(evt) {
+          evt.preventDefault();
+          if (stickyState.button.disabled || stickyState.button.classList.contains('btn--loading')) {
+            return;
+          }
+
+          stickyState.button.click();
+        };
+
+        stickyState.clone.addEventListener('click', stickyState.cloneClickHandler);
 
         stickyState.apply = function() {
           var isMobile = window.matchMedia('(max-width: 768px)').matches;
           var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-          var anchorRect = stickyState.anchor.getBoundingClientRect();
+          var buttonRect = stickyState.button.getBoundingClientRect();
           stickyState.buttonHeight = stickyState.button.offsetHeight || stickyState.buttonHeight || 0;
-          var stickyIsActive = stickyState.button.classList.contains('is-sticky-atc');
-          var showThreshold = (-stickyState.buttonHeight) - 10;
-          var hideThreshold = (-stickyState.buttonHeight) + 10;
+          var stickyIsActive = stickyState.clone.classList.contains('is-sticky-atc-visible');
+          var showThreshold = -12;
+          var hideThreshold = 12;
           var hasPassedAddToCart = stickyIsActive
-            ? anchorRect.top <= hideThreshold
-            : anchorRect.top <= showThreshold;
+            ? buttonRect.bottom <= hideThreshold
+            : buttonRect.bottom <= showThreshold;
           var isFooterVisible = false;
 
           if (stickyState.footer) {
@@ -7152,34 +7178,33 @@ theme.recentlyViewed = {
           var shouldStick = isMobile && hasPassedAddToCart && !isFooterVisible;
 
           if (shouldStick) {
-            if (!stickyState.button.classList.contains('is-sticky-atc')) {
-              stickyState.button.classList.add('is-sticky-atc');
-              requestAnimationFrame(() => {
-                stickyState.button.classList.add('is-sticky-atc-visible');
-              });
-            } else if (!stickyState.button.classList.contains('is-sticky-atc-visible')) {
-              stickyState.button.classList.add('is-sticky-atc-visible');
-            }
-          } else if (stickyState.button.classList.contains('is-sticky-atc-visible')) {
-            stickyState.button.classList.remove('is-sticky-atc-visible');
-
-            var clearStickyState = function() {
-              if (!stickyState.button.classList.contains('is-sticky-atc-visible')) {
-                stickyState.button.classList.remove('is-sticky-atc');
-              }
-            };
-
-            stickyState.button.addEventListener('transitionend', clearStickyState, { once: true });
-            setTimeout(clearStickyState, 220);
-          } else if (stickyState.button.classList.contains('is-sticky-atc')) {
-            stickyState.button.classList.remove('is-sticky-atc');
+            stickyState.clone.classList.add('is-sticky-atc-visible');
+            stickyState.clone.setAttribute('aria-hidden', 'false');
+            stickyState.clone.tabIndex = stickyState.clone.disabled ? -1 : 0;
+          } else {
+            stickyState.clone.classList.remove('is-sticky-atc-visible');
+            stickyState.clone.setAttribute('aria-hidden', 'true');
+            stickyState.clone.tabIndex = -1;
           }
         };
+
+        stickyState.observer = new MutationObserver(function() {
+          stickyState.syncClone();
+          stickyState.apply();
+        });
+        stickyState.observer.observe(stickyState.button, {
+          attributes: true,
+          childList: true,
+          subtree: true,
+          characterData: true,
+          attributeFilter: ['class', 'disabled']
+        });
 
         stickyState.scrollHandler = theme.utils.throttle(40, stickyState.apply);
         stickyState.resizeHandler = theme.utils.debounce(150, stickyState.apply);
         window.addEventListener('scroll', stickyState.scrollHandler, { passive: true });
         window.addEventListener('resize', stickyState.resizeHandler);
+        stickyState.syncClone();
         stickyState.apply();
 
         this.stickyAddToCart = stickyState;
@@ -8225,9 +8250,15 @@ theme.recentlyViewed = {
         }
 
         if (this.stickyAddToCart) {
-          if (this.stickyAddToCart.button) {
-            this.stickyAddToCart.button.classList.remove('is-sticky-atc');
-            this.stickyAddToCart.button.classList.remove('is-sticky-atc-visible');
+          if (this.stickyAddToCart.observer) {
+            this.stickyAddToCart.observer.disconnect();
+          }
+          if (this.stickyAddToCart.clone) {
+            this.stickyAddToCart.clone.classList.remove('is-sticky-atc-visible');
+            if (this.stickyAddToCart.cloneClickHandler) {
+              this.stickyAddToCart.clone.removeEventListener('click', this.stickyAddToCart.cloneClickHandler);
+            }
+            this.stickyAddToCart.clone.remove();
           }
           if (this.stickyAddToCart.scrollHandler) {
             window.removeEventListener('scroll', this.stickyAddToCart.scrollHandler);
