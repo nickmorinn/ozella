@@ -6333,6 +6333,9 @@ theme.recentlyViewed = {
       tagsForm: '.filter-form',
       filters: '.collection-filter',
       priceRange: '.price-range',
+      loadMoreButton: '[data-collection-load-more]',
+      loadMoreContainer: '[data-collection-load-more-container]',
+      productGrid: '.collection-grid__wrapper .grid.grid--uniform',
     };
   
     var classes = {
@@ -6372,6 +6375,7 @@ theme.recentlyViewed = {
           this.colorSwatchHovering();
           this.initFilters();
           this.initPriceRange();
+          this.initLoadMore();
           this.sidebar.init();
         }
       },
@@ -6402,25 +6406,118 @@ theme.recentlyViewed = {
         window.location.search = this.queryParams.toString();
       },
   
-      colorSwatchHovering: function() {
-        var colorImages = this.container.querySelectorAll(selectors.colorSwatchImage);
+      colorSwatchHovering: function(scope) {
+        var container = scope || this.container;
+        var colorImages = container.querySelectorAll(selectors.colorSwatchImage);
         if (!colorImages.length) {
           return;
         }
-  
-        this.container.querySelectorAll(selectors.colorSwatch).forEach(swatch => {
+
+        container.querySelectorAll(selectors.colorSwatch).forEach(swatch => {
+          if (swatch.dataset.hoverBound === 'true') {
+            return;
+          }
+          swatch.dataset.hoverBound = 'true';
+
           swatch.addEventListener('mouseenter', () => {
             var id = swatch.dataset.variantId;
             var image = swatch.dataset.variantImage;
             var el = this.container.querySelector('.grid-product__color-image--' + id);
+            if (!el) {
+              return;
+            }
             el.style.backgroundImage = 'url(' + image + ')';
             el.classList.add('is-active');
           });
           swatch.addEventListener('mouseleave', () => {
             var id = swatch.dataset.variantId;
-            this.container.querySelector('.grid-product__color-image--' + id).classList.remove('is-active');
+            var el = this.container.querySelector('.grid-product__color-image--' + id);
+            if (!el) {
+              return;
+            }
+            el.classList.remove('is-active');
           });
         });
+      },
+
+      initLoadMore: function() {
+        this.loadMoreButton = this.container.querySelector(selectors.loadMoreButton);
+        if (!this.loadMoreButton) {
+          return;
+        }
+
+        this.loadMoreButton.addEventListener('click', this.onLoadMoreClick.bind(this));
+      },
+
+      onLoadMoreClick: function(evt) {
+        evt.preventDefault();
+
+        var button = evt.currentTarget;
+        var nextUrl = button.dataset.nextUrl;
+        if (!nextUrl || button.classList.contains('is-loading')) {
+          return;
+        }
+
+        var defaultText = button.dataset.defaultText || button.textContent.trim();
+        var loadingText = button.dataset.loadingText || 'Loading...';
+
+        button.classList.add('is-loading');
+        button.disabled = true;
+        button.textContent = loadingText;
+
+        this.fetchNextCollectionPage(nextUrl)
+          .then((response) => {
+            var targetGrid = this.container.querySelector(selectors.productGrid);
+            if (!targetGrid) {
+              return;
+            }
+
+            response.items.forEach(item => targetGrid.appendChild(item));
+
+            if (response.nextUrl) {
+              button.dataset.nextUrl = response.nextUrl;
+              button.disabled = false;
+              button.classList.remove('is-loading');
+              button.textContent = defaultText;
+            } else {
+              var loadMoreContainer = this.container.querySelector(selectors.loadMoreContainer);
+              if (loadMoreContainer) {
+                loadMoreContainer.remove();
+              }
+            }
+
+            theme.reinitProductGridItem();
+            this.colorSwatchHovering(targetGrid);
+          })
+          .catch(() => {
+            button.disabled = false;
+            button.classList.remove('is-loading');
+            button.textContent = defaultText;
+          });
+      },
+
+      fetchNextCollectionPage: function(nextUrl) {
+        var url = new URL(nextUrl, window.location.origin);
+        url.searchParams.set('section_id', this.sectionId);
+
+        return fetch(url.toString())
+          .then(response => response.text())
+          .then((html) => {
+            var newDom = new DOMParser().parseFromString(html, 'text/html');
+            var newGrid = newDom.querySelector(selectors.productGrid);
+            var items = [];
+
+            if (newGrid) {
+              items = Array.from(newGrid.children).filter((child) => child.classList && child.classList.contains('grid__item'));
+            }
+
+            var nextButton = newDom.querySelector(selectors.loadMoreButton);
+
+            return {
+              items,
+              nextUrl: nextButton ? nextButton.dataset.nextUrl : null,
+            };
+          });
       },
   
       /*====================

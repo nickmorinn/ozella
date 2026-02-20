@@ -60,8 +60,19 @@
                     mobile_flush_grid: block.settings.mobile_flush_grid,
                     quick_shop_enable: settings.quick_shop_enable
                   %}
-                  {%- if paginate.pages > 1 -%}
-                    {%- render 'pagination', paginate: paginate -%}
+                  {%- if paginate.pages > 1 and paginate.next -%}
+                    <div class="collection-load-more" data-collection-load-more-container>
+                      <button
+                        type="button"
+                        class="btn btn--secondary"
+                        data-collection-load-more
+                        data-next-url="{{ paginate.next.url | replace: 'view=ajax', '' }}"
+                        data-default-text="Load more"
+                        data-loading-text="Loading..."
+                      >
+                        Load more
+                      </button>
+                    </div>
                   {%- endif -%}
                 </div>
               {%- endcase -%}
@@ -147,7 +158,8 @@
       "type": "checkbox",
       "id": "enable_color_swatches",
       "label": "t:sections.main-collection.settings.enable_color_swatches.label",
-      "info": "t:sections.main-collection.settings.enable_color_swatches.info"
+      "info": "t:sections.main-collection.settings.enable_color_swatches.info",
+      "default": true
     },
     {
       "type": "checkbox",
