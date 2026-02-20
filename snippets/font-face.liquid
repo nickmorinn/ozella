@@ -29,6 +29,10 @@
     font-weight: 700;
     font-style: normal;
     font-display: swap;
+    /* Normalize vertical metrics so this display face sits less top-heavy in buttons/labels */
+    ascent-override: 90%;
+    descent-override: 10%;
+    line-gap-override: 0%;
   }
 
   {{ header_font | font_face: font_display: 'swap' }}

@@ -1643,6 +1643,9 @@ theme.recentlyViewed = {
       discounts: '[data-discounts]',
       savings: '[data-savings]',
       subTotal: '[data-subtotal]',
+      freeShippingBar: '[data-free-shipping-bar]',
+      freeShippingFill: '[data-free-shipping-fill]',
+      freeShippingMessage: '[data-free-shipping-message-text]',
   
       cartBubble: '.cart-link__bubble',
       cartNote: '[name="note"]',
@@ -1673,6 +1676,9 @@ theme.recentlyViewed = {
       this.discounts = form.querySelector(selectors.discounts);
       this.savings = form.querySelector(selectors.savings);
       this.subtotal = form.querySelector(selectors.subTotal);
+      this.freeShippingBar = form.querySelector(selectors.freeShippingBar);
+      this.freeShippingFill = form.querySelector(selectors.freeShippingFill);
+      this.freeShippingMessage = form.querySelector(selectors.freeShippingMessage);
       this.termsCheckbox = form.querySelector(selectors.termsCheckbox);
       this.noteInput = form.querySelector(selectors.cartNote);
   
@@ -1787,6 +1793,7 @@ theme.recentlyViewed = {
   
         // Update subtotal
         this.subtotal.innerHTML = theme.Currency.formatMoney(subtotal, theme.settings.moneyFormat);
+        this.updateFreeShippingProgress(parseInt(subtotal, 10) || 0);
   
         this.reInit();
   
@@ -1876,6 +1883,32 @@ theme.recentlyViewed = {
       ==============================================================================*/
       updateSubtotal: function(subtotal) {
         this.form.querySelector(selectors.subTotal).innerHTML = theme.Currency.formatMoney(subtotal, theme.settings.moneyFormat);
+        this.updateFreeShippingProgress(parseInt(subtotal, 10) || 0);
+      },
+
+      updateFreeShippingProgress: function(subtotal) {
+        if (!this.freeShippingBar || !this.freeShippingFill || !this.freeShippingMessage) {
+          return;
+        }
+
+        var threshold = parseInt(this.freeShippingBar.dataset.freeShippingThreshold, 10) || 0;
+        if (threshold <= 0) {
+          return;
+        }
+
+        var remaining = Math.max(0, threshold - subtotal);
+        var progress = Math.min(100, Math.max(0, subtotal * 100 / threshold));
+
+        this.freeShippingFill.style.width = progress + '%';
+        this.freeShippingFill.parentNode.setAttribute('aria-valuenow', Math.round(progress));
+
+        if (remaining > 0) {
+          var remainingFormatted = theme.Currency.formatMoney(remaining, theme.settings.moneyFormat);
+          remainingFormatted = remainingFormatted.replace(/([.,]00)(?!\d)/, '');
+          this.freeShippingMessage.textContent = 'Add ' + remainingFormatted + ' more to unlock free shipping';
+        } else {
+          this.freeShippingMessage.textContent = 'You unlocked free shipping!';
+        }
       },
   
       updateSavings: function(savings) {
@@ -7053,9 +7086,109 @@ theme.recentlyViewed = {
           this.productSetup();
           this.videoSetup();
           this.initProductSlider();
+          this.initStickyAddToCart();
           this.customMediaListners();
           this.addIdToRecentlyViewed();
         }
+      },
+
+      initStickyAddToCart: function() {
+        var addToCartBtn = this.container.querySelector(this.selectors.addToCart);
+        if (!addToCartBtn) {
+          return;
+        }
+
+        var form = addToCartBtn.closest('form');
+        if (!form) {
+          return;
+        }
+
+        var stickyState = {
+          button: addToCartBtn,
+          anchorVisible: true,
+          footerVisible: false,
+          footer: document.querySelector('.site-footer')
+        };
+
+        var existingAnchor = form.querySelector('[data-add-to-cart-anchor]');
+        if (existingAnchor) {
+          stickyState.anchor = existingAnchor;
+        } else {
+          stickyState.anchor = document.createElement('span');
+          stickyState.anchor.setAttribute('data-add-to-cart-anchor', '');
+          stickyState.anchor.setAttribute('aria-hidden', 'true');
+          form.insertBefore(stickyState.anchor, addToCartBtn);
+        }
+
+        stickyState.apply = function() {
+          var isMobile = window.matchMedia('(max-width: 768px)').matches;
+          var shouldStick = isMobile && !stickyState.anchorVisible && !stickyState.footerVisible;
+
+          if (shouldStick) {
+            if (!stickyState.button.classList.contains('is-sticky-atc')) {
+              stickyState.button.classList.add('is-sticky-atc');
+              requestAnimationFrame(() => {
+                stickyState.button.classList.add('is-sticky-atc-visible');
+              });
+            }
+          } else if (stickyState.button.classList.contains('is-sticky-atc')) {
+            stickyState.button.classList.remove('is-sticky-atc-visible');
+
+            var clearStickyState = function() {
+              if (!stickyState.button.classList.contains('is-sticky-atc-visible')) {
+                stickyState.button.classList.remove('is-sticky-atc');
+              }
+            };
+
+            stickyState.button.addEventListener('transitionend', clearStickyState, { once: true });
+            setTimeout(clearStickyState, 220);
+          }
+        };
+
+        if ('IntersectionObserver' in window) {
+          stickyState.anchorObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              stickyState.anchorVisible = entry.isIntersecting;
+            });
+            stickyState.apply();
+          }, { threshold: 0 });
+          stickyState.anchorObserver.observe(stickyState.anchor);
+
+          if (stickyState.footer) {
+            stickyState.footerObserver = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                stickyState.footerVisible = entry.isIntersecting;
+              });
+              stickyState.apply();
+            }, { threshold: 0 });
+            stickyState.footerObserver.observe(stickyState.footer);
+          }
+        } else {
+          stickyState.fallbackUpdate = () => {
+            var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+            var anchorRect = stickyState.anchor.getBoundingClientRect();
+            stickyState.anchorVisible = anchorRect.bottom > 0 && anchorRect.top < viewportHeight;
+
+            if (stickyState.footer) {
+              var footerRect = stickyState.footer.getBoundingClientRect();
+              stickyState.footerVisible = footerRect.top < viewportHeight;
+            } else {
+              stickyState.footerVisible = false;
+            }
+
+            stickyState.apply();
+          };
+
+          window.addEventListener('scroll', stickyState.fallbackUpdate, { passive: true });
+          window.addEventListener('resize', stickyState.fallbackUpdate);
+          stickyState.fallbackUpdate();
+        }
+
+        stickyState.resizeHandler = theme.utils.debounce(150, stickyState.apply);
+        window.addEventListener('resize', stickyState.resizeHandler);
+        stickyState.apply();
+
+        this.stickyAddToCart = stickyState;
       },
   
       cacheElements: function() {
@@ -8083,9 +8216,29 @@ theme.recentlyViewed = {
   
       onUnload: function() {
         theme.ProductMedia.removeSectionModels(this.sectionId);
-  
+
         if (this.flickity && typeof this.flickity.destroy === 'function') {
           this.flickity.destroy();
+        }
+
+        if (this.stickyAddToCart) {
+          if (this.stickyAddToCart.button) {
+            this.stickyAddToCart.button.classList.remove('is-sticky-atc');
+            this.stickyAddToCart.button.classList.remove('is-sticky-atc-visible');
+          }
+          if (this.stickyAddToCart.anchorObserver) {
+            this.stickyAddToCart.anchorObserver.disconnect();
+          }
+          if (this.stickyAddToCart.footerObserver) {
+            this.stickyAddToCart.footerObserver.disconnect();
+          }
+          if (this.stickyAddToCart.fallbackUpdate) {
+            window.removeEventListener('scroll', this.stickyAddToCart.fallbackUpdate);
+            window.removeEventListener('resize', this.stickyAddToCart.fallbackUpdate);
+          }
+          if (this.stickyAddToCart.resizeHandler) {
+            window.removeEventListener('resize', this.stickyAddToCart.resizeHandler);
+          }
         }
       }
     });

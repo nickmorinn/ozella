@@ -1,13 +1,13 @@
 {%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
 
-<div class="page-width">
+<div class="page-width featured-collections__page-width">
   {%- if section.settings.title != blank -%}
     <div class="section-header">
       <h2 class="section-header__title">{{ section.settings.title }}</h2>
     </div>
   {%- endif -%}
 
-  <div class="grid grid--uniform{% unless section.settings.enable_gutter %} grid--no-gutters{% endunless %}">
+  <div class="grid grid--uniform featured-collections__grid{% unless section.settings.enable_gutter %} grid--no-gutters{% endunless %}">
     {%- liquid
       assign isEmpty = true
       if section.blocks.size > 0
