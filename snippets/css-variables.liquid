@@ -130,14 +130,33 @@
     }
 
     .is-safari {
-    --typeAccentOpticalOffset: 0.045em;
+    --typeAccentOpticalOffset: 0.07em;
     }
 
     .is-safari .btn,
     .is-safari .rte .btn,
-    .is-safari .shopify-payment-button .shopify-payment-button__button--unbranded,
-    .is-safari .collapsible-trigger-btn {
+    .is-safari .shopify-payment-button .shopify-payment-button__button--unbranded {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
     line-height: 1.12;
+    }
+
+    .is-safari .btn.btn--full,
+    .is-safari .add-to-cart,
+    .is-safari #CartDrawer .cart__checkout {
+    display: flex;
+    }
+
+    .is-safari .collapsible-trigger-btn {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    line-height: 1.12;
+    }
+
+    [data-center-text=true] .is-safari .collapsible-trigger-btn {
+    justify-content: center;
     }
 
     .variant__label[for],
