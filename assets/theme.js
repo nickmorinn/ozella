@@ -4489,7 +4489,8 @@ theme.recentlyViewed = {
       stickyClass: 'site-header--stuck',
       stickyHeaderWrapper: 'StickyHeaderWrap',
       openTransitionClass: 'site-header--opening',
-      lastScroll: 0
+      lastScroll: 0,
+      stickyThreshold: 0
     };
   
     // Elements used in resize functions, defined in init
@@ -4588,27 +4589,32 @@ theme.recentlyViewed = {
       stickyHeaderInitialPosition(siteHeader);
       stickyHeaderHeight();
   
-      window.on('resize' + config.namespace, theme.utils.debounce(50, stickyHeaderHeight));
+      window.on('resize' + config.namespace, theme.utils.debounce(50, function() {
+        stickyHeaderInitialPosition(siteHeader);
+        stickyHeaderHeight();
+      }));
       window.on('scroll' + config.namespace, theme.utils.throttle(20, stickyHeaderScroll));
   
       // This gets messed up in the editor, so here's a fix
       if (Shopify && Shopify.designMode) {
         setTimeout(function() {
+          stickyHeaderInitialPosition(siteHeader);
           stickyHeaderHeight();
         }, 250);
       }
+
+      scrollHandler();
     }
   
-    function stickyHeaderInitialPosition(header) {
-      const headerParent = header.closest('.shopify-section-group-header-group');
-      const parentNextSibling = headerParent.nextElementSibling;
-  
-      // if parentNextSibling has same class as headerParent, then header is above announcement bar
-      if (parentNextSibling && parentNextSibling.classList.contains('shopify-section-group-header-group')) {
-        // get height of announcement bar and set header wrapper top to that value
-        const nextSiblingHeight = parentNextSibling.offsetHeight;
-        document.querySelector(selectors.wrapper).style.top = nextSiblingHeight + 'px';
+    function stickyHeaderInitialPosition() {
+      var stickyHeader = document.querySelector('#' + config.stickyHeaderWrapper);
+      if (!stickyHeader) {
+        config.stickyThreshold = 0;
+        return;
       }
+  
+      // Use natural document flow position so sticky mode starts below announcement/toolbars.
+      config.stickyThreshold = stickyHeader.getBoundingClientRect().top + window.scrollY;
     }
   
     function stickyHeaderHeight() {
@@ -4647,7 +4653,7 @@ theme.recentlyViewed = {
     }
   
     function scrollHandler() {
-      if (window.scrollY > 0) {
+      if (window.scrollY > config.stickyThreshold) {
         if (config.stickyActive) {
           return;
         }
@@ -7111,7 +7117,8 @@ theme.recentlyViewed = {
 
         var stickyState = {
           button: addToCartBtn,
-          footer: document.querySelector('.site-footer')
+          footer: document.querySelector('.site-footer'),
+          buttonHeight: addToCartBtn.offsetHeight || 0
         };
 
         var existingAnchor = form.querySelector('[data-add-to-cart-anchor]');
@@ -7128,7 +7135,13 @@ theme.recentlyViewed = {
           var isMobile = window.matchMedia('(max-width: 768px)').matches;
           var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
           var anchorRect = stickyState.anchor.getBoundingClientRect();
-          var hasPassedAddToCart = anchorRect.top <= 0;
+          stickyState.buttonHeight = stickyState.button.offsetHeight || stickyState.buttonHeight || 0;
+          var stickyIsActive = stickyState.button.classList.contains('is-sticky-atc');
+          var showThreshold = (-stickyState.buttonHeight) - 10;
+          var hideThreshold = (-stickyState.buttonHeight) + 10;
+          var hasPassedAddToCart = stickyIsActive
+            ? anchorRect.top <= hideThreshold
+            : anchorRect.top <= showThreshold;
           var isFooterVisible = false;
 
           if (stickyState.footer) {
@@ -7144,8 +7157,10 @@ theme.recentlyViewed = {
               requestAnimationFrame(() => {
                 stickyState.button.classList.add('is-sticky-atc-visible');
               });
+            } else if (!stickyState.button.classList.contains('is-sticky-atc-visible')) {
+              stickyState.button.classList.add('is-sticky-atc-visible');
             }
-          } else if (stickyState.button.classList.contains('is-sticky-atc')) {
+          } else if (stickyState.button.classList.contains('is-sticky-atc-visible')) {
             stickyState.button.classList.remove('is-sticky-atc-visible');
 
             var clearStickyState = function() {
@@ -7156,6 +7171,8 @@ theme.recentlyViewed = {
 
             stickyState.button.addEventListener('transitionend', clearStickyState, { once: true });
             setTimeout(clearStickyState, 220);
+          } else if (stickyState.button.classList.contains('is-sticky-atc')) {
+            stickyState.button.classList.remove('is-sticky-atc');
           }
         };
 
