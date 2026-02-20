@@ -86,14 +86,6 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "footer-0": {
-          "type": "logo_social",
-          "settings": {
-            "logo": "shopify://shop_images/logo-softer.svg",
-            "desktop_logo_height": 120,
-            "container_width": 95
-          }
-        },
         "footer-1": {
           "type": "menu",
           "settings": {
@@ -110,12 +102,20 @@
             "text": "<p>Subscribe to our emails and we'll send you a 15% off code for your first order ☻</p>",
             "container_width": 33
           }
+        },
+        "footer-0": {
+          "type": "logo_social",
+          "settings": {
+            "logo": "shopify://shop_images/logo-softer.svg",
+            "desktop_logo_height": 120,
+            "container_width": 95
+          }
         }
       },
       "block_order": [
-        "footer-0",
         "footer-1",
-        "footer2"
+        "footer2",
+        "footer-0"
       ],
       "custom_css": [],
       "settings": {
