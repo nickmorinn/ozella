@@ -1,7 +1,100 @@
 {%- assign swatch_file_extension = 'png' -%}
 
 {%- capture size_chart_title -%}
-  {{ 'products.general.size_chart' | t }} <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-size-chart" viewBox="0 0 64 64"><path d="M22.39 33.53c-7.46 0-13.5-3.9-13.5-8.72s6-8.72 13.5-8.72 13.5 3.9 13.5 8.72a12 12 0 0 1-.22 1.73"/><ellipse cx="22.39" cy="24.81" rx="3.28" ry="2.12"/><path d="M8.89 24.81V38.5c0 7.9 6.4 9.41 14.3 9.41h31.92V33.53H22.39m24.39 0v7.44m-8.13-7.44v7.44m-8.13-7.44v7.44m-8.13-7.44v7.44"/></svg>
+  <span class="size-guide-trigger__text">Size Guide</span>
+{%- endcapture -%}
+
+{%- capture default_size_chart_content -%}
+  <div class="size-guide-modal">
+    <div class="size-guide-modal__controls">
+      <select class="size-guide-modal__select" aria-label="Region">
+        <option value="us-ca">US/Canada</option>
+      </select>
+      <select class="size-guide-modal__select size-guide-modal__select--unit" aria-label="Units">
+        <option value="in">in</option>
+        <option value="cm">cm</option>
+      </select>
+    </div>
+
+    <div class="size-guide-modal__table-wrap">
+      <table class="size-guide-table">
+        <thead>
+          <tr>
+            <th>SIZE</th>
+            <th>XS</th>
+            <th>S</th>
+            <th>M</th>
+            <th>L</th>
+            <th>XL</th>
+            <th>XXL</th>
+            <th>XXXL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>US/Canada</th>
+            <td>2</td>
+            <td>4</td>
+            <td>6</td>
+            <td>8</td>
+            <td>10</td>
+            <td>12</td>
+            <td>14</td>
+          </tr>
+          <tr>
+            <th data-unit-in="Bust" data-unit-cm="Bust">Bust</th>
+            <td data-unit-in='30-32"' data-unit-cm="76-81 cm">30-32"</td>
+            <td data-unit-in='32-35"' data-unit-cm="81-89 cm">32-35"</td>
+            <td data-unit-in='35-37"' data-unit-cm="89-94 cm">35-37"</td>
+            <td data-unit-in='37-39"' data-unit-cm="94-99 cm">37-39"</td>
+            <td data-unit-in='39-42"' data-unit-cm="99-107 cm">39-42"</td>
+            <td data-unit-in='42-44"' data-unit-cm="107-112 cm">42-44"</td>
+            <td data-unit-in='44-48"' data-unit-cm="112-122 cm">44-48"</td>
+          </tr>
+          <tr>
+            <th>Bra Size</th>
+            <td>30A, 30B, 32A</td>
+            <td>30C, 32B, 32C</td>
+            <td>30D, 30DD, 32C, 32D, 34A, 34B</td>
+            <td>32DD, 34C, 34D, 36A, 36B</td>
+            <td>32DDD, 34DD, 36C, 36D</td>
+            <td>32F, 34DDD, 36DD, 38A, 38B</td>
+            <td>34F, 36DDD, 38C, 40A, 40B</td>
+          </tr>
+          <tr>
+            <th data-unit-in="Waist" data-unit-cm="Waist">Waist</th>
+            <td data-unit-in='23-25"' data-unit-cm="58-64 cm">23-25"</td>
+            <td data-unit-in='25-28"' data-unit-cm="64-71 cm">25-28"</td>
+            <td data-unit-in='28-30"' data-unit-cm="71-76 cm">28-30"</td>
+            <td data-unit-in='30-32"' data-unit-cm="76-81 cm">30-32"</td>
+            <td data-unit-in='32-35"' data-unit-cm="81-89 cm">32-35"</td>
+            <td data-unit-in='35-37"' data-unit-cm="89-94 cm">35-37"</td>
+            <td data-unit-in='37-41"' data-unit-cm="94-104 cm">37-41"</td>
+          </tr>
+          <tr>
+            <th data-unit-in="High Hip" data-unit-cm="High Hip">High Hip</th>
+            <td data-unit-in='29-31"' data-unit-cm="74-79 cm">29-31"</td>
+            <td data-unit-in='31-33"' data-unit-cm="79-84 cm">31-33"</td>
+            <td data-unit-in='33-35"' data-unit-cm="84-89 cm">33-35"</td>
+            <td data-unit-in='35-38"' data-unit-cm="89-97 cm">35-38"</td>
+            <td data-unit-in='38-41"' data-unit-cm="97-104 cm">38-41"</td>
+            <td data-unit-in='41-43"' data-unit-cm="104-109 cm">41-43"</td>
+            <td data-unit-in='43-46"' data-unit-cm="109-117 cm">43-46"</td>
+          </tr>
+          <tr>
+            <th data-unit-in="Low Hip" data-unit-cm="Low Hip">Low Hip</th>
+            <td data-unit-in='34-36"' data-unit-cm="86-91 cm">34-36"</td>
+            <td data-unit-in='36-39"' data-unit-cm="91-99 cm">36-39"</td>
+            <td data-unit-in='39-41"' data-unit-cm="99-104 cm">39-41"</td>
+            <td data-unit-in='41-43"' data-unit-cm="104-109 cm">41-43"</td>
+            <td data-unit-in='43-46"' data-unit-cm="109-117 cm">43-46"</td>
+            <td data-unit-in='46-48"' data-unit-cm="117-122 cm">46-48"</td>
+            <td data-unit-in='48-52"' data-unit-cm="122-132 cm">48-52"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 {%- endcapture -%}
 
 {%- liquid
@@ -18,13 +111,25 @@
   <label class="variant__label{% if option.name == 'Default' or option.name == 'Title' %} hidden-label{% endif %}{% unless variant_labels %} hidden-label{% endunless %}"
     for="ProductSelect-{{ section_id }}-{{ product.id }}-option-{{ forloop.index0 }}">
     {{ option.name }}
-    {%- if connect_to_sizechart and is_size -%}
-      <span class="variant__label-info">
-        &mdash;
+    {%- if is_size -%}
+      {%- capture custom_size_chart_content -%}
+        {%- if connect_to_sizechart -%}
+          {{ section.blocks[sizechart_index].settings.size_chart.content }}
+        {%- endif -%}
+      {%- endcapture -%}
+      {%- assign custom_size_chart_content_stripped = custom_size_chart_content | strip -%}
+      <span class="variant__label-info variant__label-info--size-guide">
+        {%- capture size_chart_content -%}
+          {%- if custom_size_chart_content_stripped != blank -%}
+            {{ custom_size_chart_content }}
+          {%- else -%}
+            {{ default_size_chart_content }}
+          {%- endif -%}
+        {%- endcapture -%}
         {%- render
           'tool-tip-trigger',
           title: size_chart_title,
-          content: section.blocks[sizechart_index].settings.size_chart.content,
+          content: size_chart_content,
           context: 'size-chart'
         -%}
       </span>

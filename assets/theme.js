@@ -8541,6 +8541,59 @@ theme.recentlyViewed = {
     theme.collapsibles.init();
   };
 
+  theme.sizeGuide = function() {
+    if (theme.sizeGuideInitialized) {
+      return;
+    }
+
+    theme.sizeGuideInitialized = true;
+
+    function syncSizeGuideUnits(rootEl, unit) {
+      if (!rootEl) {
+        return;
+      }
+
+      rootEl.querySelectorAll('[data-unit-in][data-unit-cm]').forEach((cell) => {
+        var nextValue = unit === 'cm' ? cell.dataset.unitCm : cell.dataset.unitIn;
+        cell.textContent = nextValue || '';
+      });
+    }
+
+    document.addEventListener('change', function(event) {
+      var target = event.target;
+      if (!target || !target.classList || !target.classList.contains('size-guide-modal__select--unit')) {
+        return;
+      }
+
+      syncSizeGuideUnits(target.closest('.size-guide-modal'), target.value);
+    });
+
+    document.addEventListener('tooltip:open', function(event) {
+      if (!event.detail || event.detail.context !== 'size-chart') {
+        return;
+      }
+
+      setTimeout(function() {
+        var openTooltip = document.querySelector("tool-tip[data-tool-tip='size-chart'][data-tool-tip-open='true']");
+        if (!openTooltip) {
+          return;
+        }
+
+        var sizeGuide = openTooltip.querySelector('.size-guide-modal');
+        if (!sizeGuide) {
+          return;
+        }
+
+        var unitSelect = sizeGuide.querySelector('.size-guide-modal__select--unit');
+        if (!unitSelect) {
+          return;
+        }
+
+        syncSizeGuideUnits(sizeGuide, unitSelect.value || 'in');
+      }, 0);
+    });
+  };
+
   /*============================================================================
     Things that don't require DOM to be ready
   ==============================================================================*/
@@ -8589,6 +8642,7 @@ theme.recentlyViewed = {
   theme.initGlobals = function() {
     theme.collapsibles.init();
     theme.videoModal();
+    theme.sizeGuide();
   }
 
   DOMready(function(){

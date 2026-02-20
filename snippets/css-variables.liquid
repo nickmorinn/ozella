@@ -400,7 +400,9 @@
     color: var(--colorTextBody) !important;
     display: flex;
     align-items: center;
-    font-size: calc(var(--typeBaseSize) * 0.95);
+    font-size: calc(var(--typeBaseSize) - 4px);
+    font-size: max(calc(var(--typeBaseSize) - 4px), 13px);
+    font-weight: 400;
     gap: 8px;
     justify-content: center;
     min-height: 68px;
@@ -1172,7 +1174,7 @@
     }
 
     .template-product .add-to-cart [data-add-to-cart-text] {
-      font-size: calc(var(--typeBaseSize) * 0.9);
+      font-size: inherit;
     }
 
     .template-product .page-content--product {
@@ -1296,6 +1298,144 @@
       margin: 0 8px 0 0;
       width: 30px;
     }
+    }
+
+    .product-single__meta .variant__label-info--size-guide {
+      margin-left: 6px;
+      opacity: 1;
+      text-transform: none;
+    }
+
+    .product-single__meta .variant__label-info--size-guide .tool-tip-trigger {
+      align-items: center;
+      display: inline-flex;
+    }
+
+    .product-single__meta .variant__label-info--size-guide .tool-tip-trigger__title {
+      font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-transform: none;
+      text-underline-offset: 2px;
+    }
+
+    .product-single__meta .variant__label-info--size-guide .tool-tip-trigger__title:focus,
+    .product-single__meta .variant__label-info--size-guide .tool-tip-trigger__title:hover {
+      text-decoration-thickness: 1px;
+    }
+
+    tool-tip[data-tool-tip='size-chart'] .tool-tip__inner {
+      border: 1px solid var(--colorBorder);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
+      max-width: 1040px;
+      padding: 20px;
+    }
+
+    tool-tip[data-tool-tip='size-chart'] .tool-tip__content {
+      max-height: min(80vh, 760px);
+    }
+
+    .size-guide-modal {
+      background: var(--colorBody);
+      color: var(--colorTextBody);
+      font-family: var(--typeBasePrimary), var(--typeBaseFallback);
+    }
+
+    .size-guide-modal__controls {
+      align-items: center;
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .size-guide-modal__select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: var(--urlIcoSelect);
+      background-position: right 12px center;
+      background-repeat: no-repeat;
+      background-size: 12px;
+      background-color: var(--colorBody);
+      border: 1px solid var(--colorBorder);
+      border-radius: 0;
+      font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+      font-size: 13px;
+      font-weight: 400;
+      height: 40px;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      min-width: 120px;
+      padding: 0 34px 0 12px;
+      text-transform: uppercase;
+    }
+
+    .size-guide-modal__select--unit {
+      min-width: 74px;
+    }
+
+    .size-guide-modal__table-wrap {
+      overflow-x: auto;
+    }
+
+    .size-guide-table {
+      border-collapse: collapse;
+      min-width: 760px;
+      width: 100%;
+    }
+
+    .size-guide-table th,
+    .size-guide-table td {
+      border: 1px solid var(--colorBorder);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.35;
+      padding: 10px 12px;
+      text-align: center;
+      vertical-align: top;
+    }
+
+    .size-guide-table thead th {
+      background-color: var(--colorTextBody);
+      color: var(--colorBody);
+      font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .size-guide-table tbody th {
+      background-color: var(--colorBodyLightDim);
+      min-width: 102px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    @media only screen and (max-width: 768px) {
+      tool-tip[data-tool-tip='size-chart'] .tool-tip__inner {
+        max-width: 95%;
+        padding: 16px;
+      }
+
+      .size-guide-modal__controls {
+        margin-bottom: 10px;
+      }
+
+      .size-guide-modal__select {
+        font-size: 13px;
+        height: 38px;
+      }
+
+      .size-guide-table th,
+      .size-guide-table td {
+        font-size: 13px;
+        padding: 8px 10px;
+      }
     }
 
     .placeholder-content {
