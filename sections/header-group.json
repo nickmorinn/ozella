@@ -40,7 +40,7 @@
         ".announcement-bar {border: none;}"
       ],
       "settings": {
-        "announcement_compact": true
+        "announcement_compact": false
       }
     },
     "header": {
