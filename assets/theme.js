@@ -27,8 +27,14 @@ theme.config = {
   rtl: document.documentElement.getAttribute('dir') == 'rtl' ? true : false
 };
 
+theme.config.isSafari = /Safari/i.test(window.navigator.userAgent) && !/Chrome|CriOS|Chromium|Edg|OPR|Firefox|FxiOS/i.test(window.navigator.userAgent);
+
 if (theme.config.isTouch) {
   document.documentElement.className += ' supports-touch';
+}
+
+if (theme.config.isSafari) {
+  document.documentElement.classList.add('is-safari');
 }
 
 if (console && console.log) {

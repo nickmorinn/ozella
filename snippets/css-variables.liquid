@@ -129,6 +129,17 @@
     text-transform: uppercase;
     }
 
+    .is-safari {
+    --typeAccentOpticalOffset: 0.045em;
+    }
+
+    .is-safari .btn,
+    .is-safari .rte .btn,
+    .is-safari .shopify-payment-button .shopify-payment-button__button--unbranded,
+    .is-safari .collapsible-trigger-btn {
+    line-height: 1.12;
+    }
+
     .variant__label[for],
     .variant__label-info {
     letter-spacing: 0 !important;
@@ -307,6 +318,11 @@
     #CartDrawer .cart__checkout .cart__checkout-icon {
     height: 15px;
     width: 15px;
+    }
+
+    #CartDrawer .cart__checkout span {
+    display: inline-block;
+    transform: translateY(var(--typeAccentOpticalOffset));
     }
 
     #CartDrawer .cart__checkout:hover {
