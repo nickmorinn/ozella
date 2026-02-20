@@ -17,15 +17,12 @@
 
     --typeCollectionTitle: {{ settings.type_collection_size | append: 'px' }};
 
-    --typeAccentPrimary: "Prestige Elite Std";
+    --typeAccentPrimary: "GeneralGrotesqueMono-Regular";
     --typeAccentFallback: {{ settings.type_header_font_family.family }}, {{ settings.type_header_font_family.fallback_families }};
-    /* Positive values push accent text down; negative values pull it up */
-    --typeAccentOpticalOffset: 0.01em;
-    --typeAccentOpticalShift: var(--typeAccentOpticalOffset);
 
     --element-button-font-family: var(--typeAccentPrimary);
     --element-button-font-family-fallback: var(--typeAccentFallback);
-    --element-button-font-weight: 700;
+    --element-button-font-weight: 400;
     --element-button-text-transform: uppercase;
 
     --iconWeight: {{ settings.icon_weight | default: '5px' }};
@@ -134,42 +131,38 @@
     .btn:not(.add-to-cart),
     .rte .btn:not(.add-to-cart),
     .shopify-payment-button .shopify-payment-button__button--unbranded {
-    padding-bottom: max(0px, calc(11px - var(--typeAccentOpticalShift)));
-    padding-top: calc(11px + var(--typeAccentOpticalShift));
+    padding-bottom: 11px;
+    padding-top: 11px;
     }
 
     .btn--small:not(.add-to-cart),
     .rte .btn--small:not(.add-to-cart),
     .shopify-payment-button .shopify-payment-button__button--unbranded.btn--small {
-    padding-bottom: max(0px, calc(8px - var(--typeAccentOpticalShift)));
-    padding-top: calc(8px + var(--typeAccentOpticalShift));
+    padding-bottom: 8px;
+    padding-top: 8px;
     }
 
     .btn--large:not(.add-to-cart),
     .rte .btn--large:not(.add-to-cart),
     .shopify-payment-button .shopify-payment-button__button--unbranded.btn--large {
-    padding-bottom: max(0px, calc(15px - var(--typeAccentOpticalShift)));
-    padding-top: calc(15px + var(--typeAccentOpticalShift));
+    padding-bottom: 15px;
+    padding-top: 15px;
     }
 
     .btn--full:not(.add-to-cart),
     .rte .btn--full:not(.add-to-cart),
     .shopify-payment-button .shopify-payment-button__button--unbranded.btn--full {
-    padding-bottom: max(0px, calc(13px - var(--typeAccentOpticalShift)));
-    padding-top: calc(13px + var(--typeAccentOpticalShift));
+    padding-bottom: 13px;
+    padding-top: 13px;
     }
 
     @media only screen and (max-width: 768px) {
     .btn:not(.add-to-cart),
     .rte .btn:not(.add-to-cart),
     .shopify-payment-button .shopify-payment-button__button--unbranded {
-    padding-bottom: max(0px, calc(9px - var(--typeAccentOpticalShift)));
-    padding-top: calc(9px + var(--typeAccentOpticalShift));
+    padding-bottom: 9px;
+    padding-top: 9px;
     }
-    }
-
-    .is-safari {
-    --typeAccentOpticalOffset: 0.20em;
     }
 
     .is-safari .btn,
@@ -192,8 +185,6 @@
     display: flex;
     justify-content: flex-start;
     line-height: 1.12;
-    position: relative;
-    top: var(--typeAccentOpticalShift);
     }
 
     [data-center-text=true] .is-safari .collapsible-trigger-btn {
@@ -205,13 +196,55 @@
     letter-spacing: 0 !important;
     }
 
+    .template-collection .collection-filter .btn,
     .template-collection .collection-filter__sort-container,
     .template-collection .collection-filter__sort-container select,
     .template-collection .collection-filter__sort-container #SortBy,
     .template-collection .collection-filter__sort-container option {
     font-family: var(--typeAccentPrimary), var(--typeAccentFallback) !important;
-    letter-spacing: normal;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    line-height: 1;
     text-transform: uppercase;
+    }
+
+    .template-collection .collection-filter .btn {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    padding-left: 14px;
+    padding-right: 14px;
+    text-align: left;
+    width: 100%;
+    }
+
+    .template-collection .collection-filter .btn .icon {
+    margin-right: 0;
+    top: 0;
+    }
+
+    .template-collection .collection-filter__sort-container select,
+    .template-collection .collection-filter__sort-container #SortBy {
+    background-color: var(--colorBody);
+    border: 1px solid var(--colorBorder);
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.06em !important;
+    line-height: 1;
+    padding-left: 14px;
+    padding-right: 34px;
+    text-align-last: left;
+    text-align: left;
+    text-transform: uppercase !important;
+    }
+
+    .template-collection .collection-filter .btn,
+    .template-collection .collection-filter__sort-container select,
+    .template-collection .collection-filter__sort-container #SortBy {
+    height: 42px;
+    min-height: 42px;
     }
 
     .template-collection .grid-product__title,
@@ -382,8 +415,6 @@
 
     #CartDrawer .cart__checkout span {
     display: inline-block;
-    position: relative;
-    top: var(--typeAccentOpticalShift);
     }
 
     #CartDrawer .cart__checkout:hover {
@@ -442,6 +473,7 @@
     }
 
     .add-to-cart {
+    font-weight: 400 !important;
     line-height: 1;
     }
 
@@ -452,8 +484,11 @@
 
     .add-to-cart [data-add-to-cart-text] {
     display: block;
-    position: relative;
-    top: var(--typeAccentOpticalShift);
+    font-weight: 400 !important;
+    }
+
+    .template-index .hero__link .btn {
+    font-weight: 400 !important;
     }
 
     .product-block--tab .collapsible-trigger-btn {

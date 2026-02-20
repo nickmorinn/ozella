@@ -79,7 +79,7 @@
     "cart_terms_conditions_enable": false,
     "social_instagram_link": "https://instagram.com/ozellaswim",
     "favicon": "shopify://shop_images/Logo_Mark_-_5.jpg",
-    "search_enable": false,
+    "search_enable": true,
     "predictive_search_enabled": false,
     "checkout_accent_color": "#111111",
     "checkout_body_background_color": "#ffffff",

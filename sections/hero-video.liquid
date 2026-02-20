@@ -17,7 +17,7 @@
       {%- assign accent_brightness = section.settings.color_accent | color_extract: 'lightness' -%}
 
       {% if accent_brightness > 40 %}
-        color: #000 !important;
+        color: {{ settings.color_body_text }} !important;
       {% endif %}
     }
 

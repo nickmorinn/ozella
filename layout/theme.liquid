@@ -152,7 +152,7 @@
       --element-button-text-transform: uppercase;
       --element-button-font-family: var(--typeAccentPrimary);
       --element-button-font-family-fallback: var(--typeAccentFallback);
-      --element-button-font-weight: 700;
+      --element-button-font-weight: 400;
       --element-button-font-size: max(calc(var(--typeBaseSize) - 4px), 13px);
       --element-button-letter-spacing: .3em;
 
@@ -204,17 +204,15 @@
     .element-button[type="submit"],
     .element-button[type="submit"] .element-text,
     .element-button--shopify-payment-wrapper button {
+      --element-button-font-weight: 400;
+      --element-text-font-weight: 400;
       --element-button-padding-block: 13px;
       --element-button-padding-inline: 20px;
       --element-button-line-height: 1.42;
       --_font-size--body-md: var(--element-button-font-size);
 
+      font-weight: 400 !important;
       line-height: 1.42 !important;
-    }
-
-    .element-button .element-text {
-      position: relative;
-      top: var(--typeAccentOpticalShift);
     }
 
     /* When dynamic checkout is enabled */

@@ -86,7 +86,7 @@
   .site-header,
   .site-header--stuck,
   .site-header--opening {
-    background: transparent !important;
+    background: var(--colorBody) !important;
     border: 0 !important;
     box-shadow: none !important;
   }
@@ -120,7 +120,7 @@
     align-items: center;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    min-height: 72px;
+    min-height: 64px;
     width: 100%;
   }
 
@@ -156,13 +156,12 @@
     color: var(--colorNavText);
     display: inline-block;
     font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
-    font-size: 14px;
-    letter-spacing: 0.08em;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
     line-height: 1;
-    position: relative;
     text-decoration: none;
     text-transform: uppercase;
-    top: var(--typeAccentOpticalShift);
   }
 
   .oz-header__button {
@@ -203,8 +202,8 @@
     }
 
     .oz-header__link {
-      font-size: 16px;
-      letter-spacing: 0.1em;
+      font-size: 13px;
+      letter-spacing: 0.06em;
     }
   }
 </style>
@@ -240,13 +239,14 @@
 
             <div class="oz-header__right">
               <div class="oz-header__right-links small--hide">
+                {%- if settings.search_enable -%}
+                  <a href="{{ routes.search_url }}" class="oz-header__link js-search-header">
+                    SEARCH
+                  </a>
+                {%- endif -%}
                 {%- if shop.customer_accounts_enabled -%}
                   <a class="oz-header__link" href="{{ routes.account_url }}">
-                    {%- if customer -%}
-                      {{ 'layout.customer.account' | t }}
-                    {%- else -%}
-                      {{ 'layout.customer.log_in' | t }}
-                    {%- endif -%}
+                    {{ 'layout.customer.account' | t }}
                   </a>
                 {%- endif -%}
                 <a href="{{ routes.cart_url }}" class="oz-header__link js-drawer-open-cart" aria-controls="CartDrawer">

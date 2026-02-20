@@ -7129,6 +7129,7 @@ theme.recentlyViewed = {
         stickyState.clone.setAttribute('type', 'button');
         stickyState.clone.setAttribute('aria-hidden', 'true');
         stickyState.clone.tabIndex = -1;
+        stickyState.clone.style.setProperty('display', 'none', 'important');
         form.appendChild(stickyState.clone);
 
         stickyState.syncClone = function() {
@@ -7178,10 +7179,12 @@ theme.recentlyViewed = {
           var shouldStick = isMobile && hasPassedAddToCart && !isFooterVisible;
 
           if (shouldStick) {
+            stickyState.clone.style.removeProperty('display');
             stickyState.clone.classList.add('is-sticky-atc-visible');
             stickyState.clone.setAttribute('aria-hidden', 'false');
             stickyState.clone.tabIndex = stickyState.clone.disabled ? -1 : 0;
           } else {
+            stickyState.clone.style.setProperty('display', 'none', 'important');
             stickyState.clone.classList.remove('is-sticky-atc-visible');
             stickyState.clone.setAttribute('aria-hidden', 'true');
             stickyState.clone.tabIndex = -1;

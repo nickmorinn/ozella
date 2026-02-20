@@ -4,6 +4,21 @@
       border-bottom: 1px solid;
     }
   {%- endif -%}
+
+  .announcement-bar,
+  .announcement-bar .announcement-text,
+  .announcement-bar .announcement-link-text {
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .announcement-bar .announcement-text {
+    font-size: inherit;
+    font-weight: inherit;
+  }
 </style>
 
 {%- render 'announcement-bar', section: section -%}
@@ -55,4 +70,3 @@
   }
 }
 {% endschema %}
-
