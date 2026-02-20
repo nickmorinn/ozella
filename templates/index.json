@@ -17,7 +17,7 @@
         "subheading": "",
         "link_text": "Shop Now",
         "link": "shopify://collections/everything",
-        "color_accent": "#bcd4e6",
+        "color_accent": "#b5d8d8",
         "text_align": "vertical-bottom horizontal-left",
         "video_url": "https://cdn.shopify.com/videos/c/o/v/b89cef4e8efd49e983f333051673a7fb.mp4",
         "overlay_opacity": 12,
@@ -160,7 +160,7 @@
             "height": 800,
             "text_size": 170,
             "text_align": "vertical-center horizontal-center",
-            "color_accent": "#bcd4e6",
+            "color_accent": "#b5d8d8",
             "boxed": false,
             "framed": false
           }
@@ -300,7 +300,7 @@
             "height": 800,
             "text_size": 170,
             "text_align": "vertical-center horizontal-center",
-            "color_accent": "#bcd4e6",
+            "color_accent": "#b5d8d8",
             "boxed": false,
             "framed": false
           }
