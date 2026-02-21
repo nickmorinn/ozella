@@ -5,6 +5,7 @@ Arguments
 - [quick_shop_enable]: boolean
 - [collection]: collection object
 - [featured_variant]: variant object (optional)
+- [featured_color_label]: string (optional)
 - [hide_swatches]: boolean (optional)
 {% endcomment %}
 
@@ -26,6 +27,7 @@ Arguments
   endif
 
   assign featured_variant = featured_variant | default: blank
+  assign featured_color_label = featured_color_label | default: blank
   assign use_featured_variant = false
   assign quick_shop_enabled_card = quick_shop_enable
   assign swatches_enabled = settings.enable_swatches
@@ -50,7 +52,9 @@ Arguments
     assign card_price_varies = false
     assign unit_price_variant = featured_variant
 
-    if featured_variant.title != blank and featured_variant.title != 'Default Title'
+    if featured_color_label != blank
+      assign card_title = product.title | append: ' - ' | append: featured_color_label
+    elsif featured_variant.title != blank and featured_variant.title != 'Default Title'
       assign card_title = product.title | append: ' - ' | append: featured_variant.title
     endif
   endif

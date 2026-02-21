@@ -68,24 +68,67 @@
 
           {%- if section.settings.show_variants_as_listings -%}
             {%- assign rendered_item_count = 0 -%}
+            {%- assign swatch_trigger = 'products.general.color_swatch_trigger' | t | downcase -%}
             {%- for product in collections[section.settings.home_featured_products].products -%}
-              {%- for variant in product.variants -%}
-                {%- if rendered_item_count >= product_limit -%}
-                  {%- break -%}
-                {%- endif -%}
+              {%- if rendered_item_count >= product_limit -%}
+                {%- break -%}
+              {%- endif -%}
+
+              {%- assign color_option_index = blank -%}
+              {%- for option in product.options_with_values -%}
+                {%- liquid
+                  assign option_name = option.name | downcase
+                  if option_name contains swatch_trigger
+                    assign color_option_index = forloop.index0
+                  elsif swatch_trigger == 'color' and option_name contains 'colour'
+                    assign color_option_index = forloop.index0
+                  endif
+                -%}
+              {%- endfor -%}
+
+              {%- if color_option_index == blank -%}
                 {%- render 'product-grid-item',
                   product: product,
-                  featured_variant: variant,
-                  hide_swatches: true,
                   collection: collection,
                   per_row: per_row,
-                  quick_shop_enable: false,
+                  quick_shop_enable: settings.quick_shop_enable,
                   fallback: fallback,
                 -%}
                 {%- assign rendered_item_count = rendered_item_count | plus: 1 -%}
-              {%- endfor -%}
-              {%- if rendered_item_count >= product_limit -%}
-                {%- break -%}
+              {%- else -%}
+                {%- assign rendered_colors = '' -%}
+                {%- for variant in product.variants -%}
+                  {%- if rendered_item_count >= product_limit -%}
+                    {%- break -%}
+                  {%- endif -%}
+
+                  {%- assign color_value = variant.options[color_option_index] -%}
+                  {%- assign color_token = '|' | append: color_value | append: '|' -%}
+                  {%- unless rendered_colors contains color_token -%}
+                    {%- assign featured_color_variant = variant -%}
+                    {%- unless featured_color_variant.available -%}
+                      {%- for available_variant in product.variants -%}
+                        {%- if available_variant.available and available_variant.options[color_option_index] == color_value -%}
+                          {%- assign featured_color_variant = available_variant -%}
+                          {%- break -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- endunless -%}
+
+                    {%- render 'product-grid-item',
+                      product: product,
+                      featured_variant: featured_color_variant,
+                      featured_color_label: color_value,
+                      hide_swatches: true,
+                      collection: collection,
+                      per_row: per_row,
+                      quick_shop_enable: false,
+                      fallback: fallback,
+                    -%}
+                    {%- assign rendered_colors = rendered_colors | append: color_token -%}
+                    {%- assign rendered_item_count = rendered_item_count | plus: 1 -%}
+                  {%- endunless -%}
+                {%- endfor -%}
               {%- endif -%}
             {%- endfor -%}
           {%- else -%}
