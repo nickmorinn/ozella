@@ -59,13 +59,13 @@
       "type": "featured-collection",
       "custom_css": [],
       "settings": {
-        "title": "NEW ARRIVALS",
-        "home_featured_products": "new-arrivals",
-        "per_row": 4,
+        "title": "The Stella Luna Collection",
+        "home_featured_products": "the-stella-luna-collection",
+        "per_row": 5,
         "rows": 1,
-        "show_variants_as_listings": false,
+        "show_variants_as_listings": true,
         "mobile_scrollable": true,
-        "view_all": true,
+        "view_all": false,
         "divider": false
       }
     },
@@ -182,11 +182,12 @@
     },
     "featured_collection_pJMYQP": {
       "type": "featured-collection",
+      "disabled": true,
       "custom_css": [],
       "settings": {
         "title": "",
         "home_featured_products": "the-stargirl-collection",
-        "per_row": 4,
+        "per_row": 5,
         "rows": 1,
         "show_variants_as_listings": true,
         "mobile_scrollable": true,
