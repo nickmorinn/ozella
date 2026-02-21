@@ -36,6 +36,7 @@
         "home_featured_products": "the-enchanted-collection",
         "per_row": 3,
         "rows": 2,
+        "show_variants_as_listings": false,
         "mobile_scrollable": false,
         "view_all": false,
         "divider": false
@@ -62,6 +63,7 @@
         "home_featured_products": "new-arrivals",
         "per_row": 4,
         "rows": 1,
+        "show_variants_as_listings": false,
         "mobile_scrollable": true,
         "view_all": true,
         "divider": false
@@ -136,6 +138,7 @@
         "home_featured_products": "the-stargirl-collection",
         "per_row": 3,
         "rows": 4,
+        "show_variants_as_listings": false,
         "mobile_scrollable": false,
         "view_all": false,
         "divider": false
@@ -185,6 +188,7 @@
         "home_featured_products": "the-stargirl-collection",
         "per_row": 4,
         "rows": 1,
+        "show_variants_as_listings": true,
         "mobile_scrollable": true,
         "view_all": false,
         "divider": false
