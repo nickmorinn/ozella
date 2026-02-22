@@ -327,11 +327,18 @@
       min-height: 100%;
     }
 
+    html {
+      background-color: {{ settings.color_footer }};
+      overscroll-behavior-y: none;
+    }
+
     body {
+      background-color: var(--colorBody);
       display: flex;
       flex-direction: column;
       min-height: 100vh;
       min-height: 100dvh;
+      overscroll-behavior-y: none;
     }
 
     #PageContainer,
