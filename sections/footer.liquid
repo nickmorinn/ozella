@@ -276,16 +276,6 @@
     width: 100%;
   }
 
-  .site-footer[data-section-id="{{ section.id }}"] .footer-floater--1 {
-    --drift: 10px;
-    --rise: 34px;
-    --rotation: 0deg;
-    --scale: 1;
-    bottom: clamp(186px, 14.2vw, 234px);
-    left: 15%;
-    width: clamp(74px, 6.2vw, 112px);
-  }
-
   .site-footer[data-section-id="{{ section.id }}"] .footer-floater--2 {
     --drift: -12px;
     --rise: 46px;
@@ -409,10 +399,6 @@
       z-index: 2;
     }
 
-    .site-footer[data-section-id="{{ section.id }}"] .footer-floater--1 {
-      display: none;
-    }
-
     .site-footer[data-section-id="{{ section.id }}"] .footer-floater--2 {
       --drift: -10px;
       --rise: 24px;
@@ -515,9 +501,6 @@
   </div>
 
   <div class="footer-floaters" data-footer-floaters="{{ section.id }}" aria-hidden="true">
-    <span class="footer-floater footer-floater--1">
-      <img src="{{ 'hand-cropped.svg' | asset_url }}" alt="" loading="lazy" width="160" height="160">
-    </span>
     <span class="footer-floater footer-floater--2">
       <img src="{{ 'hand-cropped.svg' | asset_url }}" alt="" loading="lazy" width="120" height="120">
     </span>
