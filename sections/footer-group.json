@@ -97,9 +97,9 @@
         "footer2": {
           "type": "newsletter",
           "settings": {
-            "show_footer_title": true,
+            "show_footer_title": false,
             "title": "NEVER MISS A DROP",
-            "text": "<p>Subscribe to our emails and we'll send you a 15% off code for your first order ☻</p>",
+            "text": "",
             "container_width": 33
           }
         },
