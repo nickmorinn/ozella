@@ -1,65 +1,357 @@
-<div class="index-section">
-  <div class="page-width{% if section.settings.narrow_column %} page-width--narrow{% endif %}">
-    {%- if section.settings.title != blank -%}
-      <div class="section-header">
-        <h2 class="section-header__title">
-          {{ section.settings.title }}
-        </h2>
-        {%- if section.settings.text != blank -%}
-          <div class="rte section-header__rte">{{ section.settings.text }}</div>
-        {%- endif -%}
-      </div>
-    {% endif %}
+{%- liquid
+  assign is_contact_template = false
+  if template contains 'page.contact' or page.handle == 'contact'
+    assign is_contact_template = true
+  endif
+-%}
 
-    <div class="form-vertical">
-      {%- assign form_id = 'contact-' | append: section.id -%}
-      {%- form 'contact', id: form_id -%}
+{%- if is_contact_template -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .contact-page {
+      background: linear-gradient(135deg, rgba(188, 221, 226, 0.2), rgba(255, 255, 255, 0) 52%);
+      border: 1px solid var(--colorBorder);
+      display: grid;
+      gap: 0;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
+      overflow: hidden;
+      position: relative;
+    }
 
-        {%- if form.posted_successfully? -%}
-          <p class="note note--success">
-            {{ 'contact.form.post_success' | t }}
-          </p>
-        {%- endif -%}
+    #shopify-section-{{ section.id }} .contact-page::before {
+      background: linear-gradient(90deg, var(--colorTextBody) 0, var(--colorTextBody) 58px, transparent 58px, transparent 100%);
+      content: '';
+      display: block;
+      height: 3px;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
 
-        {{ form.errors | default_errors }}
+    #shopify-section-{{ section.id }} .contact-page__intro {
+      border-right: 1px solid var(--colorBorder);
+      padding: 44px 40px;
+      position: relative;
+    }
 
-        <div class="grid grid--small">
-          <div class="grid__item medium-up--one-half">
-            <label for="ContactFormName-{{ section.id }}">{{ 'contact.form.name' | t }}</label>
-            <input type="text" id="ContactFormName-{{ section.id }}" class="input-full" name="contact[name]" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+    #shopify-section-{{ section.id }} .contact-page__eyebrow {
+      font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      margin: 0 0 14px;
+      text-transform: uppercase;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__title {
+      font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback);
+      font-size: clamp(31px, 4.4vw, 48px);
+      letter-spacing: 0.01em;
+      line-height: 0.96;
+      margin: 0 0 22px;
+      text-transform: none;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__lede {
+      line-height: 1.55;
+      margin: 0;
+      max-width: 44ch;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__lede p {
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__channels {
+      border-top: 1px solid var(--colorBorder);
+      display: grid;
+      gap: 10px;
+      margin: 30px 0 0;
+      padding: 18px 0 0;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__channel {
+      align-items: baseline;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__channel-label {
+      color: var(--colorTextBodyAlpha06);
+      font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+      font-size: 11px;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__channel-link {
+      border-bottom: 1px solid transparent;
+      color: var(--colorTextBody);
+      font-family: var(--typeBasePrimary), var(--typeBaseFallback);
+      font-size: calc(var(--typeBaseSize) * 0.98);
+      letter-spacing: 0.01em;
+      transition: border-color 220ms ease;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__channel-link:hover {
+      border-color: currentColor;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__form-shell {
+      padding: 44px 40px 36px;
+      position: relative;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__form-title {
+      font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      line-height: 1;
+      margin: 0 0 18px;
+      text-transform: uppercase;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__success {
+      margin-bottom: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__form .errors {
+      margin-bottom: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__field-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-bottom: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__field {
+      margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__field label,
+    #shopify-section-{{ section.id }} .contact-page__message label {
+      color: var(--colorTextBodyAlpha06);
+      display: block;
+      font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      line-height: 1;
+      margin: 0 0 8px;
+      text-transform: uppercase;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__input {
+      background: var(--colorBody);
+      border: 1px solid var(--colorBorder);
+      font-size: calc(var(--typeBaseSize) * 0.95);
+      min-height: 43px;
+      transition: border-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__input:focus {
+      border-color: var(--colorTextBody);
+      box-shadow: inset 0 0 0 1px var(--colorTextBody);
+      outline: 0;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__message {
+      margin-bottom: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__submit {
+      background-color: var(--colorTextBody);
+      border: 1px solid var(--colorTextBody);
+      color: var(--colorBody);
+      min-height: 43px;
+      padding: 11px 24px;
+      transition: background-color 220ms ease, color 220ms ease;
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__submit:hover {
+      background-color: var(--colorBody);
+      color: var(--colorTextBody);
+    }
+
+    #shopify-section-{{ section.id }} .contact-page__disclaimer {
+      color: var(--colorTextBodyAlpha06);
+      font-size: 12px;
+      line-height: 1.5;
+      margin: 16px 0 0;
+      max-width: 58ch;
+    }
+
+    @media only screen and (max-width: 768px) {
+      #shopify-section-{{ section.id }} .contact-page {
+        grid-template-columns: 1fr;
+      }
+
+      #shopify-section-{{ section.id }} .contact-page__intro {
+        border-right: 0;
+        border-bottom: 1px solid var(--colorBorder);
+        padding: 34px 24px 28px;
+      }
+
+      #shopify-section-{{ section.id }} .contact-page__form-shell {
+        padding: 30px 24px 26px;
+      }
+
+      #shopify-section-{{ section.id }} .contact-page__field-grid {
+        gap: 10px;
+        grid-template-columns: 1fr;
+      }
+    }
+  {%- endstyle -%}
+
+  {%- assign heading = section.settings.title | default: 'Contact us' -%}
+  {%- capture intro_fallback -%}
+    <p>Questions about sizing, shipping, or your order? Send us a note and our team will get back to you shortly.</p>
+  {%- endcapture -%}
+
+  <div class="index-section">
+    <div class="page-width{% if section.settings.narrow_column %} page-width--narrow{% endif %}">
+      <section class="contact-page" aria-labelledby="ContactPageHeading-{{ section.id }}">
+        <div class="contact-page__intro">
+          <p class="contact-page__eyebrow">Support</p>
+          <h1 id="ContactPageHeading-{{ section.id }}" class="contact-page__title">{{ heading }}</h1>
+          <div class="rte contact-page__lede">
+            {%- if section.settings.text != blank -%}
+              {{ section.settings.text }}
+            {%- else -%}
+              {{ intro_fallback }}
+            {%- endif -%}
           </div>
 
-          <div class="grid__item medium-up--one-half">
-            <label for="ContactFormEmail-{{ section.id }}">{{ 'contact.form.email' | t }}</label>
-            <input type="email" id="ContactFormEmail-{{ section.id }}" class="input-full" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
-          </div>
+          {%- if shop.email != blank or settings.social_instagram_link != blank -%}
+            <div class="contact-page__channels">
+              {%- if shop.email != blank -%}
+                <p class="contact-page__channel">
+                  <span class="contact-page__channel-label">Email</span>
+                  <a class="contact-page__channel-link" href="mailto:{{ shop.email | escape }}">{{ shop.email }}</a>
+                </p>
+              {%- endif -%}
+              {%- if settings.social_instagram_link != blank -%}
+                <p class="contact-page__channel">
+                  <span class="contact-page__channel-label">Instagram</span>
+                  <a class="contact-page__channel-link" target="_blank" rel="noopener" href="{{ settings.social_instagram_link }}">Send us a DM</a>
+                </p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
         </div>
 
-        {%- if section.settings.show_phone -%}
-          <label for="ContactFormPhone-{{ section.id }}">{{ 'contact.form.phone' | t }}</label>
-          <input type="tel" id="ContactFormPhone-{{ section.id }}" class="input-full" name="contact[phone]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
-        {%- endif -%}
+        <div class="contact-page__form-shell">
+          <h2 class="contact-page__form-title">Send a Message</h2>
+          {%- assign form_id = 'contact-' | append: section.id -%}
+          {%- form 'contact', id: form_id, class: 'contact-page__form form-vertical' -%}
+            {%- if form.posted_successfully? -%}
+              <p class="note note--success contact-page__success">
+                {{ 'contact.form.post_success' | t }}
+              </p>
+            {%- endif -%}
 
-        <label for="ContactFormMessage-{{ section.id }}">{{ 'contact.form.message' | t }}</label>
-        <textarea rows="5" id="ContactFormMessage-{{ section.id }}" class="input-full" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+            {{ form.errors | default_errors }}
 
-        <label for="contact-form-submit-{{ section.id }}" class="hidden-label">{{ 'contact.form.send' | t }}</label>
-        <button type="submit" id="contact-form-submit-{{ section.id }}" class="btn">
-          {{ 'contact.form.send' | t }}
-        </button>
+            <div class="contact-page__field-grid">
+              <div class="contact-page__field">
+                <label for="ContactFormName-{{ section.id }}">{{ 'contact.form.name' | t }}</label>
+                <input type="text" id="ContactFormName-{{ section.id }}" class="input-full contact-page__input" name="contact[name]" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+              </div>
 
-        {% comment %}
-          Remove the following three lines of code to remove the note
-          about being protected by Google's reCAPTCHA service.
-          By removing it, the small reCAPTCHA widget will appear in the
-          bottom right corner of the page.
-        {% endcomment %}
-        {{ 'shopify.online_store.spam_detection.disclaimer_html' | t }}
+              <div class="contact-page__field">
+                <label for="ContactFormEmail-{{ section.id }}">{{ 'contact.form.email' | t }}</label>
+                <input type="email" id="ContactFormEmail-{{ section.id }}" class="input-full contact-page__input" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+              </div>
+            </div>
 
-      {%- endform -%}
+            {%- if section.settings.show_phone -%}
+              <p class="contact-page__field">
+                <label for="ContactFormPhone-{{ section.id }}">{{ 'contact.form.phone' | t }}</label>
+                <input type="tel" id="ContactFormPhone-{{ section.id }}" class="input-full contact-page__input" name="contact[phone]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+              </p>
+            {%- endif -%}
+
+            <p class="contact-page__message">
+              <label for="ContactFormMessage-{{ section.id }}">{{ 'contact.form.message' | t }}</label>
+              <textarea rows="5" id="ContactFormMessage-{{ section.id }}" class="input-full contact-page__input contact-page__textarea" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+            </p>
+
+            <label for="contact-form-submit-{{ section.id }}" class="hidden-label">{{ 'contact.form.send' | t }}</label>
+            <button type="submit" id="contact-form-submit-{{ section.id }}" class="btn contact-page__submit">
+              {{ 'contact.form.send' | t }}
+            </button>
+
+            <div class="contact-page__disclaimer">
+              {{ 'shopify.online_store.spam_detection.disclaimer_html' | t }}
+            </div>
+          {%- endform -%}
+        </div>
+      </section>
     </div>
   </div>
-</div>
+{%- else -%}
+  <div class="index-section">
+    <div class="page-width{% if section.settings.narrow_column %} page-width--narrow{% endif %}">
+      {%- if section.settings.title != blank -%}
+        <div class="section-header">
+          <h2 class="section-header__title">
+            {{ section.settings.title }}
+          </h2>
+          {%- if section.settings.text != blank -%}
+            <div class="rte section-header__rte">{{ section.settings.text }}</div>
+          {%- endif -%}
+        </div>
+      {% endif %}
+
+      <div class="form-vertical">
+        {%- assign form_id = 'contact-' | append: section.id -%}
+        {%- form 'contact', id: form_id -%}
+          {%- if form.posted_successfully? -%}
+            <p class="note note--success">
+              {{ 'contact.form.post_success' | t }}
+            </p>
+          {%- endif -%}
+
+          {{ form.errors | default_errors }}
+
+          <div class="grid grid--small">
+            <div class="grid__item medium-up--one-half">
+              <label for="ContactFormName-{{ section.id }}">{{ 'contact.form.name' | t }}</label>
+              <input type="text" id="ContactFormName-{{ section.id }}" class="input-full" name="contact[name]" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+            </div>
+
+            <div class="grid__item medium-up--one-half">
+              <label for="ContactFormEmail-{{ section.id }}">{{ 'contact.form.email' | t }}</label>
+              <input type="email" id="ContactFormEmail-{{ section.id }}" class="input-full" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+            </div>
+          </div>
+
+          {%- if section.settings.show_phone -%}
+            <label for="ContactFormPhone-{{ section.id }}">{{ 'contact.form.phone' | t }}</label>
+            <input type="tel" id="ContactFormPhone-{{ section.id }}" class="input-full" name="contact[phone]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+          {%- endif -%}
+
+          <label for="ContactFormMessage-{{ section.id }}">{{ 'contact.form.message' | t }}</label>
+          <textarea rows="5" id="ContactFormMessage-{{ section.id }}" class="input-full" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+          <label for="contact-form-submit-{{ section.id }}" class="hidden-label">{{ 'contact.form.send' | t }}</label>
+          <button type="submit" id="contact-form-submit-{{ section.id }}" class="btn">
+            {{ 'contact.form.send' | t }}
+          </button>
+
+          {{ 'shopify.online_store.spam_detection.disclaimer_html' | t }}
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
 
 {% schema %}
 {

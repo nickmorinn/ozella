@@ -27,14 +27,10 @@
   endif
 
   assign shop_link_url = '/collections/all'
-  assign contact_link_url = '/pages/contact'
   for link in main_menu.links
     assign link_title_handle = link.title | handleize
     if link_title_handle contains 'shop'
       assign shop_link_url = link.url
-    endif
-    if link_title_handle contains 'contact'
-      assign contact_link_url = link.url
     endif
   endfor
 -%}
@@ -221,7 +217,11 @@
             <div class="oz-header__left">
               <nav class="oz-header__left-links small--hide" role="navigation" aria-label="Primary">
                 <a href="{{ shop_link_url }}" class="oz-header__link">SHOP</a>
-                <a href="{{ contact_link_url }}" class="oz-header__link">CONTACT US</a>
+                {%- if settings.search_enable -%}
+                  <a href="{{ routes.search_url }}" class="oz-header__link js-search-header">
+                    SEARCH
+                  </a>
+                {%- endif -%}
               </nav>
               <button
                 type="button"
@@ -239,11 +239,6 @@
 
             <div class="oz-header__right">
               <div class="oz-header__right-links small--hide">
-                {%- if settings.search_enable -%}
-                  <a href="{{ routes.search_url }}" class="oz-header__link js-search-header">
-                    SEARCH
-                  </a>
-                {%- endif -%}
                 {%- if shop.customer_accounts_enabled -%}
                   <a class="oz-header__link" href="{{ routes.account_url }}">
                     {{ 'layout.customer.account' | t }}
