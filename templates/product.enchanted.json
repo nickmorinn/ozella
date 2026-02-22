@@ -235,8 +235,8 @@
         ".index-section {padding-top: 0px; padding-bottom: 50px;}"
       ],
       "settings": {
-        "product_recommendations_heading": "You may also like",
-        "related_count": 3,
+        "product_recommendations_heading": "More Like This",
+        "related_count": 6,
         "products_per_row": 3
       }
     },
