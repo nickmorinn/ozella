@@ -5387,13 +5387,30 @@ theme.recentlyViewed = {
         } else {
           this.inSlideshow = false;
         }
-  
+
         this.items = this.getImageData();
-  
-        var image = this.inSlideshow ? this.container.querySelector(selectors.activeImage) : evt.currentTarget;
-  
-        var index = this.inSlideshow ? this.getChildIndex(image) : image.dataset.index;
-  
+
+        var trigger = evt.currentTarget;
+        var index;
+
+        // Prefer the clicked slide index so any visible image can open zoom
+        // even when only one slide is marked .is-selected by Flickity.
+        if (trigger && typeof trigger.closest === 'function') {
+          var slide = trigger.closest('.product-main-slide');
+          if (slide && slide.hasAttribute('data-index')) {
+            index = parseInt(slide.getAttribute('data-index'), 10) + 1;
+          }
+        }
+
+        if (!index && trigger && trigger.dataset && trigger.dataset.index) {
+          index = parseInt(trigger.dataset.index, 10);
+        }
+
+        if (!index) {
+          var image = this.inSlideshow ? this.container.querySelector(selectors.activeImage) : trigger;
+          index = this.inSlideshow ? this.getChildIndex(image) : parseInt(image.dataset.index, 10);
+        }
+
         this.initGallery(this.items, index);
       },
   
