@@ -388,19 +388,48 @@
                 var sectionEl = document.getElementById('ProductSection-{{ section_id }}-{{ product.id }}');
                 if (!sectionEl) return;
 
-                var blocksRoot = sectionEl.querySelector('[data-product-blocks]');
-                if (!blocksRoot) return;
+                function parseReviewCount(rawValue) {
+                  var count = parseInt(rawValue || '', 10);
+                  return isNaN(count) ? null : count;
+                }
 
-                function toggleEmptyJudgeMeBadges() {
-                  var appBlocks = blocksRoot.querySelectorAll('.shopify-app-block');
+                function getJudgeMeReviewCount(appBlock) {
+                  var reviewCount = null;
+                  var reviewCountNodes = appBlock.querySelectorAll('[data-number-of-reviews]');
+
+                  reviewCountNodes.forEach(function(node) {
+                    if (reviewCount !== null) return;
+                    reviewCount = parseReviewCount(node.getAttribute('data-number-of-reviews'));
+                  });
+
+                  if (reviewCount !== null) return reviewCount;
+
+                  var reviewWidget = appBlock.querySelector('#judgeme_product_reviews, .jdgm-review-widget');
+                  if (!reviewWidget) return null;
+
+                  reviewCount = parseReviewCount(reviewWidget.getAttribute('data-number-of-reviews'));
+                  if (reviewCount !== null) return reviewCount;
+
+                  return parseReviewCount(reviewWidget.getAttribute('data-shop-reviews-count'));
+                }
+
+                function hasNoReviewText(appBlock) {
+                  var noReviewTextNode = appBlock.querySelector('.jdgm-prev-badge__text, .jdgm-rev-widg__summary-text');
+                  if (!noReviewTextNode) return false;
+
+                  var text = (noReviewTextNode.textContent || '').trim();
+                  return /no\s+reviews?|be\s+the\s+first\s+to\s+write\s+a\s+review/i.test(text);
+                }
+
+                function toggleEmptyJudgeMeWidgets() {
+                  var appBlocks = document.querySelectorAll('.shopify-app-block');
 
                   appBlocks.forEach(function(appBlock) {
-                    var badge = appBlock.querySelector('.jdgm-prev-badge[data-number-of-reviews]');
-                    if (!badge) return;
+                    var hasJudgeMe = appBlock.querySelector('.jdgm-widget, .jdgm-rev-widg, #judgeme_product_reviews, .jdgm-prev-badge');
+                    if (!hasJudgeMe) return;
 
-                    var reviewCount = parseInt(badge.getAttribute('data-number-of-reviews') || '', 10);
-                    var hasNoReviewsText = /no\s+reviews?/i.test((badge.textContent || '').trim());
-                    var shouldHide = (!isNaN(reviewCount) && reviewCount <= 0) || hasNoReviewsText;
+                    var reviewCount = getJudgeMeReviewCount(appBlock);
+                    var shouldHide = (reviewCount !== null && reviewCount <= 0) || (reviewCount === null && hasNoReviewText(appBlock));
 
                     if (shouldHide) {
                       appBlock.style.display = 'none';
@@ -410,14 +439,14 @@
                   });
                 }
 
-                toggleEmptyJudgeMeBadges();
+                toggleEmptyJudgeMeWidgets();
 
-                var observer = new MutationObserver(toggleEmptyJudgeMeBadges);
-                observer.observe(blocksRoot, {
+                var observer = new MutationObserver(toggleEmptyJudgeMeWidgets);
+                observer.observe(document.body, {
                   childList: true,
                   subtree: true,
                   attributes: true,
-                  attributeFilter: ['class', 'style', 'data-number-of-reviews']
+                  attributeFilter: ['class', 'style', 'data-number-of-reviews', 'data-shop-reviews-count']
                 });
               })();
             </script>
