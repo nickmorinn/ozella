@@ -12,7 +12,7 @@
     "hero_video_NnQqke": {
       "type": "hero-video",
       "settings": {
-        "title": "NEW SEASON.\nNEW SUIT.",
+        "title": "NEW SEASON.\nNEW KINI.",
         "title_size": 81,
         "subheading": "",
         "link_text": "SHOP SWIM",
@@ -374,12 +374,14 @@
       "custom_css": [
         "@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 0px; }}",
         "@media (max-width: 768px) {h2 {font-size: 32px !important; padding-top: 0px !important; }}",
-        ".theme-block {margin-bottom: 15px;}"
+        ".theme-block {margin-bottom: 10px;}"
       ],
       "settings": {
         "align_text": "center",
         "narrow_column": false,
-        "divider": false
+        "divider": false,
+        "top_padding": false,
+        "bottom_padding": false
       }
     },
     "1717358326f1e64cf2": {
@@ -408,8 +410,8 @@
         "instafeed_app_block_QcBahG"
       ],
       "custom_css": [
-        "@media (min-width: 768px) {h2 {font-size: 40px !important; padding-top: 0px; }}",
-        "@media (max-width: 768px) {h2 {font-size: 31px !important; padding-top: 0px !important; }}"
+        ".index-section {margin-top: 0; margin-bottom: 28px;}",
+        "@media (min-width: 769px) {.index-section {margin-bottom: 52px;}}"
       ],
       "settings": {
         "full_width": false,

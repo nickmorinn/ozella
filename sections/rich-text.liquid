@@ -1,3 +1,31 @@
+{%- if section.settings.top_padding == false or section.settings.bottom_padding == false -%}
+  {%- style -%}
+    {%- if section.settings.top_padding == false -%}
+      #shopify-section-{{ section.id }}.index-section {
+        margin-top: 24px !important;
+      }
+
+      @media only screen and (min-width: 769px) {
+        #shopify-section-{{ section.id }}.index-section {
+          margin-top: 48px !important;
+        }
+      }
+    {%- endif -%}
+
+    {%- if section.settings.bottom_padding == false -%}
+      #shopify-section-{{ section.id }}.index-section {
+        margin-bottom: 24px !important;
+      }
+
+      @media only screen and (min-width: 769px) {
+        #shopify-section-{{ section.id }}.index-section {
+          margin-bottom: 48px !important;
+        }
+      }
+    {%- endif -%}
+  {%- endstyle -%}
+{%- endif -%}
+
 {%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
 
 <div class="text-{{ section.settings.align_text }} page-width{% if section.settings.narrow_column %} page-width--narrow{% endif %}">
@@ -73,6 +101,18 @@
       "id": "divider",
       "label": "t:sections.rich-text.settings.divider.label",
       "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "top_padding",
+      "label": "Show top spacing",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "bottom_padding",
+      "label": "Show bottom spacing",
+      "default": true
     }
   ],
   "blocks": [

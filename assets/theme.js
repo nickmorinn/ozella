@@ -2301,7 +2301,9 @@ theme.recentlyViewed = {
         close: '.js-drawer-close',
         open: '.js-drawer-open-' + name,
         openClass: 'js-drawer-open',
+        openTypeClass: 'js-drawer-open--' + name,
         closingClass: 'js-drawer-closing',
+        closingTypeClass: 'js-drawer-closing--' + name,
         activeDrawer: 'drawer--is-open',
         namespace: '.drawer-' + name
       };
@@ -2312,6 +2314,7 @@ theme.recentlyViewed = {
   
       this.drawer = document.querySelector('#' + id);
       this.isOpen = false;
+      this.closeTimer = null;
   
       if (!this.drawer) {
         return;
@@ -2340,10 +2343,18 @@ theme.recentlyViewed = {
         if (evt) {
           evt.preventDefault();
         }
-  
+
         if (this.isOpen) {
           return;
         }
+
+        if (this.closeTimer) {
+          window.clearTimeout(this.closeTimer);
+          this.closeTimer = null;
+        }
+
+        document.documentElement.classList.remove(this.config.closingClass);
+        document.documentElement.classList.remove(this.config.closingTypeClass);
   
         // Without this the drawer opens, the click event bubbles up to $nodes.page which closes the drawer.
         if (evt && evt.stopPropagation) {
@@ -2359,8 +2370,9 @@ theme.recentlyViewed = {
         theme.utils.prepareTransition(this.drawer, function() {
           this.drawer.classList.add(this.config.activeDrawer);
         }.bind(this));
-  
+
         document.documentElement.classList.add(this.config.openClass);
+        document.documentElement.classList.add(this.config.openTypeClass);
         this.isOpen = true;
   
         theme.a11y.trapFocus({
@@ -2394,17 +2406,27 @@ theme.recentlyViewed = {
         theme.utils.prepareTransition(this.drawer, function() {
           this.drawer.classList.remove(this.config.activeDrawer);
         }.bind(this));
-  
+
         document.documentElement.classList.remove(this.config.openClass);
+        document.documentElement.classList.remove(this.config.openTypeClass);
         document.documentElement.classList.add(this.config.closingClass);
-  
-        window.setTimeout(function() {
+        document.documentElement.classList.add(this.config.closingTypeClass);
+
+        if (this.closeTimer) {
+          window.clearTimeout(this.closeTimer);
+        }
+
+        this.closeTimer = window.setTimeout(function() {
           document.documentElement.classList.remove(this.config.closingClass);
+          document.documentElement.classList.remove(this.config.closingTypeClass);
+
+          this.closeTimer = null;
+
           if (this.activeSource && this.activeSource.getAttribute('aria-expanded')) {
             this.activeSource.setAttribute('aria-expanded', 'false');
             this.activeSource.focus();
           }
-        }.bind(this), 500);
+        }.bind(this), 430);
   
         this.isOpen = false;
   
@@ -4035,13 +4057,16 @@ theme.recentlyViewed = {
   class PredictiveSearch extends HTMLElement {
     constructor() {
       super();
-      this.enabled = this.getAttribute('data-enabled');
       this.context = this.getAttribute('data-context');
       this.input = this.querySelector('input[type="search"]');
+      this.form = this.querySelector('form');
+      this.searchSubmit = this.querySelector('.btn--search');
       this.predictiveSearchResults = this.querySelector('#predictive-search');
       this.closeBtn = this.querySelector('.btn--close-search');
       this.screen = this.querySelector('[data-screen]');
       this.SearchModal = this.closest('#SearchModal') || null;
+      this.requestController = null;
+      this.latestSearchTerm = '';
   
       // Open events
       document.addEventListener('predictive-search:open', e => {
@@ -4049,7 +4074,7 @@ theme.recentlyViewed = {
         this.classList.add('is-active');
   
         // Wait for opening events to finish then apply focus
-        setTimeout(() => { this.input.focus(); }, 100);
+        setTimeout(() => { this.input.focus(); }, 40);
   
         document.body.classList.add('predictive-overflow-hidden');
       });
@@ -4071,32 +4096,88 @@ theme.recentlyViewed = {
           attributes: true
         });
       }
-  
-      if (this.enabled === 'false') return;
+
+      if (this.form) {
+        this.form.addEventListener('submit', this.onFormSubmit.bind(this));
+      }
+
+      if (this.input) {
+        this.input.addEventListener('input', this.toggleSubmitState.bind(this));
+        this.toggleSubmitState();
+      }
+
+      // Close events should always work, even when predictive search is disabled
+      document.addEventListener('predictive-search:close', () => { this.close(); });
+      document.addEventListener('keydown', (event) => { if (event.keyCode === 27) this.close(); });
+      if (this.closeBtn) {
+        this.closeBtn.addEventListener('click', e => { e.preventDefault(); this.close(); });
+      }
+      if (this.screen) {
+        this.screen.addEventListener('click', () => { this.close(); });
+      }
   
       // On typing
       this.input.addEventListener('keydown', () => { this.classList.add('is-active'); });
   
       this.input.addEventListener('input', this.debounce((event) => {
         this.onChange(event);
-      }, 300).bind(this));
-  
-      // Close events
-      document.addEventListener('predictive-search:close', () => { this.close(); });
-      document.addEventListener('keydown', (event) => { if (event.keyCode === 27) this.close(); });
-      this.closeBtn.addEventListener('click', e => { e.preventDefault(); this.close(); });
-      this.screen.addEventListener('click', () => { this.close(); });
+      }, 180).bind(this));
+    }
+
+    onFormSubmit(event) {
+      const searchTerm = this.input.value.trim();
+
+      if (searchTerm.length) {
+        this.input.classList.remove('search__input--invalid');
+        return;
+      }
+
+      event.preventDefault();
+      this.classList.add('is-active');
+      this.input.focus();
+      this.input.classList.add('search__input--invalid');
+
+      window.setTimeout(() => {
+        this.input.classList.remove('search__input--invalid');
+      }, 260);
+    }
+
+    toggleSubmitState() {
+      if (!this.searchSubmit || !this.input) return;
+
+      this.searchSubmit.disabled = !this.input.value.trim().length;
     }
   
     onChange() {
       const searchTerm = this.input.value.trim();
+      this.latestSearchTerm = searchTerm;
+
+      this.classList.add('is-active');
+      if (this.context === 'header') {
+        document.body.classList.add('predictive-overflow-hidden');
+      }
   
-      if (!searchTerm.length) return;
+      if (!searchTerm.length) {
+        if (this.requestController) {
+          this.requestController.abort();
+          this.requestController = null;
+        }
+        this.predictiveSearchResults.style.display = 'none';
+        this.predictiveSearchResults.innerHTML = '';
+        return;
+      }
   
       this.getSearchResults(searchTerm);
     }
   
     getSearchResults(searchTerm) {
+      if (this.requestController) {
+        this.requestController.abort();
+      }
+
+      const requestController = new AbortController();
+      this.requestController = requestController;
+
       const searchObj = {
         'q': searchTerm,
         'resources[limit]': 3,
@@ -4105,26 +4186,41 @@ theme.recentlyViewed = {
   
       const params = this.paramUrl(searchObj);
   
-      fetch(`${theme.routes.predictiveSearch}?${params}&section_id=search-results`)
+      fetch(`${theme.routes.predictiveSearch}?${params}&section_id=search-results`, {
+        signal: requestController.signal
+      })
         .then((response) => {
           if (!response.ok) {
             const error = new Error(response.status);
-            this.close();
             throw error;
           }
   
           return response.text();
         })
         .then((text) => {
-          const resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-search-results').innerHTML;
+          if (this.latestSearchTerm !== searchTerm) return;
+
+          const parsedMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#shopify-section-search-results');
+          if (!parsedMarkup) return;
+
+          const resultsMarkup = parsedMarkup.innerHTML;
           this.predictiveSearchResults.innerHTML = resultsMarkup;
           this.open();
   
-          AOS.refreshHard();
+          if (typeof AOS !== 'undefined' && typeof AOS.refreshHard === 'function') {
+            AOS.refreshHard();
+          }
         })
         .catch((error) => {
-          this.close();
-          throw error;
+          if (error && error.name === 'AbortError') return;
+
+          this.predictiveSearchResults.style.display = 'none';
+          this.predictiveSearchResults.innerHTML = '';
+        })
+        .finally(() => {
+          if (this.requestController === requestController) {
+            this.requestController = null;
+          }
         });
     }
   
@@ -4133,6 +4229,12 @@ theme.recentlyViewed = {
     }
   
     close() {
+      if (this.requestController) {
+        this.requestController.abort();
+        this.requestController = null;
+      }
+
+      this.latestSearchTerm = '';
       this.predictiveSearchResults.style.display = 'none';
       this.predictiveSearchResults.innerHTML = '';
       this.classList.remove('is-active');
@@ -4492,6 +4594,8 @@ theme.recentlyViewed = {
       lastScroll: 0,
       stickyThreshold: 0
     };
+
+    var searchCloseTimer = null;
   
     // Elements used in resize functions, defined in init
     var wrapper;
@@ -4690,6 +4794,13 @@ theme.recentlyViewed = {
         btn.addEventListener('click', function(evt) {
           evt.preventDefault();
           evt.stopPropagation();
+
+          if (searchCloseTimer) {
+            window.clearTimeout(searchCloseTimer);
+            searchCloseTimer = null;
+          }
+
+          document.documentElement.classList.remove('js-drawer-closing--search');
           document.dispatchEvent(new CustomEvent('predictive-search:open', {
             detail: {
               context: 'header'
@@ -4697,8 +4808,11 @@ theme.recentlyViewed = {
             bubbles: true
           }));
   
-          // add is-active class to .site-header__search-container
-          document.querySelector(selectors.searchContainer).classList.add('is-active');
+          const container = document.querySelector(selectors.searchContainer);
+          if (!container) return;
+
+          document.documentElement.classList.add('js-drawer-open--search');
+          container.classList.add('is-active');
         });
       });
   
@@ -4708,10 +4822,13 @@ theme.recentlyViewed = {
     }
   
     function closeSearchDrawer(evt) {
+      var container = document.querySelector(selectors.searchContainer);
+      if (!container) return;
+
       // Do not close if click event came from inside drawer
       if (evt) {
         // evt.path is non-standard, so have fallback
-        var path = evt.path || (evt.composedPath && evt.composedPath());
+        var path = evt.path || (evt.composedPath && evt.composedPath()) || [];
         for (var i = 0; i < path.length; i++) {
           if (path[i].classList) {
             if (path[i].classList.contains('site-header__search-btn')) {
@@ -4728,14 +4845,18 @@ theme.recentlyViewed = {
       // deselect any focused form elements
       document.activeElement.blur();
   
-      document.documentElement.classList.add('js-drawer-closing');
-      document.documentElement.classList.remove('js-drawer-open', 'js-drawer-open--search');
-  
-      window.setTimeout(function() {
-        document.documentElement.classList.remove('js-drawer-closing');
-      }.bind(this), 500);
-  
-      var container = document.querySelector(selectors.searchContainer);
+      document.documentElement.classList.add('js-drawer-closing--search');
+      document.documentElement.classList.remove('js-drawer-open--search');
+
+      if (searchCloseTimer) {
+        window.clearTimeout(searchCloseTimer);
+      }
+
+      searchCloseTimer = window.setTimeout(function() {
+        document.documentElement.classList.remove('js-drawer-closing--search');
+        searchCloseTimer = null;
+      }.bind(this), 380);
+
       theme.utils.prepareTransition(container, function() {
         container.classList.remove('is-active');
       }.bind(this));

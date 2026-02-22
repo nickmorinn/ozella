@@ -12,12 +12,32 @@
 
 {%- if enable_collection_carousel_arrows -%}
   {%- style -%}
+    #shopify-section-{{ section.id }}.index-section {
+      margin-bottom: 32px;
+      margin-top: 24px;
+    }
+
+    #CollectionSection-{{ section.id }} .section-header {
+      align-items: center;
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    #CollectionSection-{{ section.id }} .section-header__title {
+      flex: 1 1 auto;
+    }
+
+    #CollectionSection-{{ section.id }} .section-header__link {
+      margin-top: 0;
+    }
+
     #CollectionSection-{{ section.id }} .featured-collection__nav {
       display: none;
+      flex: 0 0 auto;
       gap: 8px;
-      justify-content: flex-end;
-      margin-bottom: 12px;
-      padding: 0 16px;
+      margin-left: 8px;
+      padding: 0;
     }
 
     #CollectionSection-{{ section.id }} .featured-collection__nav.is-visible {
@@ -51,6 +71,7 @@
 
     #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid > .grid__item {
       display: inline-block;
+      flex: 0 0 25%;
       float: none;
       padding-left: 8px;
       white-space: normal;
@@ -62,6 +83,15 @@
     }
 
     @media only screen and (min-width: 769px) {
+      #shopify-section-{{ section.id }}.index-section {
+        margin-bottom: 46px;
+        margin-top: 36px;
+      }
+
+      #CollectionSection-{{ section.id }} .section-header {
+        margin-bottom: 20px;
+      }
+
       #CollectionSection-{{ section.id }} .featured-collection__nav {
         padding-left: 0;
         padding-right: 0;
@@ -69,6 +99,15 @@
     }
 
     @media only screen and (max-width: 768px) {
+      #shopify-section-{{ section.id }}.index-section {
+        margin-bottom: 14px;
+        margin-top: 18px;
+      }
+
+      #CollectionSection-{{ section.id }} .section-header {
+        margin-bottom: 12px;
+      }
+
       #CollectionSection-{{ section.id }} .featured-collection__nav,
       #CollectionSection-{{ section.id }} .featured-collection__nav.is-visible {
         display: none;
@@ -82,18 +121,22 @@
         margin-left: -6px;
       }
 
-      #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid__item {
-        flex: 0 0 52vw;
-        padding-left: 6px;
-        width: 52vw;
+      #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid > .grid__item {
+        flex: 0 0 74vw;
+        padding-left: 8px;
+        width: 74vw;
       }
 
-      #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid__item:first-child {
-        margin-left: 6px;
+      #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid > .grid__item:first-child {
+        margin-left: 8px;
       }
 
-      #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid__item:last-child:after {
-        margin-right: 6px;
+      #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid > .grid__item:last-child:after {
+        margin-right: 8px;
+      }
+
+      #CollectionSection-{{ section.id }} .grid-product {
+        margin-bottom: 4px;
       }
     }
   {%- endstyle -%}
@@ -104,38 +147,40 @@
   data-section-id="{{ section.id }}"
   data-section-type="collection-grid"
   data-context="featured-collection">
-  {%- if section.settings.title != blank or section.settings.view_all -%}
+  {%- if section.settings.title != blank or section.settings.view_all or enable_collection_carousel_arrows -%}
     <div class="page-width">
       <div class="section-header{% if section.settings.view_all %}{% unless settings.type_headers_align_text %} section-header--with-link{% endunless %}{% endif %}">
-        <h2 class="section-header__title">
-          {{ section.settings.title }}
-        </h2>
+        {%- if section.settings.title != blank -%}
+          <h2 class="section-header__title">
+            {{ section.settings.title }}
+          </h2>
+        {%- endif -%}
         {%- if section.settings.view_all and section.settings.rows == 1 -%}
           <a href="{{ collections[section.settings.home_featured_products].url }}" class="btn btn--secondary btn--small section-header__link">{{ 'collections.general.all_of_collection' | t }}</a>
+        {%- endif -%}
+        {%- if enable_collection_carousel_arrows -%}
+          <div class="featured-collection__nav" data-featured-collection-nav>
+            <button
+              type="button"
+              class="btn btn--body btn--circle featured-collection__arrow featured-collection__arrow--prev hide"
+              data-featured-collection-prev
+              aria-label="{{ 'general.pagination.previous' | t }}">
+              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-left" viewBox="0 0 50 15"><title>icon-left-arrow</title><path d="M50 5.38v4.25H15V15L0 7.5 15 0v5.38Z"/></svg>
+            </button>
+            <button
+              type="button"
+              class="btn btn--body btn--circle featured-collection__arrow featured-collection__arrow--next"
+              data-featured-collection-next
+              aria-label="{{ 'general.pagination.next' | t }}">
+              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-right" viewBox="0 0 50 15"><title>icon-right-arrow</title><path d="M0 9.63V5.38h35V0l15 7.5L35 15V9.63Z"/></svg>
+            </button>
+          </div>
         {%- endif -%}
       </div>
     </div>
   {%- endif -%}
 
   <div class="page-width{% if section.settings.mobile_scrollable %} page-width--flush-small{% endif %}{% if enable_collection_carousel_arrows %} featured-collection-carousel{% endif %}">
-    {%- if enable_collection_carousel_arrows -%}
-      <div class="featured-collection__nav" data-featured-collection-nav>
-        <button
-          type="button"
-          class="btn btn--body btn--circle featured-collection__arrow featured-collection__arrow--prev hide"
-          data-featured-collection-prev
-          aria-label="{{ 'general.pagination.previous' | t }}">
-          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-left" viewBox="0 0 50 15"><title>icon-left-arrow</title><path d="M50 5.38v4.25H15V15L0 7.5 15 0v5.38Z"/></svg>
-        </button>
-        <button
-          type="button"
-          class="btn btn--body btn--circle featured-collection__arrow featured-collection__arrow--next"
-          data-featured-collection-next
-          aria-label="{{ 'general.pagination.next' | t }}">
-          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-right" viewBox="0 0 50 15"><title>icon-right-arrow</title><path d="M0 9.63V5.38h35V0l15 7.5L35 15V9.63Z"/></svg>
-        </button>
-      </div>
-    {%- endif -%}
     <div{% if section.settings.mobile_scrollable %} class="grid-overflow-wrapper"{% endif %}{% if enable_collection_carousel_arrows %} data-featured-collection-overflow{% endif %}>
       <div class="grid grid--uniform"{% if section.settings.mobile_scrollable %} data-aos="overflow__animation"{% endif %}>
         {%- liquid

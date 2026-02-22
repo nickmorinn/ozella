@@ -185,7 +185,7 @@
     {% endif %}
   </div>
   {% if totalCount > 0 %}
-    <button class="results__search-btn">
+    <button class="results__search-btn" type="submit">
       {{ 'general.search.view_more' | t: terms: predictive_search.terms }} <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 5H12.5M12.5 5L8.5 1M12.5 5L8.5 9" stroke="currentColor"/></svg>
     </button>
   {% endif %}
