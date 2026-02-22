@@ -383,6 +383,45 @@
               {%- endfor -%}
             </div>
 
+            <script>
+              (function() {
+                var sectionEl = document.getElementById('ProductSection-{{ section_id }}-{{ product.id }}');
+                if (!sectionEl) return;
+
+                var blocksRoot = sectionEl.querySelector('[data-product-blocks]');
+                if (!blocksRoot) return;
+
+                function toggleEmptyJudgeMeBadges() {
+                  var appBlocks = blocksRoot.querySelectorAll('.shopify-app-block');
+
+                  appBlocks.forEach(function(appBlock) {
+                    var badge = appBlock.querySelector('.jdgm-prev-badge[data-number-of-reviews]');
+                    if (!badge) return;
+
+                    var reviewCount = parseInt(badge.getAttribute('data-number-of-reviews') || '', 10);
+                    var hasNoReviewsText = /no\s+reviews?/i.test((badge.textContent || '').trim());
+                    var shouldHide = (!isNaN(reviewCount) && reviewCount <= 0) || hasNoReviewsText;
+
+                    if (shouldHide) {
+                      appBlock.style.display = 'none';
+                    } else {
+                      appBlock.style.removeProperty('display');
+                    }
+                  });
+                }
+
+                toggleEmptyJudgeMeBadges();
+
+                var observer = new MutationObserver(toggleEmptyJudgeMeBadges);
+                observer.observe(blocksRoot, {
+                  childList: true,
+                  subtree: true,
+                  attributes: true,
+                  attributeFilter: ['class', 'style', 'data-number-of-reviews']
+                });
+              })();
+            </script>
+
             {%- unless product.empty? -%}
               <textarea class="hide" aria-hidden="true" aria-label="Product JSON" data-variant-json>
                 {{ product.variants | json }}

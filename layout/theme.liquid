@@ -320,10 +320,10 @@
     }
   {% endstyle %}
 
-  <script src="{{ 'vendor-scripts-v11.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+  <script src="{{ 'vendor-scripts-v11.js' | asset_url }}" defer="defer"></script>
 
   {%- if shop.enabled_currencies.size > 1 -%}
-    <link rel="stylesheet" href="{{ 'country-flags.css' | asset_url | split: '?' | first }}">
+    <link rel="stylesheet" href="{{ 'country-flags.css' | asset_url }}">
   {%- endif -%}
 
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
