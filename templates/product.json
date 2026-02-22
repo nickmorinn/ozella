@@ -64,6 +64,7 @@
         },
         "description": {
           "type": "description",
+          "name": "Details",
           "settings": {
             "is_tab": true
           }
@@ -71,31 +72,26 @@
         "79a483ca-438d-47c0-860a-b977ff9ab653": {
           "type": "tab",
           "settings": {
-            "title": "Details & Care",
-            "content": "<ul><li>96% Nylon, 4% Spandex</li><li>Hand wash, line dry </li></ul>",
+            "title": "Fit & Fabric",
+            "content": "<p>{{ product.metafields.custom.size_fit | metafield_tag }}</p>",
             "page": ""
           }
         },
         "tab": {
           "type": "tab",
           "settings": {
-            "title": "Model Information",
-            "content": "<p>The model is 5'8 & is wearing a size small. </p>",
+            "title": "Shipping",
+            "content": "<p>All orders are shipped from our warehouse in Austin, Texas during business hours (Monday to Friday, 8am to 5pm CST). Orders may go out on weekends but is not guaranteed. </p>",
             "page": ""
           }
         },
-        "contact": {
-          "type": "contact",
-          "disabled": true,
+        "tab_qYfJHF": {
+          "type": "tab",
           "settings": {
-            "title": "Ask a question",
-            "phone": false
+            "title": "Returns Policy",
+            "content": "<p>Due to the personal and sanitary nature of our swimwear products, we're unable to accept returns once they're shipped. This is to ensure that every piece of swimwear you get from us is absolutely new and never worn. </p><p>If your swimwear hasn't left our facility, feel free to get in touch, and we'll cancel the order and process a full refund for you. </p>",
+            "page": ""
           }
-        },
-        "share": {
-          "type": "share",
-          "disabled": true,
-          "settings": {}
         }
       },
       "block_order": [
@@ -110,8 +106,7 @@
         "description",
         "79a483ca-438d-47c0-860a-b977ff9ab653",
         "tab",
-        "contact",
-        "share"
+        "tab_qYfJHF"
       ],
       "custom_css": [],
       "settings": {
