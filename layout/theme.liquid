@@ -322,6 +322,30 @@
   {% endstyle %}
 
   <style>
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    #PageContainer,
+    #PageContainer > .transition-body {
+      display: flex;
+      flex: 1 0 auto;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    #MainContent.main-content {
+      flex: 1 0 auto;
+    }
+
     html.lenis,
     html.lenis body {
       height: auto;
