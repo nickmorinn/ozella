@@ -12,10 +12,10 @@
     "hero_video_NnQqke": {
       "type": "hero-video",
       "settings": {
-        "title": "Your \nHottest \nSummer \nYet",
+        "title": "NEW SEASON.\nNEW SUIT.",
         "title_size": 81,
         "subheading": "",
-        "link_text": "Shop Now",
+        "link_text": "SHOP SWIM",
         "link": "shopify://collections/everything",
         "color_accent": "#b5d8d8",
         "text_align": "vertical-bottom horizontal-left",
@@ -59,7 +59,7 @@
       "type": "featured-collection",
       "custom_css": [],
       "settings": {
-        "title": "The Stella Luna Collection",
+        "title": "STELLA LUNA: The New Favorite",
         "home_featured_products": "the-stella-luna-collection",
         "per_row": 5,
         "rows": 1,
@@ -150,10 +150,10 @@
         "advanced_ingbtj": {
           "type": "advanced",
           "settings": {
-            "subheading": "BEST SELLER",
-            "heading": "THE STARGIRL COLLECTION",
+            "subheading": "THE ONE EVERYONE WANTS",
+            "heading": "THE STARGIRL",
             "textarea": "",
-            "cta_text1": "SHOP NOW",
+            "cta_text1": "SHOP STARGIRL",
             "cta_link1": "shopify://products/stargirl-bikini-set",
             "cta_text2": "",
             "cta_link2": "",
@@ -356,14 +356,14 @@
         "heading_aGPG8x": {
           "type": "heading",
           "settings": {
-            "title": "SEEN ON INSTAGRAM"
+            "title": "SPOTTED IN OZELLA"
           }
         },
         "text_tNk4RA": {
           "type": "text",
           "settings": {
             "enlarge_text": false,
-            "text": "<p>Tag <a href=\"https://www.instagram.com/ozellaswim\" title=\"https://www.instagram.com/ozellaswim\">@ozellaswim</a> on Instagram for a chance to be featured on our gallery. </p>"
+            "text": "<p>Tag <a href=\"https://www.instagram.com/ozellaswim\" title=\"https://www.instagram.com/ozellaswim\">@ozellaswim</a> to get featured. </p>"
           }
         }
       },
@@ -378,7 +378,7 @@
       ],
       "settings": {
         "align_text": "center",
-        "narrow_column": true,
+        "narrow_column": false,
         "divider": false
       }
     },
