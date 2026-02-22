@@ -6,6 +6,191 @@
   {%- endstyle -%}
 {%- endif -%}
 
+{%- style -%}
+  .site-footer[data-section-id="{{ section.id }}"] {
+    overflow: hidden;
+    padding-bottom: 0 !important;
+    padding-top: clamp(54px, 9vw, 108px);
+    position: relative;
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .footer__small-text {
+    margin-top: clamp(22px, 3vw, 34px);
+    text-align: center;
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .site-footer__linklist li {
+    margin-bottom: 10px;
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .site-footer__linklist a {
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: max(calc(var(--typeBaseSize) - 4px), 12px);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  @media only screen and (min-width: 769px) {
+    .site-footer[data-section-id="{{ section.id }}"] .grid {
+      align-items: start;
+      column-gap: clamp(20px, 2.6vw, 42px);
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      row-gap: clamp(24px, 3.5vw, 44px);
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item {
+      float: none;
+      padding-top: 0 !important;
+      width: auto !important;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .footer__clear {
+      display: none;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="logo_social"] {
+      grid-column: 1 / -1;
+      justify-self: stretch;
+      text-align: center;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="logo_social"] .footer__logo {
+      height: auto;
+      margin: clamp(20px, 2.8vw, 36px) 0 clamp(-170px, -10vw, -96px);
+      max-width: 100%;
+      overflow: visible;
+      width: 100%;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="logo_social"] .footer__logo a {
+      display: block;
+      height: auto !important;
+      width: 100%;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="logo_social"] .footer__logo image-element[data-aos="footer-logo-scroll-up"] {
+      display: block;
+      width: 100%;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="logo_social"] .footer__logo .footer__logo-image {
+      display: block;
+      height: auto !important;
+      max-height: none !important;
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="menu"] {
+      grid-column: 2 / span 4;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="newsletter"] {
+      grid-column: 8 / span 4;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="custom"] {
+      grid-column: 2 / span 10;
+    }
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .footer-floaters {
+    --footer-float-progress: 0;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    transition: opacity 220ms ease;
+    z-index: 4;
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .footer-floaters[data-active="true"] {
+    opacity: 1;
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .footer-floater {
+    --drift: 0px;
+    --rise: 42vh;
+    --rotation: 0deg;
+    --scale: 1;
+    bottom: -14vh;
+    left: 50%;
+    opacity: calc(0.12 + (var(--footer-float-progress) * 0.88));
+    position: absolute;
+    transform: translate3d(calc(var(--drift) * var(--footer-float-progress)), calc((1 - var(--footer-float-progress)) * var(--rise)), 0) rotate(var(--rotation)) scale(var(--scale));
+    transform-origin: 50% 100%;
+    will-change: transform, opacity;
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .footer-floater img {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .footer-floater--1 {
+    --drift: 16px;
+    --rise: 50vh;
+    --rotation: -14deg;
+    --scale: 0.95;
+    left: 9%;
+    width: clamp(54px, 5.2vw, 92px);
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .footer-floater--2 {
+    --drift: -18px;
+    --rise: 36vh;
+    --rotation: 9deg;
+    --scale: 0.88;
+    left: 49%;
+    width: clamp(48px, 4.5vw, 80px);
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .footer-floater--3 {
+    --drift: 14px;
+    --rise: 46vh;
+    --rotation: -6deg;
+    --scale: 0.92;
+    left: 84%;
+    width: clamp(52px, 4.8vw, 86px);
+  }
+
+  @media only screen and (max-width: 768px) {
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="logo_social"] .footer__logo {
+      margin: 14px 0 clamp(-72px, -17vw, -38px);
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .footer-floater--2 {
+      display: none;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .footer-floater--1 {
+      left: 8%;
+      width: clamp(46px, 13vw, 72px);
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .footer-floater--3 {
+      left: 80%;
+      width: clamp(44px, 12vw, 68px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-footer[data-section-id="{{ section.id }}"] .footer-floaters {
+      display: none;
+    }
+  }
+
+  [data-disable-animations=true] .site-footer[data-section-id="{{ section.id }}"] .footer-floaters {
+    display: none;
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .page-width {
+    padding-bottom: 0 !important;
+  }
+{%- endstyle -%}
+
 <footer class="site-footer" data-section-id="{{ section.id }}" data-section-type="footer-section">
   <div class="page-width">
 
@@ -77,7 +262,71 @@
     {%- endif -%}
 
   </div>
+
+  <div class="footer-floaters" data-footer-floaters="{{ section.id }}" aria-hidden="true">
+    <span class="footer-floater footer-floater--1">
+      <img src="{{ 'hand-cropped.svg' | asset_url }}" alt="" loading="lazy" width="160" height="160">
+    </span>
+    <span class="footer-floater footer-floater--2">
+      <img src="{{ 'hand-cropped.svg' | asset_url }}" alt="" loading="lazy" width="160" height="160">
+    </span>
+    <span class="footer-floater footer-floater--3">
+      <img src="{{ 'hand-cropped.svg' | asset_url }}" alt="" loading="lazy" width="160" height="160">
+    </span>
+  </div>
 </footer>
+
+<script>
+  (function() {
+    var sectionId = '{{ section.id }}';
+
+    var initFooterFloaters = function() {
+      var footer = document.querySelector('.site-footer[data-section-id="' + sectionId + '"]');
+      var floaters = document.querySelector('.site-footer[data-section-id="' + sectionId + '"] [data-footer-floaters="' + sectionId + '"]');
+      if (!footer || !floaters || floaters.dataset.bound === 'true') return;
+
+      floaters.dataset.bound = 'true';
+
+      if (document.body && document.body.dataset.disableAnimations === 'true') return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var rafId = 0;
+
+      var update = function() {
+        rafId = 0;
+        var rect = footer.getBoundingClientRect();
+        var start = window.innerHeight * 1.35;
+        var end = window.innerHeight * 0.2;
+        var progress = (start - rect.top) / (start - end);
+        progress = Math.max(0, Math.min(1, progress));
+
+        floaters.style.setProperty('--footer-float-progress', progress.toFixed(4));
+
+        if (progress > 0.01) {
+          floaters.setAttribute('data-active', 'true');
+        } else {
+          floaters.removeAttribute('data-active');
+        }
+      };
+
+      var requestUpdate = function() {
+        if (rafId) return;
+        rafId = window.requestAnimationFrame(update);
+      };
+
+      requestUpdate();
+      window.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', requestUpdate);
+      document.addEventListener('shopify:section:load', requestUpdate);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFooterFloaters, { once: true });
+    } else {
+      initFooterFloaters();
+    }
+  })();
+</script>
 
 {% schema %}
 {

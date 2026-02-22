@@ -61,7 +61,7 @@
       "settings": {
         "title": "STELLA LUNA: The New Favorite",
         "home_featured_products": "the-stella-luna-collection",
-        "per_row": 5,
+        "per_row": 4,
         "rows": 1,
         "show_variants_as_listings": true,
         "mobile_scrollable": true,

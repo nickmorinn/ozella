@@ -110,12 +110,77 @@
   }
 }
 
+@keyframes hero-title-reveal{
+  0%{
+    opacity:0;
+    transform:translate3d(0, 120%, 0) scale(1.03);
+    filter:blur(10px);
+  }
+  60%{
+    opacity:1;
+    transform:translate3d(0, -3%, 0) scale(1);
+    filter:blur(0);
+  }
+  to{
+    opacity:1;
+    transform:translate3d(0, 0, 0) scale(1);
+    filter:blur(0);
+  }
+}
+
+@keyframes hero-copy-reveal{
+  0%{
+    opacity:0;
+    transform:translate3d(0, 90%, 0);
+    filter:blur(8px);
+  }
+  70%{
+    opacity:1;
+    transform:translate3d(0, -2%, 0);
+    filter:blur(0);
+  }
+  to{
+    opacity:1;
+    transform:translate3d(0, 0, 0);
+    filter:blur(0);
+  }
+}
+
+@keyframes hero-button-reveal{
+  0%{
+    opacity:0;
+    transform:translate3d(0, 14px, 0) scale(0.98);
+  }
+  to{
+    opacity:1;
+    transform:translate3d(0, 0, 0) scale(1);
+  }
+}
+
 @keyframes fade-in{
   0%{
     opacity:0;
   }
   to{
     opacity:1;
+  }
+}
+
+@keyframes footer-logo-scroll-up{
+  0%{
+    opacity:0;
+    transform:translate3d(0, 34px, 0) scale(0.985);
+    filter:blur(1px);
+  }
+  70%{
+    opacity:1;
+    transform:translate3d(0, -2px, 0) scale(1);
+    filter:blur(0);
+  }
+  to{
+    opacity:1;
+    transform:translate3d(0, 0, 0) scale(1);
+    filter:blur(0);
   }
 }
 
@@ -1874,6 +1939,36 @@ img{
 .aos-animate[data-aos=image-fade-in] .image-element.hero__image{
       animation:none;
     }
+
+[data-aos=footer-logo-scroll-up] .image-element{
+  opacity:0;
+  transform:translate3d(0, 34px, 0) scale(0.985);
+  will-change:opacity, transform, filter;
+}
+
+.aos-animate[data-aos=footer-logo-scroll-up] .image-element{
+  animation:footer-logo-scroll-up 1.45s cubic-bezier(0.16, 0.84, 0.25, 1) 0.08s forwards;
+}
+
+[data-animate_images=false] .aos-animate[data-aos=footer-logo-scroll-up] .image-element,[data-disable-animations=true] .aos-animate[data-aos=footer-logo-scroll-up] .image-element{
+  animation:none;
+  filter:none;
+  opacity:1;
+  transform:none;
+}
+
+@media (prefers-reduced-motion:reduce){
+
+[data-aos=footer-logo-scroll-up] .image-element{
+    filter:none;
+    opacity:1;
+    transform:none;
+}
+
+.aos-animate[data-aos=footer-logo-scroll-up] .image-element{
+    animation:none;
+}
+  }
 
 .no-js .image-element{
     opacity:1;
@@ -8664,7 +8759,7 @@ html[dir=rtl] .social-sharing__title{
 
 .slideshow__slide .animation-contents,[data-aos=hero__animation] .animation-contents{
     opacity:0;
-    transform:translateY(15px);
+    transform:translate3d(0, 15px, 0);
     transition:none;
   }
 
@@ -8675,6 +8770,7 @@ html[dir=rtl] .social-sharing__title{
 
 .slideshow__slide .hero__link .btn,[data-aos=hero__animation] .hero__link .btn{
     opacity:0;
+    transform:translate3d(0, 14px, 0);
     transition:none;
   }
 
@@ -8689,17 +8785,16 @@ html[dir=rtl] .social-sharing__title{
   }
 
 .loaded .slideshow__slide.is-selected .animation-contents,.loaded[data-aos=hero__animation] .animation-contents{
-    transform:translateY(0px);
+    filter:blur(0);
+    transform:translate3d(0, 0, 0);
   }
 
 .loaded .slideshow__slide.is-selected .hero__title .animation-contents,.loaded[data-aos=hero__animation] .hero__title .animation-contents{
-    animation:0.8s cubic-bezier(0.26, 0.54, 0.32, 1) 0.3s forwards;
-    animation-name:rise-up;
+    animation:hero-title-reveal 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
   }
 
 .loaded .slideshow__slide.is-selected .hero__subtitle .animation-contents,.loaded .slideshow__slide.is-selected .hero__top-subtitle .animation-contents,.loaded[data-aos=hero__animation] .hero__subtitle .animation-contents,.loaded[data-aos=hero__animation] .hero__top-subtitle .animation-contents{
-    animation:1s cubic-bezier(0.26, 0.54, 0.32, 1) 0.7s forwards;
-    animation-name:rise-up;
+    animation:hero-copy-reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
   }
 
 .loaded .slideshow__slide.is-selected .hero__link .animation-contents,.loaded[data-aos=hero__animation] .hero__link .animation-contents{
@@ -8707,11 +8802,24 @@ html[dir=rtl] .social-sharing__title{
   }
 
 .loaded .slideshow__slide.is-selected .hero__link .btn,.loaded[data-aos=hero__animation] .hero__link .btn{
-    animation:fade-in 2s ease 1.3s forwards;
+    animation:hero-button-reveal 0.72s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
   }
 
 .loaded .slideshow__slide.is-selected .hero__link .btn:nth-child(2),.loaded[data-aos=hero__animation] .hero__link .btn:nth-child(2){
-    animation:fade-in 2s ease 1.6s forwards;
+    animation:hero-button-reveal 0.72s cubic-bezier(0.22, 1, 0.36, 1) 1.02s both;
+  }
+
+[data-disable-animations=true] .loaded .slideshow__slide.is-selected .hero__title .animation-contents,[data-disable-animations=true] .loaded .slideshow__slide.is-selected .hero__subtitle .animation-contents,[data-disable-animations=true] .loaded .slideshow__slide.is-selected .hero__top-subtitle .animation-contents,[data-disable-animations=true] .loaded[data-aos=hero__animation] .hero__title .animation-contents,[data-disable-animations=true] .loaded[data-aos=hero__animation] .hero__subtitle .animation-contents,[data-disable-animations=true] .loaded[data-aos=hero__animation] .hero__top-subtitle .animation-contents{
+    animation:none;
+    filter:none;
+    opacity:1;
+    transform:none;
+  }
+
+[data-disable-animations=true] .loaded .slideshow__slide.is-selected .hero__link .btn,[data-disable-animations=true] .loaded[data-aos=hero__animation] .hero__link .btn{
+    animation:none;
+    opacity:1;
+    transform:none;
   }
 
 .loaded .slideshow__slide.is-selected .hero__image,.loaded .slideshow__slide.is-selected .hero__image--svg,.loaded .slideshow__slide.is-selected .hero__media,.loaded[data-aos=hero__animation] .hero__image,.loaded[data-aos=hero__animation] .hero__image--svg,.loaded[data-aos=hero__animation] .hero__media{

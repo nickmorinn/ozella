@@ -4,6 +4,41 @@
       background: {{ section.settings.color_border }};
     }
   }
+
+  @media screen and (min-width: 769px) {
+    @keyframes background-media-text-reveal-{{ section.id }} {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0) scale(1.02);
+        filter: blur(8px);
+      }
+      65% {
+        opacity: 1;
+        transform: translate3d(0, -2%, 0) scale(1);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .background-media-text--{{ section.id }} .background-media-text__inner .animation-contents {
+      will-change: transform, opacity, filter;
+    }
+
+    .background-media-text--{{ section.id }}.loaded.aos-animate .background-media-text__inner .animation-contents {
+      animation: background-media-text-reveal-{{ section.id }} 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both !important;
+    }
+
+    [data-disable-animations=true] .background-media-text--{{ section.id }}.loaded.aos-animate .background-media-text__inner .animation-contents {
+      animation: none !important;
+      filter: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
 {%- endstyle -%}
 
 <div

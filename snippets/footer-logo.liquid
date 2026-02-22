@@ -1,19 +1,47 @@
 {%- if block.settings.logo -%}
-  {%- liquid
-    assign display_logo_height = block.settings.desktop_logo_height | times: 150 | divided_by: 100 | round
-  -%}
   {%- style -%}
-    .footer__logo a {
-      height: {{ display_logo_height }}px;
+    .footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"] {
+      --footer-logo-progress: 0;
+      display: block;
+    }
+
+    .js .footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"] .image-element {
+      opacity: 1;
+      transform: translate3d(0, calc((1 - var(--footer-logo-progress, 0)) * 54px), 0);
+      transition: transform 1.35s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+
+    .js .footer__item--{{ block.id }} image-element[data-footer-logo-visible="true"] .image-element {
+      --footer-logo-progress: 1;
+    }
+
+    .js .footer__item--{{ block.id }} image-element[data-footer-logo-visible="false"] .image-element {
+      --footer-logo-progress: 0;
+    }
+
+    [data-animate_images=false] .footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"] .image-element,
+    [data-disable-animations=true] .footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"] .image-element {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"] .image-element {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
   {%- endstyle -%}
   <div class="footer__logo">
     <a href="{{ routes.root_url }}">
-      {%- assign width = display_logo_height | times: block.settings.logo.aspect_ratio | times: 2 -%}
-      {%- assign height = display_logo_height -%}
-      {%- capture sizes -%}{{ display_logo_height | times: block.settings.logo.aspect_ratio }}px{%- endcapture -%}
-      {%- capture widths -%}{{ display_logo_height | times: block.settings.logo.aspect_ratio }}, {{ display_logo_height | times: block.settings.logo.aspect_ratio | times: 2 }}{%- endcapture -%}
-      {%- capture style -%}max-width: {{ display_logo_height | times: block.settings.logo.aspect_ratio }}px;max-height: {{ display_logo_height }}px;{%- endcapture -%}
+      {%- assign width = block.settings.logo.width | default: 2400 | at_most: 2400 -%}
+      {%- assign height = width | divided_by: block.settings.logo.aspect_ratio | round -%}
+      {%- capture sizes -%}(min-width: 769px) min(96vw, 1320px), 92vw{%- endcapture -%}
+      {%- capture widths -%}480, 720, 960, 1200, 1440, 1800, 2200, 2400{%- endcapture -%}
+      {%- capture style -%}width:100%;height:auto;max-width:100%;max-height:none;{%- endcapture -%}
 
       {%- render 'image-element',
         img: block.settings.logo,
@@ -21,9 +49,88 @@
         img_height: height,
         sizes: sizes,
         widths: widths,
+        classes: 'footer__logo-image',
         style: style,
         alt: block.settings.logo.alt | default: shop.name,
+        animation: 'footer-logo-scroll-up',
       -%}
     </a>
   </div>
+  <script>
+    (function() {
+      var init = function() {
+        var logo = document.querySelector('.footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"]');
+        var logoBlock = document.querySelector('.footer__item--{{ block.id }}');
+        if (!logo || !logoBlock) return;
+        if (logo.dataset.footerLogoInit === 'true') return;
+        logo.dataset.footerLogoInit = 'true';
+
+        var setVisible = function(visible) {
+          logo.setAttribute('data-footer-logo-visible', visible ? 'true' : 'false');
+        };
+
+        var animationsDisabled = document.body && (document.body.dataset.disableAnimations === 'true' || document.body.dataset.animateImages === 'false');
+        if (animationsDisabled) {
+          setVisible(true);
+          return;
+        }
+
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          setVisible(true);
+          return;
+        }
+
+        var inViewNow = function() {
+          var rect = logoBlock.getBoundingClientRect();
+          var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+          return rect.top < viewportHeight * 0.9 && rect.bottom > viewportHeight * 0.08;
+        };
+
+        setVisible(inViewNow());
+
+        if ('IntersectionObserver' in window) {
+          var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (!entry.isIntersecting) {
+                setVisible(false);
+                return;
+              }
+
+              setVisible(inViewNow());
+            });
+          }, {
+            threshold: [0, 0.08, 0.2, 0.45],
+            rootMargin: '0px 0px -10% 0px'
+          });
+
+          observer.observe(logoBlock);
+          return;
+        }
+
+        var rafId = 0;
+        var checkVisibility = function() {
+          rafId = 0;
+          var rect = logoBlock.getBoundingClientRect();
+          var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+          var inView = rect.top < viewportHeight * 0.9 && rect.bottom > viewportHeight * 0.08;
+          setVisible(inView);
+        };
+
+        var requestCheck = function() {
+          if (rafId) return;
+          rafId = window.requestAnimationFrame(checkVisibility);
+        };
+
+        requestCheck();
+        window.addEventListener('scroll', requestCheck, { passive: true });
+        window.addEventListener('resize', requestCheck);
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init, { once: true });
+      } else {
+        init();
+      }
+    })();
+  </script>
 {%- endif -%}

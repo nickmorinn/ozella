@@ -1,8 +1,103 @@
 {%- assign per_row = section.settings.per_row -%}
 {%- assign product_limit = per_row | times: section.settings.rows -%}
 {%- assign collection = collections[section.settings.home_featured_products] -%}
+{%- assign enable_collection_carousel_arrows = false -%}
+
+{%- if template.name == 'index' and section.settings.mobile_scrollable and section.settings.rows == 1 and section.settings.per_row == 4 -%}
+  {%- assign enable_collection_carousel_arrows = true -%}
+  {%- assign product_limit = product_limit | plus: 1 -%}
+{%- endif -%}
 
 {%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+
+{%- if enable_collection_carousel_arrows -%}
+  {%- style -%}
+    #CollectionSection-{{ section.id }} .featured-collection__nav {
+      display: none;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-bottom: 12px;
+      padding: 0 16px;
+    }
+
+    #CollectionSection-{{ section.id }} .featured-collection__nav.is-visible {
+      display: flex;
+    }
+
+    #CollectionSection-{{ section.id }} .featured-collection__arrow.hide {
+      display: none;
+    }
+
+    #CollectionSection-{{ section.id }} .page-width {
+      max-width: var(--page-width, 1500px);
+    }
+
+    #CollectionSection-{{ section.id }} .grid-overflow-wrapper {
+      overflow-x: hidden;
+      overflow-y: hidden;
+      scrollbar-width: none;
+    }
+
+    #CollectionSection-{{ section.id }} .grid-overflow-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-left: -8px;
+      white-space: nowrap;
+    }
+
+    #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid > .grid__item {
+      display: inline-block;
+      float: none;
+      padding-left: 8px;
+      white-space: normal;
+      width: 25%;
+    }
+
+    #CollectionSection-{{ section.id }} .grid-product {
+      margin-bottom: 14px;
+    }
+
+    @media only screen and (min-width: 769px) {
+      #CollectionSection-{{ section.id }} .featured-collection__nav {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      #CollectionSection-{{ section.id }} .featured-collection__nav,
+      #CollectionSection-{{ section.id }} .featured-collection__nav.is-visible {
+        display: none;
+      }
+
+      #CollectionSection-{{ section.id }} .grid-overflow-wrapper {
+        overflow-x: scroll;
+      }
+
+      #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid {
+        margin-left: -6px;
+      }
+
+      #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid__item {
+        flex: 0 0 52vw;
+        padding-left: 6px;
+        width: 52vw;
+      }
+
+      #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid__item:first-child {
+        margin-left: 6px;
+      }
+
+      #CollectionSection-{{ section.id }} .grid-overflow-wrapper .grid__item:last-child:after {
+        margin-right: 6px;
+      }
+    }
+  {%- endstyle -%}
+{%- endif -%}
 
 <div
   id="CollectionSection-{{ section.id }}"
@@ -22,8 +117,26 @@
     </div>
   {%- endif -%}
 
-  <div class="page-width{% if section.settings.mobile_scrollable %} page-width--flush-small{% endif %}">
-    <div{% if section.settings.mobile_scrollable %} class="grid-overflow-wrapper"{% endif %}>
+  <div class="page-width{% if section.settings.mobile_scrollable %} page-width--flush-small{% endif %}{% if enable_collection_carousel_arrows %} featured-collection-carousel{% endif %}">
+    {%- if enable_collection_carousel_arrows -%}
+      <div class="featured-collection__nav" data-featured-collection-nav>
+        <button
+          type="button"
+          class="btn btn--body btn--circle featured-collection__arrow featured-collection__arrow--prev hide"
+          data-featured-collection-prev
+          aria-label="{{ 'general.pagination.previous' | t }}">
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-left" viewBox="0 0 50 15"><title>icon-left-arrow</title><path d="M50 5.38v4.25H15V15L0 7.5 15 0v5.38Z"/></svg>
+        </button>
+        <button
+          type="button"
+          class="btn btn--body btn--circle featured-collection__arrow featured-collection__arrow--next"
+          data-featured-collection-next
+          aria-label="{{ 'general.pagination.next' | t }}">
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-right" viewBox="0 0 50 15"><title>icon-right-arrow</title><path d="M0 9.63V5.38h35V0l15 7.5L35 15V9.63Z"/></svg>
+        </button>
+      </div>
+    {%- endif -%}
+    <div{% if section.settings.mobile_scrollable %} class="grid-overflow-wrapper"{% endif %}{% if enable_collection_carousel_arrows %} data-featured-collection-overflow{% endif %}>
       <div class="grid grid--uniform"{% if section.settings.mobile_scrollable %} data-aos="overflow__animation"{% endif %}>
         {%- liquid
           capture gridView
@@ -166,6 +279,81 @@
     </div>
   </div>
 </div>
+
+{%- if enable_collection_carousel_arrows -%}
+  <script>
+    (function() {
+      var section = document.getElementById('CollectionSection-{{ section.id }}');
+      if (!section) {
+        return;
+      }
+
+      var overflow = section.querySelector('[data-featured-collection-overflow]');
+      var nav = section.querySelector('[data-featured-collection-nav]');
+      var prevButton = section.querySelector('[data-featured-collection-prev]');
+      var nextButton = section.querySelector('[data-featured-collection-next]');
+
+      if (!overflow || !nav || !prevButton || !nextButton) {
+        return;
+      }
+
+      var getScrollAmount = function() {
+        var cards = overflow.querySelectorAll('.grid > .grid__item');
+
+        if (!cards.length) {
+          return overflow.clientWidth;
+        }
+
+        if (cards.length > 1) {
+          var distance = cards[1].offsetLeft - cards[0].offsetLeft;
+
+          if (distance > 0) {
+            return distance;
+          }
+        }
+
+        return cards[0].getBoundingClientRect().width;
+      };
+
+      var updateButtons = function() {
+        var isDesktop = window.matchMedia('(min-width: 769px)').matches;
+        var maxScrollLeft = overflow.scrollWidth - overflow.clientWidth;
+        var hasOverflow = maxScrollLeft > 2;
+        var atStart = overflow.scrollLeft <= 2;
+        var atEnd = overflow.scrollLeft >= maxScrollLeft - 2;
+
+        nav.classList.toggle('is-visible', hasOverflow && isDesktop);
+        prevButton.classList.toggle('hide', atStart || !hasOverflow || !isDesktop);
+        nextButton.classList.toggle('hide', atEnd || !hasOverflow || !isDesktop);
+      };
+
+      var scrollByCard = function(direction) {
+        overflow.scrollBy({
+          left: getScrollAmount() * direction,
+          behavior: 'smooth'
+        });
+      };
+
+      prevButton.addEventListener('click', function() {
+        scrollByCard(-1);
+      });
+
+      nextButton.addEventListener('click', function() {
+        scrollByCard(1);
+      });
+
+      overflow.addEventListener('scroll', updateButtons);
+
+      var resizeHandler = updateButtons;
+      if (window.theme && theme.utils && typeof theme.utils.debounce === 'function') {
+        resizeHandler = theme.utils.debounce(150, updateButtons);
+      }
+      window.addEventListener('resize', resizeHandler);
+
+      updateButtons();
+    })();
+  </script>
+{%- endif -%}
 
 {%- if section.settings.divider -%}</div>{%- endif -%}
 

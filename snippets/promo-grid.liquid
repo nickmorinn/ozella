@@ -38,6 +38,121 @@
       padding-left: {{ section.settings.gutter_size | divided_by: 2 }}px;
     }
   }
+
+  @keyframes promo-text-reveal-{{ section.id }} {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 22px, 0);
+      filter: blur(7px);
+    }
+    75% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+    }
+  }
+
+  .flex-grid--{{ section.id }} .type-advanced .promo-grid__text > *,
+  .flex-grid--{{ section.id }} .type-product .promo-grid__text > * {
+    animation: promo-text-reveal-{{ section.id }} 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+    backface-visibility: hidden;
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    will-change: transform, opacity, filter;
+  }
+
+  .flex-grid--{{ section.id }} .type-advanced .promo-grid__text > *:nth-child(1),
+  .flex-grid--{{ section.id }} .type-product .promo-grid__text > *:nth-child(1) {
+    animation-delay: 0.14s;
+  }
+
+  .flex-grid--{{ section.id }} .type-advanced .promo-grid__text > *:nth-child(2),
+  .flex-grid--{{ section.id }} .type-product .promo-grid__text > *:nth-child(2) {
+    animation-delay: 0.28s;
+  }
+
+  .flex-grid--{{ section.id }} .type-advanced .promo-grid__text > *:nth-child(3),
+  .flex-grid--{{ section.id }} .type-product .promo-grid__text > *:nth-child(3) {
+    animation-delay: 0.42s;
+  }
+
+  .flex-grid--{{ section.id }} .type-advanced .promo-grid__text > *:nth-child(4),
+  .flex-grid--{{ section.id }} .type-product .promo-grid__text > *:nth-child(4) {
+    animation-delay: 0.56s;
+  }
+
+  .flex-grid--{{ section.id }} .promo-grid__text .rte--strong,
+  .flex-grid--{{ section.id }} .promo-grid__title {
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), letter-spacing 0.35s ease, text-shadow 0.45s ease;
+    will-change: transform, letter-spacing;
+  }
+
+  .flex-grid--{{ section.id }} .promo-grid__text .rte--block:not(.rte--strong) {
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+  }
+
+  .flex-grid--{{ section.id }} .promo-grid__container:hover .promo-grid__text .rte--strong,
+  .flex-grid--{{ section.id }} .promo-grid__container:focus-within .promo-grid__text .rte--strong,
+  .flex-grid--{{ section.id }} .promo-grid__container:hover .promo-grid__title,
+  .flex-grid--{{ section.id }} .promo-grid__container:focus-within .promo-grid__title {
+    letter-spacing: 0.012em;
+    text-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
+    transform: translate3d(0, -2px, 0);
+  }
+
+  .flex-grid--{{ section.id }} .promo-grid__container:hover .promo-grid__text .rte--block:not(.rte--strong),
+  .flex-grid--{{ section.id }} .promo-grid__container:focus-within .promo-grid__text .rte--block:not(.rte--strong) {
+    opacity: 0.97;
+    transform: translate3d(0, -1px, 0);
+  }
+
+  .flex-grid--{{ section.id }} .promo-grid__text .btn {
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+    will-change: transform, box-shadow, filter;
+  }
+
+  .flex-grid--{{ section.id }} .promo-grid__text .btn:hover,
+  .flex-grid--{{ section.id }} .promo-grid__text .btn:focus-visible {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.12);
+    filter: saturate(1.05) brightness(1.02);
+    transform: translate3d(0, -2px, 0) scale(1.012);
+  }
+
+  .flex-grid--{{ section.id }} .promo-grid__text .btn:active {
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.16), 0 2px 6px rgba(0, 0, 0, 0.1);
+    filter: saturate(1.02);
+    transform: translate3d(0, 0, 0) scale(0.995);
+  }
+
+  .flex-grid--{{ section.id }} .promo-grid__text .btn:focus-visible {
+    outline-offset: 2px;
+  }
+
+  [data-disable-animations=true] .flex-grid--{{ section.id }} .promo-grid__text .btn {
+    transition: none !important;
+  }
+
+  [data-disable-animations=true] .flex-grid--{{ section.id }} .promo-grid__text > * {
+    animation: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .no-js .flex-grid--{{ section.id }} .promo-grid__text > * {
+    animation: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 {%- endstyle -%}
 
 <div class="promo-grid{% if section.settings.space_above %} promo-grid--space-top{% endif %}{% if section.settings.space_below %} promo-grid--space-bottom{% endif %}">

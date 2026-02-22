@@ -43,6 +43,159 @@
       opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     }
   {% endif %}
+
+  @keyframes hero-title-reveal-{{ section.id }} {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 30px, 0) scale(0.985);
+      filter: blur(8px);
+      letter-spacing: 0.018em;
+    }
+    70% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+      filter: blur(0);
+      letter-spacing: 0;
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+      filter: blur(0);
+      letter-spacing: 0;
+    }
+  }
+
+  @keyframes hero-copy-reveal-{{ section.id }} {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 24px, 0);
+      filter: blur(6px);
+    }
+    80% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes hero-button-reveal-{{ section.id }} {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  /* Fallback override in case a stale global selector still uses rise-up */
+  @keyframes rise-up {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 30px, 0);
+      filter: blur(6px);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+    }
+  }
+
+  .video-parent-section.hero--{{ section.id }} .hero__title .animation-contents,
+  .video-parent-section.hero--{{ section.id }} .hero__subtitle .animation-contents,
+  .video-parent-section.hero--{{ section.id }} .hero__top-subtitle .animation-contents {
+    will-change: transform, opacity, filter;
+  }
+
+  .video-parent-section.hero--{{ section.id }}.loaded .hero__title .animation-contents,
+  .loaded .video-parent-section.hero--{{ section.id }} .hero__title .animation-contents {
+    animation-name: hero-title-reveal-{{ section.id }} !important;
+    animation-duration: 1.3s !important;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+    animation-delay: 0.25s !important;
+    animation-fill-mode: both !important;
+  }
+
+  .video-parent-section.hero--{{ section.id }}.loaded .hero__subtitle .animation-contents,
+  .video-parent-section.hero--{{ section.id }}.loaded .hero__top-subtitle .animation-contents,
+  .loaded .video-parent-section.hero--{{ section.id }} .hero__subtitle .animation-contents,
+  .loaded .video-parent-section.hero--{{ section.id }} .hero__top-subtitle .animation-contents {
+    animation-name: hero-copy-reveal-{{ section.id }} !important;
+    animation-duration: 1.1s !important;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+    animation-delay: 0.75s !important;
+    animation-fill-mode: both !important;
+  }
+
+  .video-parent-section.hero--{{ section.id }}.loaded .hero__link .btn,
+  .loaded .video-parent-section.hero--{{ section.id }} .hero__link .btn {
+    animation-name: hero-button-reveal-{{ section.id }} !important;
+    animation-duration: 0.95s !important;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+    animation-delay: 1.15s !important;
+    animation-fill-mode: both !important;
+  }
+
+  .video-parent-section.hero--{{ section.id }}.loaded .hero__link .btn:nth-child(2),
+  .loaded .video-parent-section.hero--{{ section.id }} .hero__link .btn:nth-child(2) {
+    animation-delay: 1.32s !important;
+  }
+
+  .video-parent-section.hero--{{ section.id }} .hero__link .btn {
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+    will-change: transform, box-shadow, filter;
+  }
+
+  .video-parent-section.hero--{{ section.id }} .hero__link .btn .icon-play {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    will-change: transform;
+  }
+
+  .video-parent-section.hero--{{ section.id }} .hero__link .btn:hover,
+  .video-parent-section.hero--{{ section.id }} .hero__link .btn:focus-visible {
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22), 0 4px 10px rgba(0, 0, 0, 0.14);
+    filter: saturate(1.06) brightness(1.02);
+    transform: translate3d(0, -2px, 0) scale(1.015);
+  }
+
+  .video-parent-section.hero--{{ section.id }} .hero__link .btn:hover .icon-play,
+  .video-parent-section.hero--{{ section.id }} .hero__link .btn:focus-visible .icon-play {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  .video-parent-section.hero--{{ section.id }} .hero__link .btn:active {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18), 0 2px 5px rgba(0, 0, 0, 0.12);
+    filter: saturate(1.03);
+    transform: translate3d(0, 0, 0) scale(0.995);
+  }
+
+  .video-parent-section.hero--{{ section.id }} .hero__link .btn:focus-visible {
+    outline-offset: 2px;
+  }
+
+  [data-disable-animations=true] .video-parent-section.hero--{{ section.id }} .hero__title .animation-contents,
+  [data-disable-animations=true] .video-parent-section.hero--{{ section.id }} .hero__subtitle .animation-contents,
+  [data-disable-animations=true] .video-parent-section.hero--{{ section.id }} .hero__top-subtitle .animation-contents,
+  [data-disable-animations=true] .video-parent-section.hero--{{ section.id }} .hero__link .btn {
+    animation: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  [data-disable-animations=true] .video-parent-section.hero--{{ section.id }} .hero__link .btn,
+  [data-disable-animations=true] .video-parent-section.hero--{{ section.id }} .hero__link .btn .icon-play {
+    transition: none !important;
+  }
 {%- endstyle -%}
 
 <div
