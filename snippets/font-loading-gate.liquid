@@ -1,0 +1,53 @@
+{%- style -%}
+  html.fonts-loading body {
+    visibility: hidden;
+  }
+{%- endstyle -%}
+
+<script>
+  (function() {
+    var root = document.documentElement;
+    var unlock = function() {
+      root.classList.remove('fonts-loading');
+      root.classList.add('fonts-loaded');
+    };
+    var unlockOnce = function() {
+      if (root.classList.contains('fonts-loading')) {
+        unlock();
+      }
+    };
+    var timeoutId;
+
+    root.classList.add('fonts-loading');
+    timeoutId = window.setTimeout(unlockOnce, 3000);
+
+    if (!document.fonts || !document.fonts.ready) {
+      window.addEventListener(
+        'load',
+        function() {
+          window.clearTimeout(timeoutId);
+          unlockOnce();
+        },
+        { once: true }
+      );
+      return;
+    }
+
+    Promise.all([
+      document.fonts.load('400 1em "Freight Text Pro"'),
+      document.fonts.load('700 1em "Contempora Sans"'),
+      document.fonts.load('400 1em "GeneralGrotesqueMono-Regular"'),
+      document.fonts.load('700 1em "Prestige Elite Std"'),
+      document.fonts.ready
+    ]).then(
+      function() {
+        window.clearTimeout(timeoutId);
+        unlockOnce();
+      },
+      function() {
+        window.clearTimeout(timeoutId);
+        unlockOnce();
+      }
+    );
+  })();
+</script>

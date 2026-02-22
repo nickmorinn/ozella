@@ -4,6 +4,35 @@
 {%- assign base_font_italic = base_font | font_modify: 'style', 'italic' -%}
 {%- assign base_font_bold_italic = base_font_bold | font_modify: 'style', 'italic' -%}
 
+<link
+  rel="preload"
+  as="font"
+  href="{{ 'freighttext-pro-book-regular.woff2' | asset_url }}"
+  type="font/woff2"
+  crossorigin
+>
+<link
+  rel="preload"
+  as="font"
+  href="{{ 'ContemporaSans-BoldCondensed.woff2' | asset_url }}"
+  type="font/woff2"
+  crossorigin
+>
+<link
+  rel="preload"
+  as="font"
+  href="{{ 'GeneralGrotesqueMono-Regular.woff2' | asset_url }}"
+  type="font/woff2"
+  crossorigin
+>
+<link
+  rel="preload"
+  as="font"
+  href="{{ 'Prestige Elite Std Bold.woff2' | asset_url }}"
+  type="font/woff2"
+  crossorigin
+>
+
 {%- style -%}
   @font-face {
     font-family: "Freight Text Pro";

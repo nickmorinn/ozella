@@ -20,6 +20,7 @@
   {%- render 'social-meta-tags' -%}
 
   {%- render 'font-face' -%}
+  {%- render 'font-loading-gate' -%}
   {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
   {%- render 'css-variables' -%}
 

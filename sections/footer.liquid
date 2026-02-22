@@ -97,30 +97,31 @@
 
   .site-footer[data-section-id="{{ section.id }}"] .footer-floaters {
     --footer-float-progress: 0;
-    inset: 0;
-    opacity: 0;
+    bottom: 0;
+    left: 0;
+    overflow: visible;
     pointer-events: none;
-    position: fixed;
-    transition: opacity 220ms ease;
-    z-index: 4;
-  }
-
-  .site-footer[data-section-id="{{ section.id }}"] .footer-floaters[data-active="true"] {
-    opacity: 1;
+    position: absolute;
+    right: 0;
+    top: clamp(220px, 26vw, 360px);
+    z-index: 1;
   }
 
   .site-footer[data-section-id="{{ section.id }}"] .footer-floater {
     --drift: 0px;
-    --rise: 42vh;
+    --rise: 92px;
     --rotation: 0deg;
     --scale: 1;
-    bottom: -14vh;
+    bottom: clamp(220px, 18vw, 300px);
     left: 50%;
-    opacity: calc(0.12 + (var(--footer-float-progress) * 0.88));
     position: absolute;
-    transform: translate3d(calc(var(--drift) * var(--footer-float-progress)), calc((1 - var(--footer-float-progress)) * var(--rise)), 0) rotate(var(--rotation)) scale(var(--scale));
+    transform: translate3d(
+      calc(var(--drift) * var(--footer-float-progress)),
+      calc((1 - var(--footer-float-progress)) * 76px - (var(--footer-float-progress) * var(--rise))),
+      0
+    ) rotate(var(--rotation)) scale(var(--scale));
     transform-origin: 50% 100%;
-    will-change: transform, opacity;
+    will-change: transform;
   }
 
   .site-footer[data-section-id="{{ section.id }}"] .footer-floater img {
@@ -130,49 +131,42 @@
   }
 
   .site-footer[data-section-id="{{ section.id }}"] .footer-floater--1 {
-    --drift: 16px;
-    --rise: 50vh;
-    --rotation: -14deg;
-    --scale: 0.95;
-    left: 9%;
-    width: clamp(54px, 5.2vw, 92px);
+    --drift: 18px;
+    --rise: 104px;
+    --rotation: 0deg;
+    --scale: 1;
+    left: 18%;
+    width: clamp(82px, 7vw, 124px);
   }
 
   .site-footer[data-section-id="{{ section.id }}"] .footer-floater--2 {
-    --drift: -18px;
-    --rise: 36vh;
-    --rotation: 9deg;
-    --scale: 0.88;
-    left: 49%;
-    width: clamp(48px, 4.5vw, 80px);
-  }
-
-  .site-footer[data-section-id="{{ section.id }}"] .footer-floater--3 {
-    --drift: 14px;
-    --rise: 46vh;
-    --rotation: -6deg;
-    --scale: 0.92;
-    left: 84%;
-    width: clamp(52px, 4.8vw, 86px);
+    --drift: -16px;
+    --rise: 88px;
+    --rotation: 0deg;
+    --scale: 0.72;
+    bottom: clamp(286px, 22vw, 352px);
+    left: 83%;
+    width: clamp(52px, 4.5vw, 76px);
   }
 
   @media only screen and (max-width: 768px) {
     .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="logo_social"] .footer__logo {
-      margin: 14px 0 clamp(-72px, -17vw, -38px);
+      margin: 18px 0 clamp(-28px, -7vw, -10px);
     }
 
-    .site-footer[data-section-id="{{ section.id }}"] .footer-floater--2 {
-      display: none;
+    .site-footer[data-section-id="{{ section.id }}"] .footer-floaters {
+      top: clamp(290px, 72vw, 430px);
     }
 
     .site-footer[data-section-id="{{ section.id }}"] .footer-floater--1 {
-      left: 8%;
-      width: clamp(46px, 13vw, 72px);
+      display: none;
     }
 
-    .site-footer[data-section-id="{{ section.id }}"] .footer-floater--3 {
-      left: 80%;
-      width: clamp(44px, 12vw, 68px);
+    .site-footer[data-section-id="{{ section.id }}"] .footer-floater--2 {
+      --rise: 54px;
+      bottom: clamp(186px, 32vw, 246px);
+      left: 78%;
+      width: clamp(30px, 8.8vw, 44px);
     }
   }
 
@@ -184,6 +178,11 @@
 
   [data-disable-animations=true] .site-footer[data-section-id="{{ section.id }}"] .footer-floaters {
     display: none;
+  }
+
+  .site-footer[data-section-id="{{ section.id }}"] .page-width {
+    position: relative;
+    z-index: 2;
   }
 
   .site-footer[data-section-id="{{ section.id }}"] .page-width {
@@ -268,10 +267,7 @@
       <img src="{{ 'hand-cropped.svg' | asset_url }}" alt="" loading="lazy" width="160" height="160">
     </span>
     <span class="footer-floater footer-floater--2">
-      <img src="{{ 'hand-cropped.svg' | asset_url }}" alt="" loading="lazy" width="160" height="160">
-    </span>
-    <span class="footer-floater footer-floater--3">
-      <img src="{{ 'hand-cropped.svg' | asset_url }}" alt="" loading="lazy" width="160" height="160">
+      <img src="{{ 'hand-cropped.svg' | asset_url }}" alt="" loading="lazy" width="120" height="120">
     </span>
   </div>
 </footer>
@@ -295,18 +291,12 @@
       var update = function() {
         rafId = 0;
         var rect = footer.getBoundingClientRect();
-        var start = window.innerHeight * 1.35;
-        var end = window.innerHeight * 0.2;
+        var start = window.innerHeight * 1.7;
+        var end = window.innerHeight * -0.12;
         var progress = (start - rect.top) / (start - end);
         progress = Math.max(0, Math.min(1, progress));
 
         floaters.style.setProperty('--footer-float-progress', progress.toFixed(4));
-
-        if (progress > 0.01) {
-          floaters.setAttribute('data-active', 'true');
-        } else {
-          floaters.removeAttribute('data-active');
-        }
       };
 
       var requestUpdate = function() {
