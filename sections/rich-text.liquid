@@ -1,3 +1,16 @@
+{%- assign is_homepage = false -%}
+{%- if request.page_type == 'index' -%}
+  {%- assign is_homepage = true -%}
+{%- endif -%}
+{%- assign has_spotted_heading = false -%}
+{%- for block in section.blocks -%}
+  {%- assign heading_text = block.settings.title | strip | upcase -%}
+  {%- if is_homepage and block.type == 'heading' and heading_text == 'SPOTTED IN OZELLA' -%}
+    {%- assign has_spotted_heading = true -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
 {%- if section.settings.top_padding == false or section.settings.bottom_padding == false -%}
   {%- style -%}
     {%- if section.settings.top_padding == false -%}
@@ -26,14 +39,136 @@
   {%- endstyle -%}
 {%- endif -%}
 
+{%- if has_spotted_heading -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .ozella-spotted-heading {
+      position: relative;
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0;
+      margin: 0;
+      padding-inline: 0.12em;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .ozella-spotted-heading .ozella-letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translate3d(0, 0.45em, 0) rotate(2deg);
+      filter: blur(2px);
+      transition:
+        opacity 320ms ease,
+        transform 620ms cubic-bezier(0.2, 0.8, 0.15, 1),
+        filter 520ms ease;
+      transition-delay: calc(var(--char-index) * 34ms);
+      will-change: opacity, transform, filter;
+    }
+
+    #shopify-section-{{ section.id }} .ozella-spotted-heading .ozella-letter--space {
+      width: 0.24em;
+    }
+
+    #shopify-section-{{ section.id }} .ozella-spotted-heading.is-visible .ozella-letter {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(0);
+      filter: blur(0);
+    }
+
+    #shopify-section-{{ section.id }} .ozella-spotted-caption {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+      filter: blur(2px);
+      transition:
+        opacity 360ms ease,
+        transform 520ms cubic-bezier(0.2, 0.8, 0.15, 1),
+        filter 420ms ease;
+    }
+
+    #shopify-section-{{ section.id }} .ozella-spotted-caption.is-visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+    }
+
+    #shopify-section-{{ section.id }} .ozella-spotted-heading::after {
+      content: '';
+      position: absolute;
+      inset: 12% -8%;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        transparent 42%,
+        rgba(255, 241, 194, 0.55) 50%,
+        transparent 58%,
+        transparent 100%
+      );
+      transform: translate3d(-120%, 0, 0);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0;
+    }
+
+    #shopify-section-{{ section.id }} .ozella-spotted-heading.is-visible::after {
+      animation: ozella-spotted-sheen-{{ section.id }} 900ms 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes ozella-spotted-sheen-{{ section.id }} {
+      0% {
+        transform: translate3d(-120%, 0, 0);
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translate3d(120%, 0, 0);
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #shopify-section-{{ section.id }} .ozella-spotted-heading .ozella-letter {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+      }
+
+      #shopify-section-{{ section.id }} .ozella-spotted-heading::after {
+        display: none;
+      }
+
+      #shopify-section-{{ section.id }} .ozella-spotted-caption {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+      }
+    }
+  {%- endstyle -%}
+{%- endif -%}
+
 {%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
 
 <div class="text-{{ section.settings.align_text }} page-width{% if section.settings.narrow_column %} page-width--narrow{% endif %}">
+  {%- assign spotted_heading_seen = false -%}
+  {%- assign spotted_caption_used = false -%}
   {%- for block in section.blocks -%}
     <div class="theme-block" {{ block.shopify_attributes }}>
       {%- case block.type -%}
         {%- when 'heading' -%}
-          <h2>{{ block.settings.title | escape }}</h2>
+          {%- assign heading_text = block.settings.title | strip | upcase -%}
+          {%- if is_homepage and heading_text == 'SPOTTED IN OZELLA' -%}
+            {%- assign spotted_heading_seen = true -%}
+            <h2 class="ozella-spotted-heading" data-ozella-spotted>{{ block.settings.title | escape }}</h2>
+          {%- else -%}
+            <h2>{{ block.settings.title | escape }}</h2>
+          {%- endif -%}
         {%- when 'page' -%}
           <div class="rte">
             {%- if block.settings.page_text != blank -%}
@@ -43,7 +178,12 @@
             {%- endif -%}
           </div>
         {%- when 'text' -%}
-          <div class="rte">
+          {%- assign animate_spotted_caption = false -%}
+          {%- if has_spotted_heading and spotted_heading_seen and spotted_caption_used == false -%}
+            {%- assign animate_spotted_caption = true -%}
+            {%- assign spotted_caption_used = true -%}
+          {%- endif -%}
+          <div class="rte{% if animate_spotted_caption %} ozella-spotted-caption{% endif %}"{% if animate_spotted_caption %} data-ozella-spotted-caption{% endif %}>
             {%- if block.settings.text != blank -%}
               {%- if block.settings.enlarge_text %}<div class="enlarge-text">{% endif -%}
               {{ block.settings.text }}
@@ -64,6 +204,104 @@
 </div>
 
 {%- if section.settings.divider -%}</div>{%- endif -%}
+
+{%- if has_spotted_heading -%}
+  <script>
+    (function () {
+      if (window.__ozellaSpottedHeadingBound) return;
+      window.__ozellaSpottedHeadingBound = true;
+
+      function prepareSpottedHeadings(scope) {
+        var roots = scope.querySelectorAll ? scope.querySelectorAll('[data-ozella-spotted]') : [];
+
+        for (var i = 0; i < roots.length; i++) {
+          var el = roots[i];
+          if (el.dataset.ozellaSpottedReady === 'true') continue;
+
+          var label = (el.textContent || '').trim();
+          if (!label) continue;
+
+          el.dataset.ozellaSpottedReady = 'true';
+          el.setAttribute('aria-label', label);
+          el.textContent = '';
+
+          for (var charIndex = 0; charIndex < label.length; charIndex++) {
+            var char = label.charAt(charIndex);
+            var span = document.createElement('span');
+
+            span.className = 'ozella-letter' + (char === ' ' ? ' ozella-letter--space' : '');
+            span.setAttribute('aria-hidden', 'true');
+            span.style.setProperty('--char-index', charIndex);
+            span.textContent = char === ' ' ? '' : char;
+            el.appendChild(span);
+          }
+        }
+      }
+
+      function watchSpottedHeadings(scope) {
+        var headings = scope.querySelectorAll ? scope.querySelectorAll('[data-ozella-spotted]') : [];
+        if (!headings.length) return;
+
+        function revealCaptions(root, delay) {
+          var captions = root.querySelectorAll ? root.querySelectorAll('[data-ozella-spotted-caption]') : [];
+          for (var c = 0; c < captions.length; c++) {
+            var caption = captions[c];
+            if (caption.dataset.ozellaSpottedCaptionVisible === 'true') continue;
+
+            caption.dataset.ozellaSpottedCaptionVisible = 'true';
+            window.setTimeout((function (el) {
+              return function () {
+                el.classList.add('is-visible');
+              };
+            })(caption), delay);
+          }
+        }
+
+        if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          for (var i = 0; i < headings.length; i++) {
+            headings[i].classList.add('is-visible');
+            revealCaptions(scope, 0);
+          }
+          return;
+        }
+
+        if (!window.__ozellaSpottedObserver) {
+          window.__ozellaSpottedObserver = new IntersectionObserver(function (entries, observer) {
+            for (var i = 0; i < entries.length; i++) {
+              if (entries[i].isIntersecting) {
+                entries[i].target.classList.add('is-visible');
+                revealCaptions(scope, 760);
+                observer.unobserve(entries[i].target);
+              }
+            }
+          }, { threshold: 0.55 });
+        }
+
+        for (var j = 0; j < headings.length; j++) {
+          window.__ozellaSpottedObserver.observe(headings[j]);
+        }
+      }
+
+      function init(scope) {
+        var root = scope || document;
+        prepareSpottedHeadings(root);
+        watchSpottedHeadings(root);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          init(document);
+        });
+      } else {
+        init(document);
+      }
+
+      document.addEventListener('shopify:section:load', function (event) {
+        init(event.target);
+      });
+    })();
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
