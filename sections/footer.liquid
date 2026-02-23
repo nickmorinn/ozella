@@ -40,7 +40,7 @@
     border: 1.5px solid rgba(0, 0, 0, 0.58);
     border-radius: 999px;
     min-height: 50px;
-    padding: 12px 56px 12px 18px;
+    padding: 13px 56px 11px 18px;
     transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
   }
 
@@ -277,12 +277,12 @@
   }
 
   .site-footer[data-section-id="{{ section.id }}"] .footer-floater--2 {
-    --drift: -12px;
+    --drift: -3px;
     --rise: 46px;
     --rotation: 0deg;
     --scale: 0.72;
-    bottom: clamp(206px, 15vw, 254px);
-    left: 83%;
+    bottom: clamp(242px, 18vw, 292px);
+    left: 87.5%;
     width: clamp(46px, 4vw, 68px);
   }
 
@@ -380,7 +380,7 @@
     .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="newsletter"] .footer__newsletter-input {
       max-width: none;
       min-height: 48px;
-      padding: 11px 52px 11px 16px;
+      padding: 12px 52px 10px 16px;
     }
 
     .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="newsletter"] .footer__social {
@@ -394,16 +394,16 @@
     }
 
     .site-footer[data-section-id="{{ section.id }}"] .footer-floaters {
-      overflow: hidden;
+      overflow: visible;
       top: clamp(372px, 88vw, 548px);
       z-index: 2;
     }
 
     .site-footer[data-section-id="{{ section.id }}"] .footer-floater--2 {
-      --drift: -10px;
+      --drift: -2px;
       --rise: 24px;
-      bottom: clamp(114px, 20vw, 164px);
-      left: 84%;
+      bottom: clamp(148px, 26vw, 198px);
+      left: 88.5%;
       width: clamp(26px, 7.6vw, 38px);
     }
   }
@@ -416,6 +416,20 @@
 
   [data-disable-animations=true] .site-footer[data-section-id="{{ section.id }}"] .footer-floaters {
     display: none;
+  }
+
+  @media only screen and (max-width: 768px) {
+    [data-disable-animations=true] .site-footer[data-section-id="{{ section.id }}"] .footer-floaters {
+      --footer-float-progress: 1;
+      display: block;
+    }
+  }
+
+  @media only screen and (max-width: 768px) and (prefers-reduced-motion: reduce) {
+    .site-footer[data-section-id="{{ section.id }}"] .footer-floaters {
+      --footer-float-progress: 1;
+      display: block;
+    }
   }
 
   .site-footer[data-section-id="{{ section.id }}"] .page-width {
