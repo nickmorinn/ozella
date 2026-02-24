@@ -1,83 +1,355 @@
-<div class="page-width page-width--tiny page-content">
-  <header class="section-header">
-    <h1 class="section-header__title">{{ 'customer.login.title' | t }}</h1>
-  </header>
+{% style %}
+  .customer-auth {
+    --auth-accent: #b4d6d8;
+  }
 
-  <div class="note note--success hide" id="ResetSuccess">
-    {{ 'customer.recover_password.success' | t }}
-  </div>
+  .customer-auth__shell {
+    display: grid;
+    gap: 24px;
+  }
 
-  <div id="CustomerLoginForm" class="form-vertical">
-    {%- form 'customer_login' -%}
+  .customer-auth__intro,
+  .customer-auth__panel {
+    border: 1px solid var(--colorBorder);
+    border-radius: 22px;
+    overflow: hidden;
+    position: relative;
+  }
 
-      {{ form.errors | default_errors }}
+  .customer-auth__intro {
+    background: linear-gradient(155deg, var(--auth-accent) 0%, #d5e8e8 100%);
+    color: #1f2a2c;
+    padding: clamp(24px, 4vw, 42px);
+  }
 
-      <label for="CustomerEmail">{{ 'customer.login.email' | t }}</label>
-      <input type="email" name="customer[email]" id="CustomerEmail" class="input-full{% if form.errors contains 'email' %} error{% endif %}" autocorrect="off" autocapitalize="off" autofocus>
+  .customer-auth__eyebrow {
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: max(calc(var(--typeBaseSize) - 5px), 11px);
+    letter-spacing: 0.22em;
+    margin: 0 0 12px;
+    text-transform: uppercase;
+  }
 
-      {%- if form.password_needed -%}
-        <div class="grid">
-          <div class="grid__item one-half">
-            <label for="CustomerPassword">{{ 'customer.login.password' | t }}</label>
-          </div>
-          <div class="grid__item one-half text-right">
-            <small class="label-info">
-              <a href="#recover" id="RecoverPassword">
-                {{ 'customer.login.forgot_password' | t }}
-              </a>
-            </small>
-          </div>
-        </div>
-        <input type="password" value="" name="customer[password]" id="CustomerPassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}">
-      {%- endif -%}
+  .customer-auth__intro-title {
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1;
+    margin: 0 0 16px;
+  }
 
-      <p>
-        <button type="submit" class="btn btn--full">
-          {{ 'customer.login.sign_in' | t }}
-        </button>
+  .customer-auth__intro-copy {
+    font-size: max(calc(var(--typeBaseSize) - 1px), 15px);
+    line-height: 1.45;
+    margin: 0;
+    max-width: 28ch;
+  }
+
+  .customer-auth__intro-list {
+    display: grid;
+    gap: 8px;
+    list-style: none;
+    margin: 22px 0 0;
+    padding: 0;
+  }
+
+  .customer-auth__intro-list li {
+    align-items: center;
+    display: flex;
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: max(calc(var(--typeBaseSize) - 6px), 12px);
+    gap: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .customer-auth__dot {
+    background: currentColor;
+    border-radius: 999px;
+    flex: 0 0 5px;
+    height: 5px;
+  }
+
+  .customer-auth__panel {
+    background: var(--colorBody);
+    padding: clamp(22px, 4vw, 38px);
+  }
+
+  .customer-auth__status {
+    border-radius: 12px;
+    margin-bottom: 16px;
+    padding: 12px 14px;
+  }
+
+  .customer-auth__header {
+    margin-bottom: 18px;
+  }
+
+  .customer-auth__title {
+    font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 1;
+    margin: 0;
+  }
+
+  .customer-auth__subtitle {
+    margin: 10px 0 0;
+    max-width: 38ch;
+  }
+
+  .customer-auth__errors {
+    margin-bottom: 16px;
+  }
+
+  .customer-auth__errors .errors {
+    border: 1px solid var(--colorBorder);
+    margin: 0;
+    padding: 12px 16px;
+  }
+
+  .customer-auth__field {
+    margin-bottom: 16px;
+  }
+
+  .customer-auth__field-label {
+    display: block;
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: max(calc(var(--typeBaseSize) - 5px), 11px);
+    letter-spacing: 0.16em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .customer-auth__field-row {
+    align-items: end;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  .customer-auth__field-row .customer-auth__field-label {
+    margin-bottom: 0;
+  }
+
+  .customer-auth__input {
+    background: #fff;
+    border-radius: 999px;
+    min-height: 48px;
+    padding: 10px 16px;
+    transition: box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .customer-auth__input:focus {
+    border-color: var(--colorTextBody);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+    outline: none;
+  }
+
+  .customer-auth__link {
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: max(calc(var(--typeBaseSize) - 6px), 12px);
+    letter-spacing: 0.16em;
+    text-decoration: underline;
+    text-transform: uppercase;
+    text-underline-offset: 0.2em;
+  }
+
+  .customer-auth__actions {
+    margin-top: 18px;
+  }
+
+  body:not([data-button_style='angled']) .customer-auth .btn {
+    border-radius: 999px;
+  }
+
+  .customer-auth__register,
+  .customer-auth__guest {
+    border-top: 1px solid var(--colorBorder);
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+
+  .customer-auth__register-title,
+  .customer-auth__guest-title {
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: max(calc(var(--typeBaseSize) - 5px), 12px);
+    letter-spacing: 0.16em;
+    margin: 0 0 12px;
+    text-transform: uppercase;
+  }
+
+  .customer-auth__ghost-button {
+    margin-top: 10px;
+  }
+
+  @media only screen and (min-width: 990px) {
+    .customer-auth__shell {
+      align-items: stretch;
+      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
+      gap: 34px;
+    }
+
+    .customer-auth__intro,
+    .customer-auth__panel {
+      min-height: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .customer-auth__intro,
+    .customer-auth__panel {
+      animation: customer-auth-rise 450ms cubic-bezier(0.19, 1, 0.22, 1) both;
+    }
+
+    .customer-auth__panel {
+      animation-delay: 80ms;
+    }
+  }
+
+  @keyframes customer-auth-rise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+{% endstyle %}
+
+<div class="customer-auth page-width page-width--narrow page-content">
+  <div class="customer-auth__shell">
+    <aside class="customer-auth__intro">
+      <p class="customer-auth__eyebrow">{{ shop.name }}</p>
+      <h2 class="customer-auth__intro-title">{{ 'customer.login.title' | t }}</h2>
+      <p class="customer-auth__intro-copy">
+        Sign in to view your orders, manage addresses, and check out faster.
       </p>
-      <p>{{ 'layout.customer.create_account' | t | customer_register_link }}</p>
+      <ul class="customer-auth__intro-list">
+        <li><span class="customer-auth__dot"></span> Order history</li>
+        <li><span class="customer-auth__dot"></span> Saved addresses</li>
+        <li><span class="customer-auth__dot"></span> Faster checkout</li>
+      </ul>
+    </aside>
 
-    {%- endform -%}
-  </div>
+    <div class="customer-auth__panel">
+      <div class="note note--success hide customer-auth__status" id="ResetSuccess">
+        {{ 'customer.recover_password.success' | t }}
+      </div>
 
-  <div id="RecoverPasswordForm" class="hide">
-    <div class="form-vertical">
-      <h2>{{ 'customer.recover_password.title' | t }}</h2>
-      <p>{{ 'customer.recover_password.subtext' | t }}</p>
+      <div id="CustomerLoginForm" class="form-vertical">
+        <header class="customer-auth__header">
+          <h1 class="customer-auth__title">{{ 'customer.login.title' | t }}</h1>
+        </header>
 
-      {%- form 'recover_customer_password' -%}
+        {%- form 'customer_login' -%}
+          {%- if form.errors -%}
+            <div class="customer-auth__errors">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
 
-        {{ form.errors | default_errors }}
+          <div class="customer-auth__field">
+            <label for="CustomerEmail" class="customer-auth__field-label">{{ 'customer.login.email' | t }}</label>
+            <input
+              type="email"
+              name="customer[email]"
+              id="CustomerEmail"
+              class="input-full customer-auth__input{% if form.errors contains 'email' %} error{% endif %}"
+              autocorrect="off"
+              autocapitalize="off"
+              autofocus
+            >
+          </div>
 
-        {%- if form.posted_successfully? -%}
-          <span class="hide reset-password-success"></span>
-        {%- endif -%}
+          {%- if form.password_needed -%}
+            <div class="customer-auth__field">
+              <div class="customer-auth__field-row">
+                <label for="CustomerPassword" class="customer-auth__field-label">{{ 'customer.login.password' | t }}</label>
+                <a href="#recover" id="RecoverPassword" class="customer-auth__link">
+                  {{ 'customer.login.forgot_password' | t }}
+                </a>
+              </div>
+              <input
+                type="password"
+                value=""
+                name="customer[password]"
+                id="CustomerPassword"
+                class="input-full customer-auth__input{% if form.errors contains 'password' %} error{% endif %}"
+              >
+            </div>
+          {%- endif -%}
 
-        <label for="RecoverEmail">{{ 'customer.recover_password.email' | t }}</label>
-        <input type="email" value="" name="email" id="RecoverEmail" class="input-full" autocorrect="off" autocapitalize="off">
+          <div class="customer-auth__actions">
+            <button type="submit" class="btn btn--full">
+              {{ 'customer.login.sign_in' | t }}
+            </button>
+          </div>
 
-        <p>
-          <button type="submit" class="btn">
-            {{ 'customer.recover_password.submit' | t }}
-          </button>
-        </p>
-        <button type="button" id="HideRecoverPasswordLink">{{ 'customer.recover_password.cancel' | t }}</button>
-      {%- endform -%}
+          <div class="customer-auth__register">
+            <p class="customer-auth__register-title">{{ 'layout.customer.create_account' | t }}</p>
+            <a href="{{ routes.account_register_url }}" class="btn btn--secondary btn--full customer-auth__ghost-button">
+              {{ 'layout.customer.create_account' | t }}
+            </a>
+          </div>
+        {%- endform -%}
+      </div>
+
+      <div id="RecoverPasswordForm" class="hide">
+        <div class="form-vertical">
+          <header class="customer-auth__header">
+            <h2 class="customer-auth__title">{{ 'customer.recover_password.title' | t }}</h2>
+            <p class="customer-auth__subtitle">{{ 'customer.recover_password.subtext' | t }}</p>
+          </header>
+
+          {%- form 'recover_customer_password' -%}
+            {%- if form.errors -%}
+              <div class="customer-auth__errors">
+                {{ form.errors | default_errors }}
+              </div>
+            {%- endif -%}
+
+            {%- if form.posted_successfully? -%}
+              <span class="hide reset-password-success"></span>
+            {%- endif -%}
+
+            <div class="customer-auth__field">
+              <label for="RecoverEmail" class="customer-auth__field-label">{{ 'customer.recover_password.email' | t }}</label>
+              <input
+                type="email"
+                value=""
+                name="email"
+                id="RecoverEmail"
+                class="input-full customer-auth__input"
+                autocorrect="off"
+                autocapitalize="off"
+              >
+            </div>
+
+            <div class="customer-auth__actions">
+              <button type="submit" class="btn btn--full">
+                {{ 'customer.recover_password.submit' | t }}
+              </button>
+            </div>
+
+            <div class="customer-auth__actions">
+              <button type="button" id="HideRecoverPasswordLink" class="customer-auth__link">
+                {{ 'customer.recover_password.cancel' | t }}
+              </button>
+            </div>
+          {%- endform -%}
+        </div>
+      </div>
+
+      {%- if shop.checkout.guest_login -%}
+        <div class="customer-auth__guest">
+          <h3 class="customer-auth__guest-title">{{ 'customer.login.guest_title' | t }}</h3>
+          {%- form 'guest_login' -%}
+            <button type="submit" class="btn btn--secondary btn--full">
+              {{ 'customer.login.guest_continue' | t }}
+            </button>
+          {%- endform -%}
+        </div>
+      {%- endif -%}
     </div>
-
   </div>
-
-  {%- if shop.checkout.guest_login -%}
-    <hr class="hr--clear">
-
-    <h1>{{ 'customer.login.guest_title' | t }}</h1>
-    <hr class="hr--small">
-
-    {%- form 'guest_login' -%}
-      <button type="submit" class="btn">
-        {{ 'customer.login.guest_continue' | t }}
-      </button>
-    {%- endform -%}
-  {%- endif -%}
 </div>
