@@ -217,6 +217,9 @@
       "password": "Password",
       "forgot_password": "Forgot password?",
       "sign_in": "Sign In",
+      "submit": "Sign In",
+      "no_account": "Don't have an account?",
+      "create_account": "Create account",
       "cancel": "Return to Store",
       "guest_title": "Continue as a guest",
       "guest_continue": "Continue"
@@ -254,6 +257,7 @@
       "title": "Reset your password",
       "email": "Email",
       "submit": "Submit",
+      "back_to_login": "Back to login",
       "cancel": "Cancel",
       "subtext": "We will send you an email to reset your password.",
       "success": "We've sent you an email with a link to update your password."
@@ -407,5 +411,13 @@
     "view_store_info": "View store information",
     "check_availability": "Check availability at other stores",
     "show_all_results": "Show all results for \"{{ terms }}\""
+  },
+  "theme": {
+    "form": {
+      "email": "Email",
+      "email_placeholder": "Enter your email",
+      "password": "Password",
+      "password_placeholder": "Enter your password"
+    }
   }
 }
