@@ -40,6 +40,10 @@
             </button>
           </div>
         {%- endform -%}
+
+        {%- if settings.social_instagram_link != blank or settings.social_tiktok_link != blank or settings.social_pinterest_link != blank -%}
+          {%- render 'social-icons', additional_classes: 'footer__social' -%}
+        {%- endif -%}
       </div>
     </div>
   </div>
