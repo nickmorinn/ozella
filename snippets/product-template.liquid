@@ -439,9 +439,47 @@
                   });
                 }
 
-                toggleEmptyJudgeMeWidgets();
+                function isBackInStockText(text) {
+                  return /notify me/i.test(text) && /(back in stock|when available|available)/i.test(text);
+                }
 
-                var observer = new MutationObserver(toggleEmptyJudgeMeWidgets);
+                function styleKlaviyoBackInStockButton(button) {
+                  if (!button || button.dataset.ozKlaviyoBisStyled === 'true') return;
+                  if (!button.matches('button, a, input[type="button"], input[type="submit"]')) return;
+
+                  button.classList.add('btn', 'btn--full', 'add-to-cart', 'oz-klaviyo-atc');
+
+                  if (button.tagName === 'A') {
+                    button.setAttribute('role', 'button');
+                  }
+
+                  button.dataset.ozKlaviyoBisStyled = 'true';
+                }
+
+                function styleKlaviyoBackInStockButtons() {
+                  var explicitKlaviyoTriggers = sectionEl.querySelectorAll(
+                    'button.klaviyo-bis-trigger, a.klaviyo-bis-trigger, input.klaviyo-bis-trigger, button[class*="klaviyo-bis-trigger"], a[class*="klaviyo-bis-trigger"], input[class*="klaviyo-bis-trigger"], button[data-klaviyo-bis-trigger], a[data-klaviyo-bis-trigger], input[data-klaviyo-bis-trigger]'
+                  );
+
+                  explicitKlaviyoTriggers.forEach(styleKlaviyoBackInStockButton);
+
+                  var appButtons = sectionEl.querySelectorAll('.shopify-app-block button, .shopify-app-block a');
+                  appButtons.forEach(function(button) {
+                    var label = (button.textContent || '').replace(/\s+/g, ' ').trim();
+                    if (!label) return;
+                    if (!isBackInStockText(label)) return;
+                    styleKlaviyoBackInStockButton(button);
+                  });
+                }
+
+                function refreshAppBlocks() {
+                  toggleEmptyJudgeMeWidgets();
+                  styleKlaviyoBackInStockButtons();
+                }
+
+                refreshAppBlocks();
+
+                var observer = new MutationObserver(refreshAppBlocks);
                 observer.observe(document.body, {
                   childList: true,
                   subtree: true,
