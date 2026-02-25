@@ -54,6 +54,16 @@
       overflow: hidden;
     }
 
+    #shopify-section-{{ section.id }} .theme-block.ozella-spotted-heading-block {
+      margin-bottom: 4px;
+    }
+
+    @media only screen and (min-width: 769px) {
+      #shopify-section-{{ section.id }} .theme-block.ozella-spotted-heading-block {
+        margin-bottom: 6px;
+      }
+    }
+
     #shopify-section-{{ section.id }} .ozella-spotted-heading .ozella-letter {
       display: inline-block;
       opacity: 0;
@@ -159,7 +169,14 @@
   {%- assign spotted_heading_seen = false -%}
   {%- assign spotted_caption_used = false -%}
   {%- for block in section.blocks -%}
-    <div class="theme-block" {{ block.shopify_attributes }}>
+    {%- assign theme_block_classes = 'theme-block' -%}
+    {%- if is_homepage and block.type == 'heading' -%}
+      {%- assign heading_text = block.settings.title | strip | upcase -%}
+      {%- if heading_text == 'SPOTTED IN OZELLA' -%}
+        {%- assign theme_block_classes = theme_block_classes | append: ' ozella-spotted-heading-block' -%}
+      {%- endif -%}
+    {%- endif -%}
+    <div class="{{ theme_block_classes }}" {{ block.shopify_attributes }}>
       {%- case block.type -%}
         {%- when 'heading' -%}
           {%- assign heading_text = block.settings.title | strip | upcase -%}

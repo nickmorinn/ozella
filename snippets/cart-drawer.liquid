@@ -106,7 +106,7 @@
               <ul class="inline-list payment-icons cart__payment-icons" role="list">
                 {%- for type in shop.enabled_payment_types -%}
                   {%- unless hidden_payment_types contains type -%}
-                    <li class="icon--payment">
+                    <li class="icon--payment" data-payment-type="{{ type }}">
                       {{ type | payment_type_svg_tag }}
                     </li>
                   {%- endunless -%}
