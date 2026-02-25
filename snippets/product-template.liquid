@@ -443,17 +443,86 @@
                   return /notify me/i.test(text) && /(back in stock|when available|available)/i.test(text);
                 }
 
+                function getReferenceAddToCartButton() {
+                  return sectionEl.querySelector('.product-single__form [data-add-to-cart], .product-single__form .add-to-cart');
+                }
+
+                function setImportantStyleIfNeeded(element, property, value) {
+                  if (!element || !property || value == null) return;
+
+                  var normalizedValue = String(value).trim();
+                  if (!normalizedValue) return;
+
+                  var currentValue = (element.style.getPropertyValue(property) || '').trim();
+                  var currentPriority = element.style.getPropertyPriority(property);
+
+                  if (currentValue === normalizedValue && currentPriority === 'important') return;
+                  element.style.setProperty(property, normalizedValue, 'important');
+                }
+
+                function syncKlaviyoBackInStockStyles(button) {
+                  var referenceButton = getReferenceAddToCartButton();
+                  if (!referenceButton) return;
+
+                  var referenceStyles = window.getComputedStyle(referenceButton);
+                  var propertiesToMirror = [
+                    'display',
+                    'align-items',
+                    'justify-content',
+                    'background-color',
+                    'color',
+                    'font-family',
+                    'font-size',
+                    'font-weight',
+                    'letter-spacing',
+                    'line-height',
+                    'text-transform',
+                    'padding-top',
+                    'padding-right',
+                    'padding-bottom',
+                    'padding-left',
+                    'min-height',
+                    'border-top-width',
+                    'border-right-width',
+                    'border-bottom-width',
+                    'border-left-width',
+                    'border-top-style',
+                    'border-right-style',
+                    'border-bottom-style',
+                    'border-left-style',
+                    'border-top-color',
+                    'border-right-color',
+                    'border-bottom-color',
+                    'border-left-color',
+                    'border-radius',
+                    'box-shadow'
+                  ];
+
+                  propertiesToMirror.forEach(function(property) {
+                    setImportantStyleIfNeeded(button, property, referenceStyles.getPropertyValue(property));
+                  });
+
+                  setImportantStyleIfNeeded(button, 'width', '100%');
+                  setImportantStyleIfNeeded(button, 'text-decoration', 'none');
+                  setImportantStyleIfNeeded(button, '-webkit-appearance', 'none');
+                  setImportantStyleIfNeeded(button, 'appearance', 'none');
+                  setImportantStyleIfNeeded(button, 'cursor', 'pointer');
+                }
+
                 function styleKlaviyoBackInStockButton(button) {
-                  if (!button || button.dataset.ozKlaviyoBisStyled === 'true') return;
                   if (!button.matches('button, a, input[type="button"], input[type="submit"]')) return;
 
-                  button.classList.add('btn', 'btn--full', 'add-to-cart', 'oz-klaviyo-atc');
+                  if (button.dataset.ozKlaviyoBisStyled !== 'true') {
+                    button.classList.add('btn', 'btn--full', 'add-to-cart', 'oz-klaviyo-atc');
 
-                  if (button.tagName === 'A') {
-                    button.setAttribute('role', 'button');
+                    if (button.tagName === 'A') {
+                      button.setAttribute('role', 'button');
+                    }
+
+                    button.dataset.ozKlaviyoBisStyled = 'true';
                   }
 
-                  button.dataset.ozKlaviyoBisStyled = 'true';
+                  syncKlaviyoBackInStockStyles(button);
                 }
 
                 function styleKlaviyoBackInStockButtons() {
