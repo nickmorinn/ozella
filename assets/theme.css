@@ -5578,6 +5578,13 @@ form+.footer__social{
       width:40px;
     }
 
+.footer__social .icon.icon-email{
+      height:23px;
+      position:relative;
+      top:2px;
+      width:23px;
+    }
+
 @media only screen and (max-width:768px){
 
 .footer__collapsible{

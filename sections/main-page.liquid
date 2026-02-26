@@ -1,13 +1,73 @@
-<div class="page-width page-width--narrow page-content">
+{%- liquid
+  assign is_about_page = false
+  if page.handle == 'about-us'
+    assign is_about_page = true
+  endif
+-%}
+
+<div
+  class="page-width page-width--narrow page-content{% if is_about_page %} page-content--about-ozella{% endif %}"
+  {% if is_about_page %}
+    data-page-handle="{{ page.handle }}"
+  {% endif %}
+>
+  {%- if is_about_page -%}
+    <span class="about-ozella__orb about-ozella__orb--one" aria-hidden="true"></span>
+    <span class="about-ozella__orb about-ozella__orb--two" aria-hidden="true"></span>
+  {%- endif -%}
   {%- render 'breadcrumbs' -%}
-  <header class="section-header">
+  <header class="section-header{% if is_about_page %} about-ozella__header{% endif %}">
     <h1 class="section-header__title">{{ page.title }}</h1>
   </header>
 
-  <div class="rte rte--nomargin">
+  <div class="rte rte--nomargin{% if is_about_page %} about-ozella__story{% endif %}">
     {{ page.content }}
   </div>
 </div>
+
+{%- if is_about_page -%}
+  <script>
+    (() => {
+      const root = document.querySelector('.page-content--about-ozella[data-page-handle="about-us"]');
+      if (!root || root.dataset.aboutInit === 'true') return;
+      root.dataset.aboutInit = 'true';
+
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const story = root.querySelector('.about-ozella__story');
+      if (!story) return;
+
+      const revealTargets = Array.from(
+        root.querySelectorAll('.about-ozella__story > p')
+      );
+
+      revealTargets.forEach((element, index) => {
+        element.classList.add('about-ozella__reveal');
+        element.style.setProperty('--about-delay', `${Math.min(index * 80, 520)}ms`);
+      });
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        revealTargets.forEach((element) => element.classList.add('is-visible'));
+        return;
+      }
+
+      const revealObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          });
+        },
+        {
+          rootMargin: '0px 0px -10%',
+          threshold: 0.15
+        }
+      );
+
+      revealTargets.forEach((element) => revealObserver.observe(element));
+    })();
+  </script>
+{%- endif -%}
 
 {% schema %}
 {

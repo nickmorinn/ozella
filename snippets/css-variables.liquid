@@ -443,14 +443,24 @@
     }
 
     .template-policy .shopify-policy__body .rte h2 {
-    border-top: 1px solid var(--colorBorder);
+    border-top: 0;
     font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
     font-size: 12px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.16em;
     line-height: 1;
-    margin: 34px 0 13px;
-    padding-top: 16px;
+    margin: 40px 0 14px;
+    padding: 0;
     text-transform: uppercase;
+    }
+
+    .template-policy .shopify-policy__body .rte h2:first-of-type {
+    margin-top: 8px;
+    }
+
+    .template-policy .shopify-policy__body .rte h2 + p,
+    .template-policy .shopify-policy__body .rte h2 + ul,
+    .template-policy .shopify-policy__body .rte h2 + ol {
+    margin-top: 0;
     }
 
     .template-policy .shopify-policy__body .rte h3,
@@ -561,6 +571,217 @@
     to {
     opacity: 1;
     transform: translateY(0);
+    }
+    }
+
+    .template-page .page-content--about-ozella {
+    background: #f2f2f2;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    box-shadow: none;
+    margin: clamp(20px, 3.2vw, 42px) auto clamp(40px, 5vw, 76px);
+    max-width: min(1220px, calc(100% - 36px));
+    overflow: hidden;
+    padding: clamp(30px, 4vw, 52px) clamp(22px, 4.5vw, 56px) clamp(38px, 5vw, 62px);
+    position: relative;
+    }
+
+    .template-page .page-content--about-ozella::before {
+    content: none;
+    }
+
+    .template-page .page-content--about-ozella > * {
+    position: relative;
+    z-index: auto;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__orb {
+    display: none;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__orb--one {
+    display: none;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__orb--two {
+    display: none;
+    }
+
+    .template-page .page-content--about-ozella .breadcrumb {
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    margin-bottom: clamp(20px, 2.6vw, 32px);
+    opacity: 0.7;
+    text-transform: uppercase;
+    }
+
+    .template-page .page-content--about-ozella .breadcrumb a {
+    color: var(--colorTextBody);
+    opacity: 0.68;
+    text-decoration: none;
+    transition: opacity 180ms ease;
+    }
+
+    .template-page .page-content--about-ozella .breadcrumb a:hover {
+    opacity: 1;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__header {
+    margin: 0 0 clamp(22px, 3vw, 34px);
+    width: min(100%, 43ch);
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__eyebrow {
+    align-items: center;
+    display: inline-flex;
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: clamp(11px, 1vw, 12px);
+    letter-spacing: 0.18em;
+    line-height: 1;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__eyebrow::after {
+    background: rgba(0, 0, 0, 0.42);
+    border-radius: 999px;
+    content: '';
+    display: inline-block;
+    height: 7px;
+    margin-left: 10px;
+    width: 7px;
+    }
+
+    .template-page .page-content--about-ozella .section-header__title {
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: clamp(30px, 4.8vw, 46px);
+    letter-spacing: 0.06em;
+    line-height: 0.9;
+    margin: 0 !important;
+    max-width: 12ch;
+    position: relative;
+    text-transform: uppercase;
+    }
+
+    .template-page .page-content--about-ozella .section-header__title::after {
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 999px;
+    content: '';
+    display: block;
+    height: 2px;
+    margin-top: 14px;
+    width: clamp(84px, 18vw, 150px);
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__story {
+    color: rgba(0, 0, 0, 0.9);
+    line-height: 1.55;
+    max-width: 100%;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__story p {
+    font-family: var(--typeBasePrimary), var(--typeBaseFallback);
+    font-size: clamp(17px, 1.05vw, 19px);
+    line-height: 1.66;
+    margin: 0;
+    max-width: 68ch;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__story p + p {
+    margin-top: 1.2em;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__story > p:first-child {
+    max-width: none;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__story > p:first-child::after {
+    clear: both;
+    content: '';
+    display: block;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__story > p:first-child > img:first-child {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    float: left;
+    margin: 0 clamp(22px, 3vw, 34px) 14px 0;
+    max-width: min(42vw, 430px);
+    object-fit: cover;
+    width: 100%;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__story > p:not(:first-child) {
+    clear: both;
+    max-width: 72ch;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__story b,
+    .template-page .page-content--about-ozella .about-ozella__story strong {
+    background: none;
+    font-weight: 700;
+    padding: 0;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__reveal {
+    filter: blur(0);
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 380ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--about-delay, 0ms);
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__reveal.is-visible {
+    filter: blur(0);
+    opacity: 1;
+    transform: translateY(0);
+    }
+
+    @media only screen and (max-width: 768px) {
+    .template-page .page-content--about-ozella {
+    border-radius: 10px;
+    max-width: calc(100% - 20px);
+    padding-bottom: 30px;
+    padding-top: 22px;
+    }
+
+    .template-page .page-content--about-ozella .section-header__title {
+    font-size: clamp(28px, 9.2vw, 38px);
+    line-height: 0.92;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__story p {
+    max-width: 100%;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__story > p:first-child > img:first-child {
+    float: none;
+    margin: 0 0 18px;
+    max-width: 100%;
+    width: 100%;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__story p + p {
+    margin-top: 1.15em;
+    }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+    .template-page .page-content--about-ozella *,
+    .template-page .page-content--about-ozella::before {
+    animation: none !important;
+    transition: none !important;
+    }
+
+    .template-page .page-content--about-ozella .about-ozella__reveal {
+    filter: none;
+    opacity: 1;
+    transform: none;
     }
     }
 

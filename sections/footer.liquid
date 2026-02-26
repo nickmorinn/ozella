@@ -225,6 +225,22 @@
       fill: currentColor !important;
     }
 
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="newsletter"] .footer__social .icon.icon-email {
+      height: 23px !important;
+      position: relative;
+      top: 2px !important;
+      width: 23px !important;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="newsletter"] .footer__social .icon.icon-email path,
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="newsletter"] .footer__social .icon.icon-email rect {
+      fill: none !important;
+      stroke: currentColor !important;
+      stroke-linecap: var(--iconLinecaps);
+      stroke-linejoin: var(--iconLinecaps);
+      stroke-width: var(--iconWeight);
+    }
+
     .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="newsletter"] p {
       margin-bottom: clamp(12px, 1.6vw, 18px);
       max-width: 40ch;
@@ -412,6 +428,13 @@
     .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="newsletter"] .footer__social .icon {
       height: 24px;
       width: 24px;
+    }
+
+    .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="newsletter"] .footer__social .icon.icon-email {
+      height: 23px !important;
+      position: relative;
+      top: 2px !important;
+      width: 23px !important;
     }
 
     .site-footer[data-section-id="{{ section.id }}"] .grid > .grid__item[data-type="newsletter"] .footer__social a {
