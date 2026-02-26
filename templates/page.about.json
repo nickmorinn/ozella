@@ -1,1 +1,44 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{}},"slideshow":{"type":"slideshow","blocks":{"slideshow-0":{"type":"image","settings":{"link_text":""}}},"block_order":["slideshow-0"],"settings":{}},"rich-text":{"type":"rich-text","blocks":{"heading":{"type":"heading","settings":{}},"text":{"type":"text","settings":{}}},"block_order":["heading","text"],"settings":{}},"map":{"type":"map","settings":{}},"text-columns":{"type":"text-columns","blocks":{"column1":{"type":"text_block","settings":{}},"column2":{"type":"text_block","settings":{}},"column3":{"type":"text_block","settings":{}}},"block_order":["column1","column2","column3"],"settings":{}},"featured-collection":{"type":"featured-collection","settings":{}},"form":{"type":"contact-form","settings":{}}},"order":["main","slideshow","rich-text","text-columns","map","featured-collection","form"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "text_and_image_6KDnQA": {
+      "type": "text-and-image",
+      "name": "t:sections.text-and-image.presets.image_with_text.name",
+      "settings": {
+        "image": "shopify://shop_images/Facetune_09-05-2025-09-29-31.jpg",
+        "image_mask": "none",
+        "image2_mask": "none",
+        "subtitle": "",
+        "title": "About Us",
+        "text": "<p>Ozella Swim was born from a tiny island off the coast of Florida called <strong>Ozella. </strong>The sun-soaked, salty little paradise that raised me and still shapes everything I create.</p><p>I’m <strong>Gabriella Brooke</strong>, and I started this brand to bottle that feeling: carefree days, warm air, and the kind of confidence that comes from wearing something that actually fits the way you want it to. Our swimsuits are fun, unique, and designed for a flattering, feminine fit. Built around clean silhouettes, carefully crafted details, and a little bit of island magic.</p><p>Every piece is made to help you feel confident, beautiful, and one-of-a-kind, wherever you’re wearing it.</p>",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "primary",
+        "align_text": "left",
+        "image_width": "66",
+        "layout": "left",
+        "divider": false,
+        "top_padding": true,
+        "bottom_padding": true,
+        "lazyload_images": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "text_and_image_6KDnQA"
+  ]
+}
