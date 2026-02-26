@@ -81,7 +81,7 @@
           "type": "tab",
           "settings": {
             "title": "Shipping",
-            "content": "<p>All orders are shipped from our warehouse in Austin, Texas during business hours (Monday to Friday, 8am to 5pm CST). Orders may go out on weekends but is not guaranteed. </p>",
+            "content": "<p>All orders are shipped from our warehouse in Austin, Texas during business hours (Monday to Friday, 8am to 5pm CST). Orders may ship on weekends, but not guaranteed. </p>",
             "page": ""
           }
         },

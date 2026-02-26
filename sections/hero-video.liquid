@@ -8,6 +8,40 @@
     }
   }
 
+  .hero--{{ section.id }} .hero__subtitle {
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: 1em;
+    letter-spacing: 0;
+    line-height: 1.2;
+    text-transform: uppercase;
+    word-spacing: -0.08em;
+  }
+
+  .hero--{{ section.id }} .hero__text-content.horizontal-left .hero__subtitle {
+    margin-right: auto;
+    max-width: 23ch;
+    text-align: left;
+  }
+
+  .hero--{{ section.id }} .hero__subtitle .animation-contents {
+    display: block;
+    text-wrap: pretty;
+  }
+
+  .hero--{{ section.id }} .hero__link .btn {
+    font-size: max(calc(var(--typeBaseSize) + 2px), 16px);
+    min-width: 190px;
+    padding: 18px 30px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .hero--{{ section.id }} .hero__link .btn {
+      font-size: max(calc(var(--typeBaseSize) - 1px), 14px);
+      min-width: 170px;
+      padding: 15px 24px;
+    }
+  }
+
   {%- assign button_alpha = section.settings.color_accent | color_extract: 'alpha' -%}
   {% unless button_alpha == 0.0 %}
     .hero--{{ section.id }} .btn {
@@ -284,7 +318,7 @@
               <div class="hero__link">
                 <div class="animation-cropper">
                   <div class="animation-contents">
-                    <a href="{{ link_href }}" class="btn{% if section.settings.color_accent and section.settings.color_accent == 'rgba(0,0,0,0)' %} btn--inverse{% endif %}"
+                    <a href="{{ link_href }}" class="btn btn--large{% if section.settings.color_accent and section.settings.color_accent == 'rgba(0,0,0,0)' %} btn--inverse{% endif %}"
                       {%- if section.settings.video_url contains 'vimeo.com' -%}
                         data-video-id="{{ video_id }}"
                       {%- endif -%}
