@@ -414,7 +414,7 @@
         "social_post_02": {
           "type": "post",
           "settings": {
-            "platform": "tiktok",
+            "platform": "instagram",
             "post_link": "https://www.tiktok.com/@ozellaswim",
             "media_type": "video",
             "video": "shopify://files/videos/StorySaver.net-katarinaspas-Video-1721342383169.mov",
