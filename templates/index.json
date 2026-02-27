@@ -394,7 +394,6 @@
             "platform": "tiktok",
             "post_link": "https://www.tiktok.com/t/ZP8xkbHQt/",
             "media_type": "video",
-            "image": "shopify://shop_images/Photo_Sep_09_2024_10_00_53_AM_1.jpg",
             "video": "shopify://files/videos/Paige Casey.mp4",
             "caption": "",
             "alt_text": ""
@@ -404,7 +403,7 @@
           "type": "post",
           "settings": {
             "platform": "tiktok",
-            "post_link": "",
+            "post_link": "https://www.tiktok.com/t/ZP8xBeqru/",
             "media_type": "video",
             "video": "shopify://files/videos/Mia V 1.mp4",
             "caption": "",
