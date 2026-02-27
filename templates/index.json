@@ -382,40 +382,291 @@
         "divider": false,
         "top_padding": false,
         "bottom_padding": false
-      }
+      },
+      "disabled": true
     },
     "1717358326f1e64cf2": {
-      "type": "apps",
+      "type": "ozella-social-slider",
       "blocks": {
-        "instafeed_app_block_QcBahG": {
-          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+        "social_post_01": {
+          "type": "post",
           "settings": {
-            "title": "",
-            "title_color": "",
-            "title_size_v2": 0,
-            "alignment": "center",
-            "instafeed_margin_top": 0,
-            "instafeed_margin_bottom": 0,
-            "instafeed_margin_sides": 0,
-            "show_instagram_link": false,
-            "link_alignment": "left",
-            "link_color": "#000000",
-            "background_color": "",
-            "feed_id": "",
-            "html_area": ""
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/Photo_Sep_09_2024_10_00_53_AM_1.jpg"
+          }
+        },
+        "social_post_02": {
+          "type": "post",
+          "settings": {
+            "platform": "tiktok",
+            "post_link": "https://www.tiktok.com/@ozellaswim",
+            "media_type": "video",
+            "video": "shopify://files/videos/StorySaver.net-katarinaspas-Video-1721342383169.mov"
+          }
+        },
+        "social_post_03": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/Facetune_08-08-2024-12-42-59.jpg"
+          }
+        },
+        "social_post_04": {
+          "type": "post",
+          "settings": {
+            "platform": "tiktok",
+            "post_link": "https://www.tiktok.com/@ozellaswim",
+            "media_type": "video",
+            "video": "shopify://files/videos/StorySaver.net-melissaalbaaa-Video-1716929948402.MP4"
+          }
+        },
+        "social_post_05": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/Photo_Aug_03_2024_4_02_46_PM.jpg"
+          }
+        },
+        "social_post_06": {
+          "type": "post",
+          "settings": {
+            "platform": "tiktok",
+            "post_link": "https://www.tiktok.com/@ozellaswim",
+            "media_type": "video",
+            "video": "shopify://files/videos/popsicle-trimmed.mp4"
+          }
+        },
+        "social_post_07": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/woman-wearing-black-thong-bikini-posing-in-outdoor-wooden-shower.webp"
+          }
+        },
+        "social_post_08": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/woman-wearing-light-blue-string-tie-thong-bikini-on-boat.jpg"
+          }
+        },
+        "social_post_09": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/taylor-thong-bikini-nude.jpg"
+          }
+        },
+        "social_post_10": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/IMG_5483.jpg"
+          }
+        },
+        "social_post_11": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/1e4ec2a6-ed12-4895-a4a5-d15bdb5fa8a9_katelyn_weber.png"
+          }
+        },
+        "social_post_12": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/img_5096_elle_bank.jpg"
+          }
+        },
+        "social_post_13": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/DSCF8605.jpg"
+          }
+        },
+        "social_post_14": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/IMG_2851_7b14121b-8239-44d3-836e-2087bdc6b85a.jpg"
+          }
+        },
+        "social_post_15": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/IMG_2277.png"
+          }
+        },
+        "social_post_16": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/IMG_8604.jpg"
+          }
+        },
+        "social_post_17": {
+          "type": "post",
+          "settings": {
+            "platform": "tiktok",
+            "post_link": "https://www.tiktok.com/@ozellaswim",
+            "media_type": "video",
+            "video": "shopify://files/videos/1a521d967208489d94700aaf5e2bd1a3.MP4"
+          }
+        },
+        "social_post_18": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/Facetune_26-08-2024-12-27-03.jpg"
+          }
+        },
+        "social_post_19": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/DSCF8588.jpg"
+          }
+        },
+        "social_post_20": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/img_3209_elle_bank.png"
+          }
+        },
+        "social_post_21": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/E858FCB7-08B9-488C-9DE4-EE2E65CB67AF.jpg"
+          }
+        },
+        "social_post_22": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/F1E1BD92-964C-469B-A0CA-7C674C6459F3.png"
+          }
+        },
+        "social_post_23": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/IMG_3297_357ae643-114f-457b-bd38-e13b0f860dfb.heic"
+          }
+        },
+        "social_post_24": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/IMG_2278.jpg"
+          }
+        },
+        "social_post_25": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/IMG_3903.jpg"
+          }
+        },
+        "social_post_26": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/ozellaswim",
+            "media_type": "image",
+            "image": "shopify://shop_images/IMG_7012.jpg"
           }
         }
       },
       "block_order": [
-        "instafeed_app_block_QcBahG"
+        "social_post_01",
+        "social_post_02",
+        "social_post_03",
+        "social_post_04",
+        "social_post_05",
+        "social_post_06",
+        "social_post_07",
+        "social_post_08",
+        "social_post_09",
+        "social_post_10",
+        "social_post_11",
+        "social_post_12",
+        "social_post_13",
+        "social_post_14",
+        "social_post_15",
+        "social_post_16",
+        "social_post_17",
+        "social_post_18",
+        "social_post_19",
+        "social_post_20",
+        "social_post_21",
+        "social_post_22",
+        "social_post_23",
+        "social_post_24",
+        "social_post_25",
+        "social_post_26"
       ],
       "custom_css": [
         ".index-section {margin-top: 0; margin-bottom: 28px;}",
         "@media (min-width: 769px) {.index-section {margin-bottom: 52px;}}"
       ],
       "settings": {
-        "full_width": false,
-        "space_around": true
+        "show_header": true,
+        "heading": "SPOTTED IN OZELLA",
+        "subheading": "<p>Tag @ozellaswim to get featured.</p>",
+        "desktop_card_width": 268,
+        "mobile_card_width": 174,
+        "card_gap": 12,
+        "card_ratio": "portrait",
+        "corner_radius": 14,
+        "show_arrows": true,
+        "section_padding_top": 8,
+        "section_padding_bottom": 26
       }
     },
     "57d144b4-c05f-4c17-80d1-6f48e8243989": {

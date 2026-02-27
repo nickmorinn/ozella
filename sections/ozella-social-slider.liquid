@@ -1,0 +1,787 @@
+{%- liquid
+  assign card_ratio = '4 / 5'
+  case section.settings.card_ratio
+    when 'square'
+      assign card_ratio = '1 / 1'
+    when 'tall'
+      assign card_ratio = '3 / 4'
+    when 'landscape'
+      assign card_ratio = '5 / 4'
+  endcase
+-%}
+
+{%- style -%}
+  #OzellaSocialSlider-{{ section.id }} {
+    --ozella-social-gap: {{ section.settings.card_gap }}px;
+    --ozella-social-card-desktop: {{ section.settings.desktop_card_width }}px;
+    --ozella-social-card-mobile: {{ section.settings.mobile_card_width }}px;
+    --ozella-social-card-radius: {{ section.settings.corner_radius }}px;
+    --ozella-social-card-ratio: {{ card_ratio }};
+    --ozella-social-overlay: linear-gradient(180deg, rgba(10, 15, 26, 0.12) 22%, rgba(10, 15, 26, 0.84) 100%);
+    --ozella-social-bg: transparent;
+    --ozella-social-space-2xs: max(calc(var(--grid-gutter) * 0.25), 6px);
+    --ozella-social-space-xs: calc(var(--grid-gutter) * 0.5);
+    --ozella-social-space-sm: calc(var(--grid-gutter) * 0.75);
+    --ozella-social-space-md: var(--grid-gutter);
+    --ozella-social-caption-size: max(calc(var(--typeBaseSize) * 0.72), 12px);
+    padding-top: {{ section.settings.section_padding_top }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom }}px;
+    position: relative;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__inner {
+    background: var(--ozella-social-bg);
+    border-radius: calc(var(--ozella-social-card-radius) + 8px);
+    box-shadow: none;
+    overflow: hidden;
+    padding: var(--ozella-social-space-sm) 0 var(--ozella-social-space-xs);
+    position: relative;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__inner::before {
+    background: transparent;
+    content: '';
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__header {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    position: relative;
+    text-align: left;
+    z-index: 3;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__title-wrap {
+    flex: 1 1 auto;
+    max-width: 66ch;
+    text-align: left;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__title {
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__subheading {
+    color: rgba(28, 23, 19, 0.74);
+    font-family: var(--typeBasePrimary), var(--typeBaseFallback);
+    font-size: var(--typeBaseSize);
+    line-height: var(--typeBaseLineHeight);
+    margin-top: var(--ozella-social-space-2xs);
+    text-wrap: pretty;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__subheading p {
+    margin: 0;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__nav {
+    display: inline-flex;
+    gap: 8px;
+    margin-left: 8px;
+    padding: 0;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__nav.hide {
+    display: none;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__arrow.hide {
+    display: none;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__track-wrap {
+    margin-left: calc(var(--ozella-social-gap) * -1);
+    margin-right: calc(var(--ozella-social-gap) * -1);
+    overflow: hidden;
+    padding: var(--ozella-social-space-2xs) var(--ozella-social-gap) var(--ozella-social-space-sm);
+    position: relative;
+    z-index: 1;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__track {
+    -ms-overflow-style: none;
+    display: grid;
+    gap: var(--ozella-social-gap);
+    grid-auto-columns: var(--ozella-social-card-desktop);
+    grid-auto-flow: column;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding: 2px;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    touch-action: pan-x;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__item {
+    scroll-snap-align: start;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__card {
+    aspect-ratio: var(--ozella-social-card-ratio);
+    background: #d7d2cb;
+    border-radius: var(--ozella-social-card-radius);
+    color: #fff;
+    display: block;
+    isolation: isolate;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms ease;
+    width: 100%;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__card:hover,
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__card:focus-visible {
+    box-shadow: 0 20px 24px rgba(35, 26, 18, 0.2);
+    transform: translate3d(0, -3px, 0) scale(1.01);
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__card:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__media {
+    height: 100%;
+    inset: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__asset,
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__asset.image-element,
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__asset.image-element img,
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__video {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__media image-element {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__placeholder {
+    color: rgba(255, 255, 255, 0.72);
+    height: 100%;
+    width: 100%;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__hover {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    opacity: 0;
+    padding: var(--ozella-social-space-xs);
+    position: absolute;
+    transition: opacity 220ms ease;
+    z-index: 2;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__card:hover .ozella-social-slider__hover,
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__card:focus-visible .ozella-social-slider__hover,
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__card:focus-within .ozella-social-slider__hover {
+    opacity: 1;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__badge {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    opacity: 0.95;
+    transform: scale(0.88);
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__card:hover .ozella-social-slider__badge,
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__card:focus-visible .ozella-social-slider__badge,
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__card:focus-within .ozella-social-slider__badge {
+    transform: scale(1);
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__badge--instagram {
+    color: #fff;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__badge--tiktok {
+    color: #fff;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__badge .icon {
+    display: block;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+    height: 21px;
+    width: 21px;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__badge .icon path {
+    fill: currentColor;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__caption {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: var(--ozella-social-caption-size);
+    left: var(--ozella-social-space-2xs);
+    letter-spacing: 0.03em;
+    line-height: var(--typeBaselineHeightMinus01);
+    max-width: calc(100% - (var(--ozella-social-space-2xs) * 2));
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    top: var(--ozella-social-space-2xs);
+    white-space: nowrap;
+    z-index: 3;
+  }
+
+  #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__empty {
+    color: rgba(20, 18, 16, 0.64);
+    margin: 0;
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 768px) {
+    #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__inner {
+      border-radius: calc(var(--ozella-social-card-radius) + 2px);
+      padding: var(--ozella-social-space-xs) 0 var(--ozella-social-space-xs);
+    }
+
+    #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__header {
+      align-items: flex-start;
+      flex-direction: column;
+      margin-bottom: 12px;
+    }
+
+    #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__track {
+      grid-auto-columns: var(--ozella-social-card-mobile);
+    }
+
+    #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__nav {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__card,
+    #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__hover,
+    #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__badge,
+    #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__arrow {
+      transition: none !important;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  id="OzellaSocialSlider-{{ section.id }}"
+  class="index-section ozella-social-slider"
+  data-section-id="{{ section.id }}"
+  data-section-type="ozella-social-slider"
+  data-ozella-social-slider>
+  <div class="page-width">
+    <div class="ozella-social-slider__inner">
+      {%- if section.settings.show_header -%}
+        <div class="section-header ozella-social-slider__header">
+          <div class="ozella-social-slider__title-wrap">
+            {%- if section.settings.heading != blank -%}
+              <h2 class="section-header__title h2 ozella-social-slider__title">{{ section.settings.heading | escape }}</h2>
+            {%- endif -%}
+            {%- if section.settings.subheading != blank -%}
+              <div class="ozella-social-slider__subheading rte">{{ section.settings.subheading }}</div>
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.show_arrows and section.blocks.size > 1 -%}
+            <div class="ozella-social-slider__nav" data-social-nav>
+              <button
+                type="button"
+                class="btn btn--body btn--circle ozella-social-slider__arrow ozella-social-slider__arrow--prev hide"
+                aria-label="{{ 'general.pagination.previous' | t }}"
+                data-social-prev>
+                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-left" viewBox="0 0 50 15"><title>icon-left-arrow</title><path d="M50 5.38v4.25H15V15L0 7.5 15 0v5.38Z"/></svg>
+              </button>
+              <button
+                type="button"
+                class="btn btn--body btn--circle ozella-social-slider__arrow ozella-social-slider__arrow--next"
+                aria-label="{{ 'general.pagination.next' | t }}"
+                data-social-next>
+                <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--wide icon-arrow-right" viewBox="0 0 50 15"><title>icon-right-arrow</title><path d="M0 9.63V5.38h35V0l15 7.5L35 15V9.63Z"/></svg>
+              </button>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="ozella-social-slider__track-wrap">
+          <div class="ozella-social-slider__track" data-social-track>
+            {%- for block in section.blocks -%}
+              {%- liquid
+                assign is_video = false
+                if block.settings.media_type == 'video' and block.settings.video != blank
+                  assign is_video = true
+                endif
+
+                assign has_image = false
+                if block.settings.image != blank
+                  assign has_image = true
+                endif
+
+                assign platform_label = 'Instagram'
+                if block.settings.platform == 'tiktok'
+                  assign platform_label = 'TikTok'
+                endif
+              -%}
+
+              <div class="ozella-social-slider__item" {{ block.shopify_attributes }}>
+                {%- if block.settings.post_link != blank -%}
+                  <a
+                    href="{{ block.settings.post_link }}"
+                    class="ozella-social-slider__card"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="{{ platform_label }} post">
+                {%- else -%}
+                  <div class="ozella-social-slider__card" role="img" aria-label="Social post card">
+                {%- endif -%}
+                    <div class="ozella-social-slider__media">
+                      {%- if is_video -%}
+                        {{
+                          block.settings.video
+                          | video_tag:
+                            autoplay: true,
+                            loop: true,
+                            muted: true,
+                            controls: false,
+                            playsinline: true,
+                            class: 'ozella-social-slider__video'
+                        }}
+                      {%- elsif has_image -%}
+                        {%- render 'image-element',
+                          img: block.settings.image,
+                          widths: '360, 540, 720, 900',
+                          loading: 'lazy',
+                          classes: 'ozella-social-slider__asset',
+                          sizes: '(min-width: 769px) 280px, 42vw',
+                          alt: block.settings.alt_text
+                        -%}
+                      {%- else -%}
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg ozella-social-slider__placeholder' }}
+                      {%- endif -%}
+                    </div>
+
+                    <div class="ozella-social-slider__hover" aria-hidden="true">
+                      <span class="ozella-social-slider__badge ozella-social-slider__badge--{{ block.settings.platform }}">
+                        {%- if block.settings.platform == 'tiktok' -%}
+                          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-tiktok" viewBox="0 0 2859 3333"><path d="M2081 0c55 473 319 755 778 785v532c-266 26-499-61-770-225v995c0 1264-1378 1659-1932 753-356-583-138-1606 1004-1647v561c-87 14-180 36-265 65-254 86-398 247-358 531 77 544 1075 705 992-358V1h551z"/></svg>
+                        {%- else -%}
+                          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-instagram" viewBox="0 0 32 32"><path d="M16 3.094c4.206 0 4.7.019 6.363.094 1.538.069 2.369.325 2.925.544.738.287 1.262.625 1.813 1.175s.894 1.075 1.175 1.813c.212.556.475 1.387.544 2.925.075 1.662.094 2.156.094 6.363s-.019 4.7-.094 6.363c-.069 1.538-.325 2.369-.544 2.925-.288.738-.625 1.262-1.175 1.813s-1.075.894-1.813 1.175c-.556.212-1.387.475-2.925.544-1.663.075-2.156.094-6.363.094s-4.7-.019-6.363-.094c-1.537-.069-2.369-.325-2.925-.544-.737-.288-1.263-.625-1.813-1.175s-.894-1.075-1.175-1.813c-.212-.556-.475-1.387-.544-2.925-.075-1.663-.094-2.156-.094-6.363s.019-4.7.094-6.363c.069-1.537.325-2.369.544-2.925.287-.737.625-1.263 1.175-1.813s1.075-.894 1.813-1.175c.556-.212 1.388-.475 2.925-.544 1.662-.081 2.156-.094 6.363-.094zm0-2.838c-4.275 0-4.813.019-6.494.094-1.675.075-2.819.344-3.819.731-1.037.4-1.913.944-2.788 1.819S1.486 4.656 1.08 5.688c-.387 1-.656 2.144-.731 3.825-.075 1.675-.094 2.213-.094 6.488s.019 4.813.094 6.494c.075 1.675.344 2.819.731 3.825.4 1.038.944 1.913 1.819 2.788s1.756 1.413 2.788 1.819c1 .387 2.144.656 3.825.731s2.213.094 6.494.094 4.813-.019 6.494-.094c1.675-.075 2.819-.344 3.825-.731 1.038-.4 1.913-.944 2.788-1.819s1.413-1.756 1.819-2.788c.387-1 .656-2.144.731-3.825s.094-2.212.094-6.494-.019-4.813-.094-6.494c-.075-1.675-.344-2.819-.731-3.825-.4-1.038-.944-1.913-1.819-2.788s-1.756-1.413-2.788-1.819c-1-.387-2.144-.656-3.825-.731C20.812.275 20.275.256 16 .256z"/><path d="M16 7.912a8.088 8.088 0 0 0 0 16.175c4.463 0 8.087-3.625 8.087-8.088s-3.625-8.088-8.088-8.088zm0 13.338a5.25 5.25 0 1 1 0-10.5 5.25 5.25 0 1 1 0 10.5zM26.294 7.594a1.887 1.887 0 1 1-3.774.002 1.887 1.887 0 0 1 3.774-.003z"/></svg>
+                        {%- endif -%}
+                        <span class="visually-hidden">{{ platform_label }}</span>
+                      </span>
+                    </div>
+
+                    {%- if block.settings.caption != blank -%}
+                      <span class="ozella-social-slider__caption">{{ block.settings.caption | escape }}</span>
+                    {%- endif -%}
+                {%- if block.settings.post_link != blank -%}
+                  </a>
+                {%- else -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- else -%}
+        <p class="ozella-social-slider__empty">Add social post blocks to build the slider.</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    function initSection(section) {
+      if (!section || section.dataset.ozellaSocialReady === 'true') {
+        return;
+      }
+
+      section.dataset.ozellaSocialReady = 'true';
+
+      var track = section.querySelector('[data-social-track]');
+      if (!track) {
+        return;
+      }
+
+      var nav = section.querySelector('[data-social-nav]');
+      var prevButton = section.querySelector('[data-social-prev]');
+      var nextButton = section.querySelector('[data-social-next]');
+
+      var getScrollAmount = function() {
+        var cards = track.querySelectorAll('.ozella-social-slider__item');
+        if (!cards.length) {
+          return track.clientWidth;
+        }
+
+        if (cards.length > 1) {
+          var distance = cards[1].offsetLeft - cards[0].offsetLeft;
+          if (distance > 0) {
+            return distance;
+          }
+        }
+
+        return cards[0].getBoundingClientRect().width;
+      };
+
+      var updateNavigation = function() {
+        if (!nav || !prevButton || !nextButton) {
+          return;
+        }
+
+        var isDesktop = window.matchMedia('(min-width: 769px)').matches;
+        var maxScrollLeft = track.scrollWidth - track.clientWidth;
+        var hasOverflow = maxScrollLeft > 2;
+        var atStart = track.scrollLeft <= 2;
+        var atEnd = track.scrollLeft >= maxScrollLeft - 2;
+
+        nav.classList.toggle('hide', !hasOverflow || !isDesktop);
+        prevButton.classList.toggle('hide', atStart || !hasOverflow || !isDesktop);
+        nextButton.classList.toggle('hide', atEnd || !hasOverflow || !isDesktop);
+      };
+
+      if (prevButton && nextButton) {
+        prevButton.addEventListener('click', function() {
+          track.scrollBy({
+            left: getScrollAmount() * -1,
+            behavior: 'smooth'
+          });
+        });
+
+        nextButton.addEventListener('click', function() {
+          track.scrollBy({
+            left: getScrollAmount(),
+            behavior: 'smooth'
+          });
+        });
+
+        track.addEventListener('scroll', updateNavigation, { passive: true });
+        window.addEventListener('load', updateNavigation);
+
+        var resizeHandler = updateNavigation;
+        if (window.theme && theme.utils && typeof theme.utils.debounce === 'function') {
+          resizeHandler = theme.utils.debounce(120, updateNavigation);
+        }
+        window.addEventListener('resize', resizeHandler);
+
+        updateNavigation();
+        window.setTimeout(updateNavigation, 180);
+      }
+
+      var videos = section.querySelectorAll('video');
+      if (!videos.length) {
+        return;
+      }
+
+      var playVideo = function(video) {
+        video.muted = true;
+        video.loop = true;
+        var promise = video.play();
+        if (promise && typeof promise.catch === 'function') {
+          promise.catch(function() {});
+        }
+      };
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          for (var i = 0; i < entries.length; i++) {
+            var video = entries[i].target;
+            if (entries[i].isIntersecting && entries[i].intersectionRatio > 0.45) {
+              playVideo(video);
+            } else {
+              video.pause();
+            }
+          }
+        }, {
+          root: track,
+          threshold: [0.1, 0.45, 0.9]
+        });
+
+        for (var v = 0; v < videos.length; v++) {
+          videos[v].setAttribute('playsinline', '');
+          observer.observe(videos[v]);
+        }
+      } else {
+        for (var j = 0; j < videos.length; j++) {
+          videos[j].setAttribute('playsinline', '');
+          playVideo(videos[j]);
+        }
+      }
+    }
+
+    function init(scope) {
+      var root = scope || document;
+      if (root.matches && root.matches('[data-ozella-social-slider]')) {
+        initSection(root);
+      }
+      var sections = root.querySelectorAll ? root.querySelectorAll('[data-ozella-social-slider]') : [];
+      for (var i = 0; i < sections.length; i++) {
+        initSection(sections[i]);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        init(document);
+      });
+    } else {
+      init(document);
+    }
+
+    if (!window.__ozellaSocialSliderBound) {
+      window.__ozellaSocialSliderBound = true;
+      document.addEventListener('shopify:section:load', function(event) {
+        init(event.target);
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Ozella Social Slider",
+  "class": "index-section",
+  "max_blocks": 30,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show header",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Follow Us @ozellaswim"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Tag @ozellaswim for a chance to be featured on our grid.</p>"
+    },
+    {
+      "type": "range",
+      "id": "desktop_card_width",
+      "label": "Desktop card width",
+      "default": 268,
+      "min": 200,
+      "max": 360,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_width",
+      "label": "Mobile card width",
+      "default": 174,
+      "min": 136,
+      "max": 260,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card gap",
+      "default": 12,
+      "min": 6,
+      "max": 28,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "card_ratio",
+      "label": "Card ratio",
+      "default": "portrait",
+      "options": [
+        {
+          "value": "portrait",
+          "label": "Portrait (4:5)"
+        },
+        {
+          "value": "tall",
+          "label": "Tall (3:4)"
+        },
+        {
+          "value": "square",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape (5:4)"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "label": "Card corner radius",
+      "default": 14,
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show desktop arrows",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "default": 8,
+      "min": 0,
+      "max": 90,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "default": 26,
+      "min": 0,
+      "max": 90,
+      "step": 2,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "post",
+      "name": "Social post",
+      "settings": [
+        {
+          "type": "select",
+          "id": "platform",
+          "label": "Platform",
+          "default": "instagram",
+          "options": [
+            {
+              "value": "instagram",
+              "label": "Instagram"
+            },
+            {
+              "value": "tiktok",
+              "label": "TikTok"
+            }
+          ]
+        },
+        {
+          "type": "url",
+          "id": "post_link",
+          "label": "Post link"
+        },
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Media type",
+          "default": "image",
+          "options": [
+            {
+              "value": "image",
+              "label": "Image"
+            },
+            {
+              "value": "video",
+              "label": "Video"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Image alt text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ozella Social Slider",
+      "blocks": [
+        {
+          "type": "post",
+          "settings": {
+            "platform": "instagram"
+          }
+        },
+        {
+          "type": "post",
+          "settings": {
+            "platform": "instagram"
+          }
+        },
+        {
+          "type": "post",
+          "settings": {
+            "platform": "tiktok"
+          }
+        },
+        {
+          "type": "post",
+          "settings": {
+            "platform": "instagram"
+          }
+        },
+        {
+          "type": "post",
+          "settings": {
+            "platform": "tiktok"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["footer", "header", "custom.popups"]
+  }
+}
+{% endschema %}
