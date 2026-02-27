@@ -668,7 +668,7 @@
           "type": "post",
           "settings": {
             "platform": "instagram",
-            "post_link": "shopify://products/leilani-bikini-set",
+            "post_link": "https://www.instagram.com/p/C722z7Tup5e/",
             "media_type": "image",
             "image": "shopify://shop_images/IMG_3903.jpg",
             "caption": "",
