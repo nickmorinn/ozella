@@ -8,10 +8,13 @@
   {%- endif -%}
   {%- if template == 'password' -%}
     {{ shop.name }}
-  {%- else -%}
+  {% comment %}
+{%- else -%}
     {%- unless page_title contains shop.name -%}
       &ndash; {{ shop.name }}
     {%- endunless -%}
+     {% endcomment %}
+
   {%- endif -%}
 {%- endcapture -%}
 <title>{{ seo_title }}</title>
