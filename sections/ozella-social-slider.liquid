@@ -24,6 +24,7 @@
     --ozella-social-space-sm: calc(var(--grid-gutter) * 0.75);
     --ozella-social-space-md: var(--grid-gutter);
     --ozella-social-caption-size: max(calc(var(--typeBaseSize) * 0.72), 12px);
+    --ozella-social-subheading-size: var(--oz-type-copy-compact, max(calc(var(--typeBaseSize) - 2px), 13px));
     padding-top: {{ section.settings.section_padding_top }}px;
     padding-bottom: {{ section.settings.section_padding_bottom }}px;
     position: relative;
@@ -72,7 +73,7 @@
   #OzellaSocialSlider-{{ section.id }} .ozella-social-slider__subheading {
     color: var(--colorTextBody);
     font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
-    font-size: var(--typeBaseSize);
+    font-size: var(--ozella-social-subheading-size);
     line-height: var(--typeBaseLineHeight);
     margin-top: var(--ozella-social-space-2xs);
     text-wrap: pretty;
