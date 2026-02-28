@@ -33,9 +33,17 @@
             <header class="section-header section-header--hero">
               <div class="section-header__shadow">
                 {%- render 'breadcrumbs' -%}
-                <h1 class="section-header__title">
+                
+                {% if collection.handle == 'all' %}
+                <h1 class="section-header__title">Shop All Products</h1>
+                {% else %}
+                  <h1 class="section-header__title">
+                        {{ collection.title }}
+                  </h1>
+                {% endif %}
+                {% comment %}<h1 class="section-header__title">
                   {{ collection.title }}
-                </h1>
+                </h1>{% endcomment %}
               </div>
             </header>
           </div>
