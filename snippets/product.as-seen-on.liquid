@@ -2,7 +2,7 @@
   Renders an "As Seen On" media strip for PDPs with up to four image/video items
   and a lightweight click-to-open viewer.
 
-  If no media is configured, it falls back to homepage UGC videos for prototyping.
+  Source: product metafield `custom.lifestyle_content` (list of media).
 {% enddoc %}
 
 {%- liquid
@@ -22,61 +22,67 @@
   endif
 
   assign media_count = 0
+  assign lifestyle_content = blank
+  if product != blank and product.metafields.custom.lifestyle_content != blank
+    assign lifestyle_content = product.metafields.custom.lifestyle_content.value
+  endif
 -%}
 
 {%- capture as_seen_items -%}
-  {%- if block != blank -%}
-    {%- for index in (1..4) -%}
+  {%- if lifestyle_content != blank -%}
+    {%- for media in lifestyle_content limit: 4 -%}
       {%- liquid
-        assign media_type_key = 'as_seen_on_media_type_' | append: index
-        assign media_image_key = 'as_seen_on_image_' | append: index
-        assign media_video_key = 'as_seen_on_video_' | append: index
-        assign media_type = block.settings[media_type_key] | default: 'video'
-        assign media_image = block.settings[media_image_key]
-        assign media_video = block.settings[media_video_key]
-
-        if media_type == 'image' and media_image == blank and media_video != blank
+        assign media_type = media.media_type | append: '' | downcase
+        if media_type contains 'video'
           assign media_type = 'video'
-        elsif media_type == 'video' and media_video == blank and media_image != blank
+        elsif media_type contains 'image'
+          assign media_type = 'image'
+        elsif media.preview_image != blank or media.sources != blank
+          assign media_type = 'video'
+        elsif media != blank
           assign media_type = 'image'
         endif
       -%}
 
-      {%- if media_type == 'image' and media_image != blank -%}
+      {%- if media_type == 'image' and media != blank -%}
         {%- assign media_count = media_count | plus: 1 -%}
         <button
           type="button"
           class="ozella-as-seen-on__item"
           data-as-seen-item
           data-media-type="image"
-          data-image-url="{{ media_image | image_url: width: 2200 }}"
-          data-media-alt="{{ media_image.alt | escape }}"
-          data-media-width="{{ media_image.width }}"
-          data-media-height="{{ media_image.height }}"
+          data-image-url="{{ media | image_url: width: 2200 }}"
+          data-media-alt="{{ media.alt | escape }}"
+          data-media-width="{{ media.width }}"
+          data-media-height="{{ media.height }}"
           aria-label="Open image {{ media_count }}">
           <span class="ozella-as-seen-on__thumb">
             {{
-              media_image
+              media
               | image_url: width: 360
               | image_tag:
                 loading: 'lazy',
                 class: 'ozella-as-seen-on__thumb-image',
-                alt: media_image.alt
+                alt: media.alt
             }}
           </span>
         </button>
-      {%- elsif media_type == 'video' and media_video != blank -%}
+      {%- elsif media_type == 'video' and media != blank -%}
         {%- liquid
           assign media_video_url = blank
-          for source in media_video.sources
+          for source in media.sources
             if source.format == 'mp4'
               assign media_video_url = source.url
               break
             endif
           endfor
 
-          if media_video_url == blank and media_video.sources.size > 0
-            assign media_video_url = media_video.sources.first.url
+          if media_video_url == blank and media.sources.size > 0
+            assign media_video_url = media.sources.first.url
+          endif
+
+          if media_video_url == blank and media.url != blank
+            assign media_video_url = media.url
           endif
         -%}
 
@@ -88,19 +94,19 @@
             data-as-seen-item
             data-media-type="video"
             data-video-url="{{ media_video_url | escape }}"
-            data-poster-url="{% if media_video.preview_image != blank %}{{ media_video.preview_image | image_url: width: 1200 }}{% endif %}"
-            data-media-width="{% if media_video.preview_image != blank %}{{ media_video.preview_image.width }}{% endif %}"
-            data-media-height="{% if media_video.preview_image != blank %}{{ media_video.preview_image.height }}{% endif %}"
+            data-poster-url="{% if media.preview_image != blank %}{{ media.preview_image | image_url: width: 1200 }}{% endif %}"
+            data-media-width="{% if media.preview_image != blank %}{{ media.preview_image.width }}{% endif %}"
+            data-media-height="{% if media.preview_image != blank %}{{ media.preview_image.height }}{% endif %}"
             aria-label="Open video {{ media_count }}">
             <span class="ozella-as-seen-on__thumb">
-              {%- if media_video.preview_image != blank -%}
+              {%- if media.preview_image != blank -%}
                 {{
-                  media_video.preview_image
+                  media.preview_image
                   | image_url: width: 360
                   | image_tag:
                     loading: 'lazy',
                     class: 'ozella-as-seen-on__thumb-image',
-                    alt: media_video.alt
+                    alt: media.alt
                 }}
               {%- else -%}
                 <video
@@ -124,82 +130,6 @@
     {%- endfor -%}
   {%- endif -%}
 {%- endcapture -%}
-
-{%- if media_count == 0 -%}
-  {%- liquid
-    assign media_count = 4
-    assign fallback_video_1 = 'Paige Casey.mp4' | file_url
-    assign fallback_video_2 = 'Mia V 1.mp4' | file_url
-    assign fallback_video_3 = 'StorySaver.net-katarinaspas-Video-1721342383169.mov' | file_url
-    assign fallback_video_4 = 'StorySaver.net-melissaalbaaa-Video-1716929948402.MP4' | file_url
-  -%}
-  {%- capture as_seen_items -%}
-    <button
-      type="button"
-      class="ozella-as-seen-on__item"
-      data-as-seen-item
-      data-media-type="video"
-      data-video-url="{{ fallback_video_1 }}"
-      aria-label="Open video 1">
-      <span class="ozella-as-seen-on__thumb">
-        <video class="ozella-as-seen-on__thumb-video" preload="metadata" muted loop playsinline src="{{ fallback_video_1 }}" aria-hidden="true"></video>
-        <span class="ozella-as-seen-on__play" aria-hidden="true">
-          <svg viewBox="0 0 20 20" focusable="false" role="presentation">
-            <path d="M7 5.2L15 10L7 14.8V5.2Z"></path>
-          </svg>
-        </span>
-      </span>
-    </button>
-    <button
-      type="button"
-      class="ozella-as-seen-on__item"
-      data-as-seen-item
-      data-media-type="video"
-      data-video-url="{{ fallback_video_2 }}"
-      aria-label="Open video 2">
-      <span class="ozella-as-seen-on__thumb">
-        <video class="ozella-as-seen-on__thumb-video" preload="metadata" muted loop playsinline src="{{ fallback_video_2 }}" aria-hidden="true"></video>
-        <span class="ozella-as-seen-on__play" aria-hidden="true">
-          <svg viewBox="0 0 20 20" focusable="false" role="presentation">
-            <path d="M7 5.2L15 10L7 14.8V5.2Z"></path>
-          </svg>
-        </span>
-      </span>
-    </button>
-    <button
-      type="button"
-      class="ozella-as-seen-on__item"
-      data-as-seen-item
-      data-media-type="video"
-      data-video-url="{{ fallback_video_3 }}"
-      aria-label="Open video 3">
-      <span class="ozella-as-seen-on__thumb">
-        <video class="ozella-as-seen-on__thumb-video" preload="metadata" muted loop playsinline src="{{ fallback_video_3 }}" aria-hidden="true"></video>
-        <span class="ozella-as-seen-on__play" aria-hidden="true">
-          <svg viewBox="0 0 20 20" focusable="false" role="presentation">
-            <path d="M7 5.2L15 10L7 14.8V5.2Z"></path>
-          </svg>
-        </span>
-      </span>
-    </button>
-    <button
-      type="button"
-      class="ozella-as-seen-on__item"
-      data-as-seen-item
-      data-media-type="video"
-      data-video-url="{{ fallback_video_4 }}"
-      aria-label="Open video 4">
-      <span class="ozella-as-seen-on__thumb">
-        <video class="ozella-as-seen-on__thumb-video" preload="metadata" muted loop playsinline src="{{ fallback_video_4 }}" aria-hidden="true"></video>
-        <span class="ozella-as-seen-on__play" aria-hidden="true">
-          <svg viewBox="0 0 20 20" focusable="false" role="presentation">
-            <path d="M7 5.2L15 10L7 14.8V5.2Z"></path>
-          </svg>
-        </span>
-      </span>
-    </button>
-  {%- endcapture -%}
-{%- endif -%}
 
 {%- if as_seen_enabled and media_count > 0 -%}
   <div class="ozella-as-seen-on" data-oz-as-seen-on data-oz-as-seen-id="{{ as_seen_id }}">
