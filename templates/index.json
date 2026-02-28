@@ -456,9 +456,10 @@
         },
         "social_post_06": {
           "type": "post",
+          "disabled": true,
           "settings": {
-            "platform": "instagram",
-            "post_link": "shopify://products/stargirl-thong-bikini-set-red",
+            "platform": "tiktok",
+            "post_link": "https://www.tiktok.com/@paigeydahling/video/7343334032073051435?_r=1&_t=ZP-94EJ7HHTr4A",
             "media_type": "image",
             "image": "shopify://shop_images/2EC3B7E4-F183-4B41-9B73-7E52B8295798_1.jpg",
             "video": "shopify://files/videos/popsicle-trimmed.mp4",
