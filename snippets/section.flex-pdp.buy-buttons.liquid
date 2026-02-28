@@ -32,6 +32,7 @@
 
 {% capture product_buy_buttons %}
   {{ product_add_to_cart_stack }}
+  {% render 'product.as-seen-on', product: product, block: block %}
 {%  endcapture %}
 
-{% render 'layout.stack', gap: 'xs', slot: product_buy_buttons %}
+{% render 'layout.stack', gap: 'sm', slot: product_buy_buttons %}

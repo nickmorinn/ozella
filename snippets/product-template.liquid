@@ -335,6 +335,9 @@
                             current_variant: current_variant,
                             block: block,
                           -%}
+                          {%- unless isModal -%}
+                            {%- render 'product.as-seen-on', product: product, block: block -%}
+                          {%- endunless -%}
                         </div>
                       {%- endunless -%}
 

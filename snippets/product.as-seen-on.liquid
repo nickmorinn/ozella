@@ -1,0 +1,932 @@
+{% doc %}
+  Renders an "As Seen On" media strip for PDPs with up to four image/video items
+  and a lightweight click-to-open viewer.
+
+  If no media is configured, it falls back to homepage UGC videos for prototyping.
+{% enddoc %}
+
+{%- liquid
+  assign as_seen_id = 'as-seen-on-' | append: section.id
+  if block != blank
+    assign as_seen_id = as_seen_id | append: '-' | append: block.id
+  endif
+
+  assign as_seen_enabled = true
+  assign as_seen_heading = 'As Seen On'
+
+  if block != blank
+    assign as_seen_heading = block.settings.as_seen_on_heading | default: as_seen_heading
+    if block.settings.as_seen_on_enable == false
+      assign as_seen_enabled = false
+    endif
+  endif
+
+  assign media_count = 0
+-%}
+
+{%- capture as_seen_items -%}
+  {%- if block != blank -%}
+    {%- for index in (1..4) -%}
+      {%- liquid
+        assign media_type_key = 'as_seen_on_media_type_' | append: index
+        assign media_image_key = 'as_seen_on_image_' | append: index
+        assign media_video_key = 'as_seen_on_video_' | append: index
+        assign media_type = block.settings[media_type_key] | default: 'video'
+        assign media_image = block.settings[media_image_key]
+        assign media_video = block.settings[media_video_key]
+
+        if media_type == 'image' and media_image == blank and media_video != blank
+          assign media_type = 'video'
+        elsif media_type == 'video' and media_video == blank and media_image != blank
+          assign media_type = 'image'
+        endif
+      -%}
+
+      {%- if media_type == 'image' and media_image != blank -%}
+        {%- assign media_count = media_count | plus: 1 -%}
+        <button
+          type="button"
+          class="ozella-as-seen-on__item"
+          data-as-seen-item
+          data-media-type="image"
+          data-image-url="{{ media_image | image_url: width: 2200 }}"
+          data-media-alt="{{ media_image.alt | escape }}"
+          data-media-width="{{ media_image.width }}"
+          data-media-height="{{ media_image.height }}"
+          aria-label="Open image {{ media_count }}">
+          <span class="ozella-as-seen-on__thumb">
+            {{
+              media_image
+              | image_url: width: 360
+              | image_tag:
+                loading: 'lazy',
+                class: 'ozella-as-seen-on__thumb-image',
+                alt: media_image.alt
+            }}
+          </span>
+        </button>
+      {%- elsif media_type == 'video' and media_video != blank -%}
+        {%- liquid
+          assign media_video_url = blank
+          for source in media_video.sources
+            if source.format == 'mp4'
+              assign media_video_url = source.url
+              break
+            endif
+          endfor
+
+          if media_video_url == blank and media_video.sources.size > 0
+            assign media_video_url = media_video.sources.first.url
+          endif
+        -%}
+
+        {%- if media_video_url != blank -%}
+          {%- assign media_count = media_count | plus: 1 -%}
+          <button
+            type="button"
+            class="ozella-as-seen-on__item"
+            data-as-seen-item
+            data-media-type="video"
+            data-video-url="{{ media_video_url | escape }}"
+            data-poster-url="{% if media_video.preview_image != blank %}{{ media_video.preview_image | image_url: width: 1200 }}{% endif %}"
+            data-media-width="{% if media_video.preview_image != blank %}{{ media_video.preview_image.width }}{% endif %}"
+            data-media-height="{% if media_video.preview_image != blank %}{{ media_video.preview_image.height }}{% endif %}"
+            aria-label="Open video {{ media_count }}">
+            <span class="ozella-as-seen-on__thumb">
+              {%- if media_video.preview_image != blank -%}
+                {{
+                  media_video.preview_image
+                  | image_url: width: 360
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'ozella-as-seen-on__thumb-image',
+                    alt: media_video.alt
+                }}
+              {%- else -%}
+                <video
+                  class="ozella-as-seen-on__thumb-video"
+                  preload="metadata"
+                  muted
+                  loop
+                  playsinline
+                  src="{{ media_video_url | escape }}"
+                  aria-hidden="true"></video>
+              {%- endif -%}
+              <span class="ozella-as-seen-on__play" aria-hidden="true">
+                <svg viewBox="0 0 20 20" focusable="false" role="presentation">
+                  <path d="M7 5.2L15 10L7 14.8V5.2Z"></path>
+                </svg>
+              </span>
+            </span>
+          </button>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- if media_count == 0 -%}
+  {%- liquid
+    assign media_count = 4
+    assign fallback_video_1 = 'Paige Casey.mp4' | file_url
+    assign fallback_video_2 = 'Mia V 1.mp4' | file_url
+    assign fallback_video_3 = 'StorySaver.net-katarinaspas-Video-1721342383169.mov' | file_url
+    assign fallback_video_4 = 'StorySaver.net-melissaalbaaa-Video-1716929948402.MP4' | file_url
+  -%}
+  {%- capture as_seen_items -%}
+    <button
+      type="button"
+      class="ozella-as-seen-on__item"
+      data-as-seen-item
+      data-media-type="video"
+      data-video-url="{{ fallback_video_1 }}"
+      aria-label="Open video 1">
+      <span class="ozella-as-seen-on__thumb">
+        <video class="ozella-as-seen-on__thumb-video" preload="metadata" muted loop playsinline src="{{ fallback_video_1 }}" aria-hidden="true"></video>
+        <span class="ozella-as-seen-on__play" aria-hidden="true">
+          <svg viewBox="0 0 20 20" focusable="false" role="presentation">
+            <path d="M7 5.2L15 10L7 14.8V5.2Z"></path>
+          </svg>
+        </span>
+      </span>
+    </button>
+    <button
+      type="button"
+      class="ozella-as-seen-on__item"
+      data-as-seen-item
+      data-media-type="video"
+      data-video-url="{{ fallback_video_2 }}"
+      aria-label="Open video 2">
+      <span class="ozella-as-seen-on__thumb">
+        <video class="ozella-as-seen-on__thumb-video" preload="metadata" muted loop playsinline src="{{ fallback_video_2 }}" aria-hidden="true"></video>
+        <span class="ozella-as-seen-on__play" aria-hidden="true">
+          <svg viewBox="0 0 20 20" focusable="false" role="presentation">
+            <path d="M7 5.2L15 10L7 14.8V5.2Z"></path>
+          </svg>
+        </span>
+      </span>
+    </button>
+    <button
+      type="button"
+      class="ozella-as-seen-on__item"
+      data-as-seen-item
+      data-media-type="video"
+      data-video-url="{{ fallback_video_3 }}"
+      aria-label="Open video 3">
+      <span class="ozella-as-seen-on__thumb">
+        <video class="ozella-as-seen-on__thumb-video" preload="metadata" muted loop playsinline src="{{ fallback_video_3 }}" aria-hidden="true"></video>
+        <span class="ozella-as-seen-on__play" aria-hidden="true">
+          <svg viewBox="0 0 20 20" focusable="false" role="presentation">
+            <path d="M7 5.2L15 10L7 14.8V5.2Z"></path>
+          </svg>
+        </span>
+      </span>
+    </button>
+    <button
+      type="button"
+      class="ozella-as-seen-on__item"
+      data-as-seen-item
+      data-media-type="video"
+      data-video-url="{{ fallback_video_4 }}"
+      aria-label="Open video 4">
+      <span class="ozella-as-seen-on__thumb">
+        <video class="ozella-as-seen-on__thumb-video" preload="metadata" muted loop playsinline src="{{ fallback_video_4 }}" aria-hidden="true"></video>
+        <span class="ozella-as-seen-on__play" aria-hidden="true">
+          <svg viewBox="0 0 20 20" focusable="false" role="presentation">
+            <path d="M7 5.2L15 10L7 14.8V5.2Z"></path>
+          </svg>
+        </span>
+      </span>
+    </button>
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- if as_seen_enabled and media_count > 0 -%}
+  <div class="ozella-as-seen-on" data-oz-as-seen-on data-oz-as-seen-id="{{ as_seen_id }}">
+    <p class="ozella-as-seen-on__heading">{{ as_seen_heading | escape }}</p>
+    <div class="ozella-as-seen-on__track" role="list">
+      {{ as_seen_items }}
+    </div>
+
+    <div class="ozella-as-seen-on__viewer" data-as-seen-viewer hidden>
+      <button type="button" class="ozella-as-seen-on__backdrop" data-as-seen-close aria-label="Close viewer"></button>
+      <div class="ozella-as-seen-on__dialog" role="dialog" aria-modal="true" aria-label="{{ as_seen_heading | escape }}">
+        <button type="button" class="ozella-as-seen-on__close" data-as-seen-close aria-label="Close viewer">
+          <svg class="ozella-as-seen-on__control-icon" viewBox="0 0 20 20" focusable="false" role="presentation">
+            <path d="M5 5L15 15"></path>
+            <path d="M15 5L5 15"></path>
+          </svg>
+          <span class="visually-hidden">Close viewer</span>
+        </button>
+        <button type="button" class="ozella-as-seen-on__nav ozella-as-seen-on__nav--prev" data-as-seen-prev aria-label="Previous media">
+          <svg class="ozella-as-seen-on__control-icon" viewBox="0 0 20 20" focusable="false" role="presentation">
+            <path d="M12 4L6 10L12 16"></path>
+          </svg>
+          <span class="visually-hidden">Previous media</span>
+        </button>
+        <div class="ozella-as-seen-on__stage">
+          <img class="ozella-as-seen-on__viewer-image" data-as-seen-viewer-image alt="" hidden>
+          <video class="ozella-as-seen-on__viewer-video" data-as-seen-viewer-video playsinline muted loop hidden></video>
+          <div class="ozella-as-seen-on__viewer-fallback" data-as-seen-viewer-fallback hidden>Video preview unavailable on this device.</div>
+        </div>
+        <button type="button" class="ozella-as-seen-on__nav ozella-as-seen-on__nav--next" data-as-seen-next aria-label="Next media">
+          <svg class="ozella-as-seen-on__control-icon" viewBox="0 0 20 20" focusable="false" role="presentation">
+            <path d="M8 4L14 10L8 16"></path>
+          </svg>
+          <span class="visually-hidden">Next media</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {%- style -%}
+    [data-oz-as-seen-id="{{ as_seen_id }}"] {
+      margin-bottom: var(--oz-space-1);
+      margin-top: calc(var(--oz-space-2) + var(--oz-space-1));
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__heading {
+      font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+      font-size: var(--oz-pdp-section-label-size, 0.8em);
+      letter-spacing: var(--oz-track-ui, 0.18em);
+      line-height: 1.2;
+      margin: 0 0 var(--oz-space-2);
+      text-transform: uppercase;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__track {
+      -ms-overflow-style: none;
+      display: flex;
+      gap: var(--oz-space-2);
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__item {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      flex: 0 0 clamp(84px, 23vw, 118px);
+      margin: 0;
+      padding: 0;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__thumb {
+      aspect-ratio: 3 / 4;
+      border-radius: 10px;
+      display: block;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__thumb-image,
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__thumb-video {
+      display: block;
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__play {
+      align-items: center;
+      background: var(--colorTextBody);
+      border-radius: 999px;
+      color: var(--colorBody);
+      display: inline-flex;
+      height: 30px;
+      justify-content: center;
+      left: 50%;
+      pointer-events: none;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__play svg {
+      fill: currentColor;
+      height: 13px;
+      margin-left: 1px;
+      width: 13px;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__viewer {
+      inset: 0;
+      isolation: isolate;
+      position: fixed;
+      z-index: 2147483646;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__backdrop {
+      background: var(--colorModalBg);
+      border: 0;
+      height: 100%;
+      inset: 0;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      width: 100%;
+      z-index: 0;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__dialog {
+      align-items: center;
+      display: grid;
+      gap: clamp(var(--oz-space-1), 1.4vw, var(--oz-space-3));
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      left: 50%;
+      max-width: min(96vw, 640px);
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(96vw, 640px);
+      z-index: 1;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__stage {
+      --ozella-as-seen-stage-ratio: 9 / 16;
+      align-items: center;
+      aspect-ratio: var(--ozella-as-seen-stage-ratio);
+      background: var(--colorTextBody);
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      justify-self: center;
+      max-height: min(88vh, 760px);
+      max-width: min(100%, 430px);
+      overflow: hidden;
+      position: relative;
+      width: min(100%, 430px);
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__viewer-image,
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__viewer-video,
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__viewer-fallback {
+      display: none;
+      height: 100%;
+      inset: 0;
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      position: absolute;
+      width: 100%;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__viewer-image.is-active,
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__viewer-video.is-active {
+      display: block;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__viewer-fallback {
+      align-items: center;
+      color: var(--colorBody);
+      font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+      font-size: var(--oz-type-ui-sm, 12px);
+      letter-spacing: var(--oz-track-ui, 0.12em);
+      justify-content: center;
+      line-height: 1.35;
+      max-width: 100%;
+      object-fit: initial;
+      padding: var(--oz-space-4);
+      text-align: center;
+      text-transform: uppercase;
+      width: 100%;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__viewer-fallback.is-active {
+      display: flex;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__nav,
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__close {
+      --ozella-as-seen-control-size: 42px;
+      align-items: center;
+      background: var(--colorBody);
+      border: 1px solid var(--colorTextBodyAlpha015);
+      border-radius: 999px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+      color: var(--colorTextBody);
+      cursor: pointer;
+      display: inline-flex;
+      height: var(--ozella-as-seen-control-size);
+      justify-content: center;
+      line-height: 1;
+      min-height: var(--ozella-as-seen-control-size);
+      min-width: var(--ozella-as-seen-control-size);
+      padding: 0;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+      width: var(--ozella-as-seen-control-size);
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__nav:hover,
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__close:hover {
+      border-color: var(--colorTextBodyAlpha035);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+      transform: translateY(-1px);
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__nav:focus-visible,
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__close:focus-visible {
+      outline: 2px solid var(--colorBody);
+      outline-offset: 2px;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__control-icon {
+      height: 16px;
+      width: 16px;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__control-icon path {
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8px;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__nav[hidden] {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__close {
+      position: absolute;
+      right: 2px;
+      top: -52px;
+      z-index: 3;
+    }
+
+    @media only screen and (min-width: 769px) {
+      [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__backdrop {
+        background: transparent;
+      }
+
+      [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__dialog {
+        bottom: max(16px, env(safe-area-inset-bottom));
+        display: block;
+        left: auto;
+        max-width: min(92vw, 390px);
+        right: max(16px, env(safe-area-inset-right));
+        top: auto;
+        transform: none;
+        width: min(92vw, 390px);
+      }
+
+      [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__stage {
+        border-radius: 16px;
+        max-height: min(82vh, 780px);
+        max-width: 100%;
+        width: 100%;
+      }
+
+      [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__nav {
+        display: none !important;
+      }
+
+      [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__close {
+        --ozella-as-seen-control-size: 40px;
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        background: rgba(248, 248, 245, 0.45);
+        border-color: rgba(248, 248, 245, 0.62);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+        right: 10px;
+        top: 10px;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__dialog {
+        display: block;
+        left: 50%;
+        max-height: min(96vh, calc(100dvh - max(16px, calc(env(safe-area-inset-top) + env(safe-area-inset-bottom)))));
+        max-width: none;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: min(96vw, calc(100vw - max(16px, calc(env(safe-area-inset-left) + env(safe-area-inset-right)))));
+      }
+
+      [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__stage {
+        aspect-ratio: var(--ozella-as-seen-stage-ratio);
+        border-radius: 16px;
+        height: auto;
+        max-height: min(96vh, calc(100dvh - max(16px, calc(env(safe-area-inset-top) + env(safe-area-inset-bottom)))));
+        max-width: 100%;
+        width: 100%;
+      }
+
+      [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__nav,
+      [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__close {
+        --ozella-as-seen-control-size: 38px;
+      }
+
+      [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__nav {
+        display: none !important;
+      }
+
+      [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__close {
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+        background: rgba(248, 248, 245, 0.45);
+        border-color: rgba(248, 248, 245, 0.62);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+        right: 10px;
+        top: 10px;
+      }
+    }
+
+    html.ozella-as-seen-on-open {
+      overflow: hidden;
+    }
+
+    html.ozella-as-seen-on-open .main-content {
+      position: relative;
+      z-index: 2147483645;
+    }
+
+    [data-oz-as-seen-id="{{ as_seen_id }}"] .ozella-as-seen-on__viewer-video::-webkit-media-controls {
+      display: none !important;
+    }
+  {%- endstyle -%}
+
+  <script>
+    (function() {
+      if (window.OzellaAsSeenOn && typeof window.OzellaAsSeenOn.init === 'function') {
+        window.OzellaAsSeenOn.init(document);
+        return;
+      }
+
+      function initContainer(container) {
+        if (!container || container.dataset.ozellaAsSeenOnReady === 'true') {
+          return;
+        }
+
+        container.dataset.ozellaAsSeenOnReady = 'true';
+
+        var items = container.querySelectorAll('[data-as-seen-item]');
+        if (!items.length) {
+          return;
+        }
+
+        var viewer = container.querySelector('[data-as-seen-viewer]');
+        var viewerImage = container.querySelector('[data-as-seen-viewer-image]');
+        var viewerVideo = container.querySelector('[data-as-seen-viewer-video]');
+        var viewerFallback = container.querySelector('[data-as-seen-viewer-fallback]');
+        var stage = container.querySelector('.ozella-as-seen-on__stage');
+        var prevButton = container.querySelector('[data-as-seen-prev]');
+        var nextButton = container.querySelector('[data-as-seen-next]');
+        var closeButtons = container.querySelectorAll('[data-as-seen-close]');
+        var activeIndex = 0;
+        var isOpen = false;
+        var defaultStageRatio = '9 / 16';
+        var unsupportedVideoTimer = null;
+
+        if (viewer && viewer.parentNode) {
+          var portalRoot = document.createElement('div');
+          portalRoot.setAttribute('data-oz-as-seen-id', container.getAttribute('data-oz-as-seen-id') || '');
+          portalRoot.className = 'ozella-as-seen-on__portal-root';
+          viewer.parentNode.insertBefore(portalRoot, viewer.nextSibling);
+          portalRoot.appendChild(viewer);
+          document.body.appendChild(portalRoot);
+        }
+
+        var setStageMode = function(mode) {
+          var showImage = mode === 'image';
+          var showVideo = mode === 'video';
+          var showFallback = mode === 'fallback';
+
+          if (viewerImage) {
+            viewerImage.hidden = !showImage;
+            viewerImage.classList.toggle('is-active', showImage);
+          }
+
+          if (viewerVideo) {
+            viewerVideo.hidden = !showVideo;
+            viewerVideo.classList.toggle('is-active', showVideo);
+          }
+
+          if (viewerFallback) {
+            viewerFallback.hidden = !showFallback;
+            viewerFallback.classList.toggle('is-active', showFallback);
+          }
+        };
+
+        var isVideoRenderable = function() {
+          if (!viewerVideo) {
+            return false;
+          }
+
+          if (viewerVideo.videoWidth > 0 && viewerVideo.videoHeight > 0) {
+            return true;
+          }
+
+          if (viewerVideo.readyState >= 2) {
+            return true;
+          }
+
+          return !viewerVideo.paused && viewerVideo.currentTime > 0.05;
+        };
+
+        var updateStageRatio = function(width, height) {
+          if (!stage) {
+            return;
+          }
+
+          var numericWidth = parseFloat(width);
+          var numericHeight = parseFloat(height);
+
+          if (numericWidth > 0 && numericHeight > 0) {
+            stage.style.setProperty('--ozella-as-seen-stage-ratio', numericWidth + ' / ' + numericHeight);
+          } else {
+            stage.style.setProperty('--ozella-as-seen-stage-ratio', defaultStageRatio);
+          }
+        };
+
+        var updateStageRatioFromItem = function(item) {
+          if (!item) {
+            updateStageRatio();
+            return;
+          }
+
+          updateStageRatio(item.getAttribute('data-media-width'), item.getAttribute('data-media-height'));
+        };
+
+        var clearViewerVideo = function() {
+          if (!viewerVideo) {
+            return;
+          }
+          if (unsupportedVideoTimer) {
+            window.clearTimeout(unsupportedVideoTimer);
+            unsupportedVideoTimer = null;
+          }
+          viewerVideo.onerror = null;
+          viewerVideo.onloadedmetadata = null;
+          viewerVideo.pause();
+          viewerVideo.removeAttribute('src');
+          viewerVideo.removeAttribute('poster');
+          viewerVideo.load();
+        };
+
+        var showFallbackMessage = function() {
+          if (!viewerFallback) {
+            return;
+          }
+
+          if (isVideoRenderable()) {
+            return;
+          }
+
+          setStageMode('fallback');
+          updateStageRatio();
+        };
+
+        var updateNavState = function() {
+          if (!prevButton || !nextButton) {
+            return;
+          }
+          var hideNav = items.length <= 1;
+          prevButton.hidden = hideNav;
+          nextButton.hidden = hideNav;
+        };
+
+        var renderSlide = function(index) {
+          var item = items[index];
+          if (!item) {
+            return;
+          }
+
+          activeIndex = index;
+
+          var mediaType = item.getAttribute('data-media-type');
+          var mediaAlt = item.getAttribute('data-media-alt') || '';
+
+          if (mediaType === 'image') {
+            var imageUrl = item.getAttribute('data-image-url');
+            clearViewerVideo();
+            updateStageRatioFromItem(item);
+            setStageMode('image');
+            viewerImage.src = imageUrl || '';
+            viewerImage.alt = mediaAlt;
+            viewerImage.onload = function() {
+              if (viewerImage.naturalWidth > 0 && viewerImage.naturalHeight > 0) {
+                updateStageRatio(viewerImage.naturalWidth, viewerImage.naturalHeight);
+              }
+            };
+            return;
+          }
+
+          var videoUrl = item.getAttribute('data-video-url');
+          var posterUrl = item.getAttribute('data-poster-url');
+          updateStageRatioFromItem(item);
+          setStageMode('video');
+          viewerVideo.controls = false;
+          viewerVideo.muted = true;
+          viewerVideo.loop = true;
+          viewerImage.removeAttribute('src');
+          viewerImage.alt = '';
+          viewerVideo.onerror = function() {
+            if (unsupportedVideoTimer) {
+              window.clearTimeout(unsupportedVideoTimer);
+              unsupportedVideoTimer = null;
+            }
+            if (!posterUrl) {
+              showFallbackMessage();
+              return;
+            }
+            clearViewerVideo();
+            updateStageRatioFromItem(item);
+            setStageMode('image');
+            viewerImage.src = posterUrl;
+            viewerImage.alt = mediaAlt;
+          };
+          viewerVideo.onloadedmetadata = function() {
+            if (unsupportedVideoTimer) {
+              window.clearTimeout(unsupportedVideoTimer);
+              unsupportedVideoTimer = null;
+            }
+            if (viewerVideo.videoWidth > 0 && viewerVideo.videoHeight > 0) {
+              updateStageRatio(viewerVideo.videoWidth, viewerVideo.videoHeight);
+            } else if (posterUrl) {
+              viewerVideo.onerror();
+            } else {
+              showFallbackMessage();
+            }
+          };
+          viewerVideo.onloadeddata = function() {
+            if (unsupportedVideoTimer) {
+              window.clearTimeout(unsupportedVideoTimer);
+              unsupportedVideoTimer = null;
+            }
+
+            setStageMode('video');
+          };
+          viewerVideo.oncanplay = function() {
+            if (unsupportedVideoTimer) {
+              window.clearTimeout(unsupportedVideoTimer);
+              unsupportedVideoTimer = null;
+            }
+
+            setStageMode('video');
+          };
+          viewerVideo.onplaying = function() {
+            if (unsupportedVideoTimer) {
+              window.clearTimeout(unsupportedVideoTimer);
+              unsupportedVideoTimer = null;
+            }
+
+            setStageMode('video');
+          };
+          viewerVideo.src = videoUrl || '';
+          if (posterUrl) {
+            viewerVideo.setAttribute('poster', posterUrl);
+          } else {
+            viewerVideo.removeAttribute('poster');
+          }
+          viewerVideo.load();
+          unsupportedVideoTimer = window.setTimeout(function() {
+            if (isVideoRenderable()) {
+              return;
+            }
+            if (posterUrl) {
+              viewerVideo.onerror();
+            } else {
+              showFallbackMessage();
+            }
+          }, 2600);
+          var playPromise = viewerVideo.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(function() {});
+          }
+        };
+
+        var closeViewer = function() {
+          if (!isOpen) {
+            return;
+          }
+
+          isOpen = false;
+          viewer.hidden = true;
+          clearViewerVideo();
+          updateStageRatio();
+          viewerImage.removeAttribute('src');
+          setStageMode();
+          container.classList.remove('is-viewer-open');
+
+          if (!document.querySelector('.ozella-as-seen-on.is-viewer-open')) {
+            document.documentElement.classList.remove('ozella-as-seen-on-open');
+          }
+        };
+
+        var openViewer = function(index) {
+          if (!viewer) {
+            return;
+          }
+
+          isOpen = true;
+          viewer.hidden = false;
+          container.classList.add('is-viewer-open');
+          document.documentElement.classList.add('ozella-as-seen-on-open');
+          updateStageRatio();
+          updateNavState();
+          renderSlide(index);
+        };
+
+        var goToNext = function() {
+          if (!items.length) {
+            return;
+          }
+          var nextIndex = activeIndex + 1;
+          if (nextIndex >= items.length) {
+            nextIndex = 0;
+          }
+          renderSlide(nextIndex);
+        };
+
+        var goToPrev = function() {
+          if (!items.length) {
+            return;
+          }
+          var prevIndex = activeIndex - 1;
+          if (prevIndex < 0) {
+            prevIndex = items.length - 1;
+          }
+          renderSlide(prevIndex);
+        };
+
+        items.forEach(function(item, index) {
+          item.addEventListener('click', function() {
+            openViewer(index);
+          });
+        });
+
+        closeButtons.forEach(function(button) {
+          button.addEventListener('click', function() {
+            closeViewer();
+          });
+        });
+
+        if (prevButton) {
+          prevButton.addEventListener('click', function() {
+            goToPrev();
+          });
+        }
+
+        if (nextButton) {
+          nextButton.addEventListener('click', function() {
+            goToNext();
+          });
+        }
+
+        document.addEventListener('keydown', function(event) {
+          if (!isOpen) {
+            return;
+          }
+
+          if (event.key === 'Escape') {
+            event.preventDefault();
+            closeViewer();
+          } else if (event.key === 'ArrowRight') {
+            event.preventDefault();
+            goToNext();
+          } else if (event.key === 'ArrowLeft') {
+            event.preventDefault();
+            goToPrev();
+          }
+        });
+      }
+
+      function init(root) {
+        var scope = root || document;
+        if (scope.matches && scope.matches('[data-oz-as-seen-on]')) {
+          initContainer(scope);
+        }
+
+        var containers = scope.querySelectorAll ? scope.querySelectorAll('[data-oz-as-seen-on]') : [];
+        for (var i = 0; i < containers.length; i++) {
+          initContainer(containers[i]);
+        }
+      }
+
+      window.OzellaAsSeenOn = { init: init };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          init(document);
+        });
+      } else {
+        init(document);
+      }
+
+      document.addEventListener('shopify:section:load', function(event) {
+        init(event.target || document);
+      });
+    })();
+  </script>
+{%- endif -%}
