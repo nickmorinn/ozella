@@ -19,9 +19,19 @@
 
   {%- render 'seo-title' -%}
 
-  {%- if page_description -%}
+  {% if canonical_url contains '/collections/all' %}
+
+<meta name="description" content="Shop all Ozella Swim bikinis and women’s swimwear. Premium styles, perfect fit, and fast worldwide shipping.">
+
+{% elsif page_description %}
+
+<meta name="description" content="{{ page_description | escape }}">
+
+{% endif %}
+
+  {% comment %}{%- if page_description -%}
   <meta name="description" content="{{ page_description | escape }}">
-  {%- endif -%}
+  {%- endif -%}{% endcomment %}
 
   {%- render 'social-meta-tags' -%}
   {%- render 'head.import-map' -%}
