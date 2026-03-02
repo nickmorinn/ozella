@@ -29,16 +29,17 @@
   }
 
   .hero--{{ section.id }} .hero__link .btn {
-    font-size: max(calc(var(--typeBaseSize) + 2px), 16px);
-    min-width: 190px;
-    padding: 18px 30px;
+    font-size: var(--oz-type-ui-sm);
+    letter-spacing: var(--oz-track-ui);
+    min-width: 132px;
+    padding: 11px 18px;
   }
 
   @media only screen and (max-width: 768px) {
     .hero--{{ section.id }} .hero__link .btn {
-      font-size: max(calc(var(--typeBaseSize) - 1px), 14px);
-      min-width: 170px;
-      padding: 15px 24px;
+      font-size: var(--oz-type-ui-xs);
+      min-width: 118px;
+      padding: 9px 15px;
     }
   }
 

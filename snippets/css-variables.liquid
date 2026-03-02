@@ -280,6 +280,19 @@
     opacity: 0.5;
     }
 
+    [data-context='featured-collection'] .grid-product__tag,
+    [data-context='featured-collection'] .grid-product__tag--custom,
+    [data-context='featured-collection'] .grid-product__tag--sold-out,
+    [data-context='featured-collection'] .grid-product__tag--sale {
+    background-color: var(--colorTextBody) !important;
+    color: var(--colorSaleTagText) !important;
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback) !important;
+    font-size: calc(var(--typeBaseSize) * 0.65) !important;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    text-transform: uppercase;
+    }
+
     @media only screen and (min-width: 769px) {
     .template-index .featured-collections__page-width {
     max-width: none;
@@ -303,14 +316,6 @@
     max-width: none;
     padding-left: 24px;
     padding-right: 24px;
-    }
-
-    .template-collection .collection-content .grid__item--sidebar {
-    width: 14.5%;
-    }
-
-    .template-collection .collection-content .grid__item--content {
-    width: 85.5%;
     }
 
     .template-collection #CollectionSidebar[data-style='sidebar'] .collection-sidebar {
@@ -1492,11 +1497,13 @@
 
     @media only screen and (min-width: 769px) {
     .template-collection .collection-grid__wrapper .grid.grid--uniform {
-    margin-left: -6px;
+    margin-left: 0;
+    margin-right: 0;
     }
 
     .template-collection .collection-grid__wrapper .grid.grid--uniform > .grid__item {
-    padding-left: 6px;
+    padding-left: 0;
+    padding-right: 6px;
     }
 
     .template-collection .collection-grid__wrapper .grid-product {
@@ -2319,12 +2326,28 @@
     .grid-product__tag,
     .product-single__tag {
       font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+      text-transform: uppercase;
     }
 
     .grid-product__tag--custom,
     .product-single__tag {
       background-color: var(--colorTextBody);
       color: #fff;
+    }
+
+    @media only screen and (min-width: 769px) {
+      .template-collection .grid-product__tag,
+      .template-collection .grid-product__tag--custom,
+      .template-collection .grid-product__tag--sold-out,
+      .template-collection .grid-product__tag--sale {
+        background-color: var(--colorTextBody) !important;
+        color: var(--colorSaleTagText) !important;
+        font-family: var(--typeAccentPrimary), var(--typeAccentFallback) !important;
+        font-size: calc(var(--typeBaseSize) * 0.65) !important;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 6px 5px 6px 7px;
+      }
     }
 
     .product-single__tag {
@@ -2335,7 +2358,6 @@
       line-height: 1;
       margin: 0 0 10px;
       padding: 6px 10px;
-      text-transform: uppercase;
     }
 
     .template-product .product__main-photos {
@@ -2522,6 +2544,61 @@
       height: 30px;
       margin: 0 8px 0 0;
       width: 30px;
+    }
+
+    .template-product .product-single__meta {
+      margin-top: 10px;
+    }
+
+    .template-product .product-single__tag {
+      margin-bottom: 8px;
+    }
+
+    .template-product .product__main-photos {
+      margin-bottom: 12px;
+    }
+
+    .template-product .product-single__meta .product-block--header {
+      margin-bottom: 8px;
+    }
+
+    .template-product .product-single__meta .product-single__title {
+      margin-bottom: 10px;
+    }
+
+    .template-product .product-single__meta .product-block--price {
+      margin-bottom: 14px;
+    }
+
+    .template-product .product-block {
+      margin-bottom: 12px;
+    }
+
+    .template-product .product-single__meta [data-product-blocks] > .product-block[data-dynamic-variants-enabled] {
+      margin-bottom: 10px;
+    }
+
+    .product-single__meta .variant-wrapper + .variant-wrapper {
+      margin-top: 12px;
+    }
+
+    .product-single__meta .variant__label[for] {
+      margin-bottom: 8px;
+    }
+    }
+
+    @media only screen and (min-width: 769px) {
+    .template-collection .grid-product__tag,
+    .template-collection .grid-product__tag--custom,
+    .template-collection .grid-product__tag--sold-out,
+    .template-collection .grid-product__tag--sale {
+      background-color: var(--colorTextBody) !important;
+      color: var(--colorSaleTagText) !important;
+      font-family: var(--typeAccentPrimary), var(--typeAccentFallback) !important;
+      font-size: calc(var(--typeBaseSize) * 0.65) !important;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 5px 6px 7px;
     }
     }
 

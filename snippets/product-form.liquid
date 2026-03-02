@@ -40,6 +40,10 @@
       </span>
     </button>
 
+    {%- if request.page_type == 'product' -%}
+      {%- render 'product-shipping-eta' -%}
+    {%- endif -%}
+
   {%- if enable_dynamic_buttons -%}
     </div>
   {%- endif -%}

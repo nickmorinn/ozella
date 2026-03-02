@@ -48,11 +48,11 @@ Snippet Arguments
       </button>
     </div>
 
-    <div class="collection-filter__item collection-filter__item--count small--hide">
-      {%- if enable_collection_count -%}
+    {%- if enable_collection_count -%}
+      <div class="collection-filter__item collection-filter__item--count small--hide">
         {{ count_label | t: count: count }}
-      {%- endif -%}
-    </div>
+      </div>
+    {%- endif -%}
 
     <div class="collection-filter__item collection-filter__item--sort">
         <div class="collection-filter__sort-container">

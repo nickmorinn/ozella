@@ -39,8 +39,12 @@
     background: rgba(255, 255, 255, 0.24);
     border: 1.5px solid rgba(0, 0, 0, 0.58);
     border-radius: 999px;
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: 0.74em;
+    letter-spacing: 0.015em;
     min-height: 50px;
     padding: 13px 56px 11px 18px;
+    text-transform: uppercase;
     transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
   }
 
@@ -52,10 +56,10 @@
 
   .site-footer[data-section-id="{{ section.id }}"] .footer__newsletter-input::placeholder {
     color: rgba(0, 0, 0, 0.56);
-    font-family: var(--typeBodyPrimary), var(--typeBodyFallback);
-    font-size: 0.98em;
+    font-family: var(--typeAccentPrimary), var(--typeAccentFallback);
+    font-size: 0.74em;
     letter-spacing: 0.015em;
-    text-transform: none;
+    text-transform: uppercase;
   }
 
   .site-footer[data-section-id="{{ section.id }}"] .footer__newsletter-btn {

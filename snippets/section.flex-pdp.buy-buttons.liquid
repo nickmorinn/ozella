@@ -23,6 +23,9 @@
   {% else %}
     {% render 'element.button', text: 'Sold Out', type: 'submit', disabled: true, full: true %}
   {% endif %}
+  {%- if request.page_type == 'product' -%}
+    {%- render 'product-shipping-eta' -%}
+  {%- endif -%}
   {% render 'form.product.messages', id: form_id %}
 {% endcapture %}
 

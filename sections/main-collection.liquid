@@ -1,5 +1,13 @@
 {%- liquid
   assign current_filter_size = 0
+  assign enable_filtering_and_sorting = section.settings.enable_filtering_and_sorting
+  assign enable_collection_sidebar = false
+  assign enable_collection_sort = false
+
+  if enable_filtering_and_sorting
+    assign enable_collection_sidebar = section.settings.enable_sidebar
+    assign enable_collection_sort = section.settings.enable_sort
+  endif
 
   for filter in collection.filters
     assign current_filter_size = current_filter_size | plus: filter.active_values.size
@@ -17,7 +25,7 @@
         <div class="grid__item medium-up--one-fifth grid__item--sidebar">
           {%- render 'collection-grid-filters',
             collection: collection,
-            enable_sidebar: section.settings.enable_sidebar,
+            enable_sidebar: enable_collection_sidebar,
             filter_style: section.settings.filter_style,
             collapsed: section.settings.collapsed,
             enable_color_swatches: section.settings.enable_color_swatches,
@@ -52,10 +60,10 @@
                   {% render 'collection-grid',
                     collection: collection,
                     items: collection.products,
-                    enable_sidebar: section.settings.enable_sidebar,
+                    enable_sidebar: enable_collection_sidebar,
                     filter_style: section.settings.filter_style,
-                    enable_sort: section.settings.enable_sort,
-                    enable_collection_count: block.settings.enable_collection_count,
+                    enable_sort: enable_collection_sort,
+                    enable_collection_count: false,
                     per_row: block.settings.per_row,
                     mobile_flush_grid: block.settings.mobile_flush_grid,
                     quick_shop_enable: settings.quick_shop_enable
@@ -86,7 +94,7 @@
   </div>
 </div>
 
-{%- if section.settings.enable_sidebar == false or section.settings.filter_style == 'drawer' or collection.filters.size == 0 -%}
+{%- if enable_collection_sidebar == false or section.settings.filter_style == 'drawer' or collection.filters.size == 0 -%}
 {% comment %}
   Override grid styles if sidebar is disabled
 {% endcomment %}
@@ -124,6 +132,12 @@
     {
       "type": "header",
       "content": "t:sections.main-collection.settings.header_filtering_and_sorting"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering_and_sorting",
+      "label": "Enable filtering and sorting",
+      "default": false
     },
     {
       "type": "checkbox",
