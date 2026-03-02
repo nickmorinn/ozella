@@ -68,9 +68,17 @@ Arguments
     assign on_sale = true
   endif
 
+  capture product_status_label
+    render 'product-tag-label', product: product
+  endcapture
+  assign product_status_label = product_status_label | strip
+
   assign product_tags = product.tags | join: ','
   assign has_custom_label = false
-  if product.metafields.theme.label and product.metafields.theme.label != blank
+  if product_status_label != blank
+    assign has_custom_label = true
+    assign custom_label = product_status_label
+  elsif product.metafields.theme.label and product.metafields.theme.label != blank
     assign has_custom_label = true
     assign custom_label = product.metafields.theme.label.value
   elsif product_tags contains '_label_'

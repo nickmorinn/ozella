@@ -1,0 +1,60 @@
+{% doc %}
+  Returns a normalized product tag label from product metafield `custom.tag`.
+
+  Expected values:
+  - New
+  - Low Stock
+  - Best Seller
+
+  Falls back to common metaobject field names when needed.
+
+  @param {object} product
+{% enddoc %}
+
+{%- liquid
+  assign label = blank
+
+  if product != blank and product.metafields.custom.tag != blank
+    assign tag_metafield = product.metafields.custom.tag
+    assign tag_type = tag_metafield.type | default: ''
+    assign tag_value = tag_metafield.value
+
+    if tag_value == blank
+      assign tag_value = tag_metafield
+    endif
+
+    if tag_type contains 'list.' and tag_value[0] != blank
+      assign tag_value = tag_value[0]
+    endif
+
+    if tag_value.label != blank
+      assign label = tag_value.label.value | default: tag_value.label
+    elsif tag_value.name != blank
+      assign label = tag_value.name.value | default: tag_value.name
+    elsif tag_value.title != blank
+      assign label = tag_value.title.value | default: tag_value.title
+    elsif tag_value.tag != blank
+      assign label = tag_value.tag.value | default: tag_value.tag
+    elsif tag_value.value != blank
+      assign label = tag_value.value
+    elsif tag_value.system != blank and tag_value.system.name != blank
+      assign label = tag_value.system.name
+    else
+      assign label = tag_value
+    endif
+  endif
+
+  assign label = label | strip
+  assign normalized_label = label | downcase | replace: '-', ' ' | replace: '_', ' '
+  assign normalized_label = normalized_label | replace: '  ', ' '
+
+  if normalized_label == 'new'
+    assign label = 'New'
+  elsif normalized_label == 'low stock'
+    assign label = 'Low Stock'
+  elsif normalized_label == 'best seller' or normalized_label == 'bestseller'
+    assign label = 'Best Seller'
+  endif
+-%}
+
+{{- label -}}
