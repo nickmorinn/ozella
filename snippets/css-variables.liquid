@@ -2744,11 +2744,27 @@
       display: none !important;
     }
 
-    .template-product .product__photo-zoom .icon-search,
-    .pswp .pswp__button--close .icon-close {
+    .template-product .product__photo-zoom .icon-search {
       height: 20px;
       transform: none !important;
       width: 20px;
+    }
+
+    .pswp .pswp__button--close .icon-close {
+      height: 13px;
+      margin: 8px;
+      transform: none !important;
+      width: 13px;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .template-product .product__photo-zoom.btn--circle {
+        padding: 6px;
+      }
+
+      .pswp .pswp__button.btn--circle {
+        padding: 10px;
+      }
     }
 
     .template-product .product__photo-zoom .icon-search path,
