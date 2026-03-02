@@ -526,7 +526,7 @@
           "type": "post",
           "settings": {
             "platform": "instagram",
-            "post_link": "https://ozellaswim.com/products/stargirl-bikini-set?variant=52252563243307",
+            "post_link": "",
             "media_type": "image",
             "image": "shopify://shop_images/img_5096_elle_bank.jpg",
             "caption": "",
@@ -537,7 +537,7 @@
           "type": "post",
           "settings": {
             "platform": "instagram",
-            "post_link": "https://ozellaswim.com/products/stargirl-bikini-set?variant=52252563210539",
+            "post_link": "",
             "media_type": "image",
             "image": "shopify://shop_images/DSCF8605.jpg",
             "caption": "",
@@ -580,8 +580,8 @@
         "social_post_17": {
           "type": "post",
           "settings": {
-            "platform": "tiktok",
-            "post_link": "https://ozellaswim.com/products/stargirl-bikini-set?variant=52252563177771",
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/gabriellabrooke_/",
             "media_type": "video",
             "video": "shopify://files/videos/1a521d967208489d94700aaf5e2bd1a3.MP4",
             "caption": "",
