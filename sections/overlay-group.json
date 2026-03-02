@@ -1,0 +1,57 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.overlay.name",
+  "type": "custom.overlay",
+  "sections": {
+    "cart-drawer": {
+      "type": "cart-drawer",
+      "custom_css": [
+        "p,.cart-item__price,dd {font-size: 16px;}",
+        "a.full-unstyled-link {font-size: 14px;}",
+        "p.cart-drawer__title.h4 {font-size: 25px;}",
+        "span.cart-drawer__total-price {align-self: normal;}"
+      ],
+      "settings": {
+        "card_media_aspect_ratio": "3/4",
+        "cart_title": "<h2>It’s a little<br/><em>empty</em> here</h2>",
+        "cart_desc": "You cart is currently empty",
+        "button_text": "Start Shopping",
+        "button_url": "shopify://collections/swimwear"
+      }
+    },
+    "quick-cart-drawer": {
+      "type": "quick-cart-drawer",
+      "disabled": true,
+      "settings": {
+        "color_scheme": ""
+      }
+    },
+    "age-verification-popup": {
+      "type": "age-verification-popup",
+      "disabled": true,
+      "settings": {
+        "heading": "Verify your age",
+        "text": "<p>You must be 18 years of age or older to enter this site. Please verify your age.</p>"
+      }
+    },
+    "newsletter-popup": {
+      "type": "newsletter-popup",
+      "disabled": true,
+      "settings": {}
+    }
+  },
+  "order": [
+    "cart-drawer",
+    "quick-cart-drawer",
+    "age-verification-popup",
+    "newsletter-popup"
+  ]
+}
