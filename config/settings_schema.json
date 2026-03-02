@@ -598,7 +598,7 @@
         "type": "text",
         "id": "quick_shop_text",
         "label": "t:settings_schema.product_tiles.settings.quick_shop_text.label",
-        "default": "Quick view"
+        "default": "Quick add"
       },
       {
         "type": "select",

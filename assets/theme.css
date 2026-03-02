@@ -9811,22 +9811,55 @@ html[dir=rtl] .grid-product__content{
 }
 
 .quick-product__btn{
-  background-color:var(--colorBtnPrimary);
+  align-items:center;
+  background-color:#0b0a0b;
+  border:0;
+  border-radius:999px;
   bottom:10px;
-  color:var(--colorBtnPrimaryText);
+  color:#fff;
   cursor:pointer;
-  font-size:calc(var(--typeBaseSize)*0.85);
-  left:10px;
+  display:flex;
+  height:36px;
+  justify-content:center;
+  left:auto;
+  min-height:36px;
+  min-width:36px;
   opacity:0;
   overflow:hidden;
-  padding:8px 5px;
+  padding:0;
   position:absolute;
   right:10px;
   text-align:center;
   transform:translateY(5px);
-  transition:opacity 0.25s ease,transform 0.25s ease-out,background 0.4s ease;
-  width:calc(100% - 20px);
-  z-index:2;
+  transition:opacity 0.25s ease,transform 0.25s ease-out,background-color 0.2s ease;
+  width:36px;
+  z-index:3;
+}
+
+.quick-product__btn-icon{
+  align-items:center;
+  display:flex;
+  height:100%;
+  justify-content:center;
+  width:100%;
+}
+
+.quick-product__btn-icon svg{
+  fill:none;
+  height:12px;
+  stroke:currentColor;
+  stroke-linecap:var(--iconLinecaps);
+  stroke-width:var(--iconWeight);
+  width:12px;
+}
+
+.quick-product__btn:hover{
+  background-color:#0b0a0b;
+}
+
+.quick-product__form .quick-product__btn{
+  max-height:36px;
+  max-width:36px;
 }
 
 .no-js .quick-product__btn{
@@ -9843,6 +9876,12 @@ html[dir=rtl] .grid-product__content{
     display:none;
 }
 
+.supports-touch .quick-product__form .quick-product__btn{
+    display:block;
+    opacity:1;
+    transform:translateY(0);
+}
+
 .grid-product:focus-within .quick-product__btn{
     opacity:1;
     transform:translateY(0);
@@ -9852,6 +9891,13 @@ html[dir=rtl] .grid-product__content{
 .quick-product__btn.btn--not-ready{
     opacity:0 !important;
   }
+
+@media only screen and (max-width:768px){
+  .quick-product__form .quick-product__btn{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
 
 @media only screen and (max-width:768px){
   .grid-overflow-wrapper{

@@ -276,7 +276,7 @@
                       hide_swatches: true,
                       collection: collection,
                       per_row: per_row,
-                      quick_shop_enable: false,
+                      quick_shop_enable: settings.quick_shop_enable,
                       fallback: fallback,
                     -%}
                     {%- assign rendered_colors = rendered_colors | append: color_token -%}

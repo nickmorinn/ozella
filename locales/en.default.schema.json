@@ -3342,10 +3342,10 @@
       "name": "Product tiles",
       "settings": {
         "quick_shop_enable": {
-          "label": "Enable quick shop feature"
+          "label": "Enable quick add feature"
         },
         "quick_shop_text": {
-          "label": "Quick shop button text"
+          "label": "Quick add button text"
         },
         "product_grid_image_size": {
           "label": "Force image size",

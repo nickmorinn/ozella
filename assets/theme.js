@@ -3179,6 +3179,10 @@ theme.recentlyViewed = {
     }
   
     products.forEach(product => {
+      if (!product.querySelector('.quick-product__btn.btn--not-ready')) {
+        return;
+      }
+
       product.addEventListener('mouseover', productMouseover);
       product.addEventListener('focusin', productMouseover);
     });
@@ -3199,6 +3203,46 @@ theme.recentlyViewed = {
         theme.preloadProductModal(handle, productId, btn);
       }
     }
+  };
+
+  theme.QuickAdd = (function() {
+    var selectors = {
+      form: '[data-quick-add-form]'
+    };
+
+    function QuickAdd(container) {
+      this.container = container || document;
+      this.forms = this.container.querySelectorAll(selectors.form);
+
+      this.init();
+    }
+
+    QuickAdd.prototype = Object.assign({}, QuickAdd.prototype, {
+      init: function() {
+        if (!this.forms.length || !theme.settings.quickView || typeof theme.AjaxProduct !== 'function') {
+          return;
+        }
+
+        this.forms.forEach(form => {
+          if (form.dataset.quickAddInit === 'true') {
+            return;
+          }
+
+          form.dataset.quickAddInit = 'true';
+          new theme.AjaxProduct(form, '.quick-product__btn');
+        });
+      }
+    });
+
+    return QuickAdd;
+  })();
+
+  theme.initQuickAdd = function(scope) {
+    if (!theme.settings.quickView || typeof theme.QuickAdd !== 'function') {
+      return;
+    }
+
+    new theme.QuickAdd(scope || document);
   };
   
   theme.preloadProductModal = function(handle, productId, btn) {
@@ -8675,6 +8719,8 @@ theme.recentlyViewed = {
       theme.initQuickShop();
     }
 
+    theme.initQuickAdd(scope);
+
     // Re-hook up collapsible box triggers
     theme.collapsibles.init();
   };
@@ -8805,6 +8851,7 @@ theme.recentlyViewed = {
 
     theme.initGlobals();
     theme.initQuickShop();
+    theme.initQuickAdd();
     theme.rteInit();
 
     if (document.body.classList.contains('template-cart')) {

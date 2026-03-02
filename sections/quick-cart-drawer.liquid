@@ -1,0 +1,26 @@
+{%- comment -%}
+  Compatibility section for `sections/overlay-group.json`.
+  This section is currently disabled in overlay-group configuration.
+{%- endcomment -%}
+
+{% schema %}
+{
+  "name": "Quick cart drawer",
+  "class": "shopify-section--quick-cart-drawer",
+  "enabled_on": {
+    "groups": ["custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quick cart drawer"
+    }
+  ]
+}
+{% endschema %}

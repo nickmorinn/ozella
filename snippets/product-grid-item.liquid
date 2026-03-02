@@ -39,10 +39,15 @@ Arguments
   assign card_compare_at_price = product.compare_at_price
   assign card_price_varies = product.price_varies
   assign unit_price_variant = product.selected_or_first_available_variant
+  assign quick_add_variant = blank
+  assign quick_add_button_text = settings.quick_shop_text
+
+  if quick_add_button_text == blank
+    assign quick_add_button_text = 'products.product.add_to_cart' | t
+  endif
 
   if featured_variant != blank
     assign use_featured_variant = true
-    assign quick_shop_enabled_card = false
     assign swatches_enabled = false
 
     assign card_url = featured_variant.url
@@ -61,6 +66,14 @@ Arguments
 
   if hide_swatches
     assign swatches_enabled = false
+  endif
+
+  if quick_shop_enabled_card and card_available
+    if use_featured_variant
+      assign quick_add_variant = featured_variant
+    elsif product.variants.size == 1
+      assign quick_add_variant = product.selected_or_first_available_variant
+    endif
   endif
 
   assign on_sale = false
@@ -234,9 +247,40 @@ Arguments
         {%- endif -%}
 
         {%- if quick_shop_enabled_card and type == blank and product.variants_count <= 250 -%}
-          <button class="quick-product__btn btn--not-ready js-modal-open-quick-modal-{{ product.id }} small--hide">
-            {{ settings.quick_shop_text }}
-          </button>
+          {%- if quick_add_variant != blank -%}
+            <form
+              method="post"
+              action="{{ routes.cart_add_url }}"
+              accept-charset="UTF-8"
+              enctype="multipart/form-data"
+              class="quick-product__form"
+              data-quick-add-form
+            >
+              <input type="hidden" name="id" value="{{ quick_add_variant.id }}">
+              <input type="hidden" name="quantity" value="1">
+              <button class="quick-product__btn" type="submit" aria-label="{{ 'products.product.add_to_cart' | t }}: {{ card_title | escape }}">
+                <span class="quick-product__btn-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false" role="presentation">
+                    <path d="M12 5v14M5 12h14"></path>
+                  </svg>
+                </span>
+                <span class="visually-hidden" data-add-to-cart-text data-default-text="{{ quick_add_button_text }}">
+                  {{ quick_add_button_text }}
+                </span>
+              </button>
+            </form>
+          {%- else -%}
+            <button class="quick-product__btn btn--not-ready js-modal-open-quick-modal-{{ product.id }} small--hide" aria-label="{{ quick_add_button_text }}: {{ card_title | escape }}">
+              <span class="quick-product__btn-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false" role="presentation">
+                  <path d="M12 5v14M5 12h14"></path>
+                </svg>
+              </span>
+              <span class="visually-hidden">
+                {{ quick_add_button_text }}
+              </span>
+            </button>
+          {%- endif -%}
         {%- endif -%}
       </div>
 
@@ -448,7 +492,7 @@ Arguments
     {%- endfor -%}
   {%- endif -%}
 
-  {%- if quick_shop_enabled_card and type == blank -%}
+  {%- if quick_shop_enabled_card and type == blank and quick_add_variant == blank and use_featured_variant == false -%}
     {%- render 'quick-shop-modal', product: product -%}
   {%- endif -%}
 </div>

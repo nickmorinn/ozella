@@ -264,13 +264,15 @@
             </div>
           </div>
         </div>
-        <div class="site-header__search-container">
-          <div class="site-header__search">
-            <div class="page-width">
-              {% render 'predictive-search', context: 'header' %}
+        {%- if settings.search_enable -%}
+          <div class="site-header__search-container">
+            <div class="site-header__search">
+              <div class="page-width">
+                {% render 'predictive-search', context: 'header' %}
+              </div>
             </div>
           </div>
-        </div>
+        {%- endif -%}
       </header>
     </div>
   </div>

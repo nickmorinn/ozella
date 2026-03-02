@@ -1,0 +1,42 @@
+{%- comment -%}
+  Compatibility section for `sections/overlay-group.json`.
+  The active cart drawer UI is rendered from `sections/header.liquid`
+  via `snippets/cart-drawer.liquid`.
+{%- endcomment -%}
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "card_media_aspect_ratio",
+      "label": "Card media aspect ratio",
+      "default": "3/4"
+    },
+    {
+      "type": "richtext",
+      "id": "cart_title",
+      "label": "Empty cart title",
+      "default": "<h2>It's a little<br/><em>empty</em> here</h2>"
+    },
+    {
+      "type": "text",
+      "id": "cart_desc",
+      "label": "Empty cart description",
+      "default": "Your cart is currently empty"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Empty cart button text",
+      "default": "Start Shopping"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Empty cart button link"
+    }
+  ]
+}
+{% endschema %}
