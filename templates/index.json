@@ -12,13 +12,13 @@
     "hero_video_NnQqke": {
       "type": "hero-video",
       "settings": {
-        "title": "NEW SEASON.\nNEW KINI.",
+        "title": "",
         "title_size": 81,
-        "subheading": "CHEEKY THONG BIKINIS DESIGNED IN AUSTIN, TX",
+        "subheading": "",
         "link_text": "SHOP SWIM",
         "link": "shopify://collections/everything",
         "color_accent": "#b5d8d8",
-        "text_align": "vertical-bottom horizontal-left",
+        "text_align": "vertical-bottom horizontal-center",
         "video_url": "https://cdn.shopify.com/videos/c/o/v/b89cef4e8efd49e983f333051673a7fb.mp4",
         "overlay_opacity": 12,
         "section_height": "650px",
