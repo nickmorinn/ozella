@@ -20,7 +20,7 @@
         "color_accent": "#b5d8d8",
         "text_align": "vertical-bottom horizontal-center",
         "video_url": "https://cdn.shopify.com/videos/c/o/v/b89cef4e8efd49e983f333051673a7fb.mp4",
-        "overlay_opacity": 12,
+        "overlay_opacity": 0,
         "section_height": "650px",
         "mobile_height": "500px"
       }
