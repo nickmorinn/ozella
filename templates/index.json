@@ -12,13 +12,13 @@
     "hero_video_NnQqke": {
       "type": "hero-video",
       "settings": {
-        "title": "",
+        "title": "NEW SEASON.\nNEW KINI.",
         "title_size": 81,
         "subheading": "",
         "link_text": "SHOP SWIM",
         "link": "shopify://collections/everything",
         "color_accent": "#b5d8d8",
-        "text_align": "vertical-bottom horizontal-center",
+        "text_align": "vertical-bottom horizontal-left",
         "video_url": "https://cdn.shopify.com/videos/c/o/v/b89cef4e8efd49e983f333051673a7fb.mp4",
         "overlay_opacity": 0,
         "section_height": "650px",
