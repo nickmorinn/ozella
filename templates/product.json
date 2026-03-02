@@ -59,7 +59,13 @@
           "settings": {
             "show_dynamic_checkout": true,
             "surface_pickup_enable": true,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "as_seen_on_enable": true,
+            "as_seen_on_heading": "As Seen On",
+            "as_seen_on_media_type_1": "video",
+            "as_seen_on_media_type_2": "video",
+            "as_seen_on_media_type_3": "video",
+            "as_seen_on_media_type_4": "video"
           }
         },
         "description": {
@@ -89,7 +95,7 @@
           "type": "tab",
           "settings": {
             "title": "Returns",
-            "content": "<p>Returns are accepted within 7 days of delivery. To be eligible for a return, products must have all tags attached and the hygiene liner intact.</p><p>Try-ons must be done over underwear and are only for fit purposes. Customers are responsible for return shipping and returns may be subject to a restocking fee.</p>",
+            "content": "<p>Returns are accepted within 7 days of delivery. To be eligible for a return, products must have all tags attached and the hygiene liner intact.</p><p>Try-ons must be done over underwear and are only for fit purposes. </p>",
             "page": ""
           }
         }
