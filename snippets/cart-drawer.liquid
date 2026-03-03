@@ -65,7 +65,7 @@
           <div data-discounts>
             {% if cart.cart_level_discount_applications != blank %}
               <div class="cart__discounts cart__item-sub cart__item-row">
-                <div>{{ 'cart.general.discounts' | t }}</div>
+                <div class="ajaxcart__subtotal">{{ 'cart.general.discounts' | t }}</div>
                 <div class="text-right">
                   {% for cart_discount in cart.cart_level_discount_applications %}
                     <div class="cart__discount">
