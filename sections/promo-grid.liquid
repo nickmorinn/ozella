@@ -156,6 +156,39 @@
           "info": "Optional. Use with Desktop image (left) to split desktop into two images."
         },
         {
+          "type": "range",
+          "id": "desktop_focus_bias_y",
+          "label": "Desktop focus Y offset",
+          "info": "Shifts crop down/up on desktop for single desktop image.",
+          "default": 0,
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "desktop_focus_bias_left_y",
+          "label": "Desktop left image Y offset",
+          "info": "Shifts crop down/up on desktop for left split image.",
+          "default": 0,
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "desktop_focus_bias_right_y",
+          "label": "Desktop right image Y offset",
+          "info": "Shifts crop down/up on desktop for right split image.",
+          "default": 0,
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "%"
+        },
+        {
           "type": "text",
           "id": "video_url",
           "label": "t:sections.promo-grid.blocks.advanced.settings.video_url.label"

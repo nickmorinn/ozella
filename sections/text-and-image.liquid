@@ -25,6 +25,15 @@
   {% if section.settings.bottom_padding == false %}
     #shopify-section-{{ section.id }} .index-section { margin-bottom: 0 !important; }
   {% endif %}
+  @media only screen and (min-width: 769px) {
+    #shopify-section-{{ section.id }} .feature-row__first-image .feature-row__image {
+      object-position: {{ section.settings.desktop_image_focus_x }}% {{ section.settings.desktop_image_focus_y }}% !important;
+    }
+
+    #shopify-section-{{ section.id }} .feature-row__second-image .feature-row__image {
+      object-position: {{ section.settings.desktop_image2_focus_x }}% {{ section.settings.desktop_image2_focus_y }}% !important;
+    }
+  }
   {% if desktop_hero_layout %}
     @media only screen and (min-width: 769px) {
       #shopify-section-{{ section.id }} .feature-row-wrapper {
@@ -448,6 +457,50 @@
           "label": "t:sections.text-and-image.settings.layout.options.right.label"
         }
       ]
+    },
+    {
+      "type": "header",
+      "content": "Desktop image focus"
+    },
+    {
+      "type": "range",
+      "id": "desktop_image_focus_x",
+      "label": "Image 1 horizontal focus",
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "desktop_image_focus_y",
+      "label": "Image 1 vertical focus",
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "desktop_image2_focus_x",
+      "label": "Image 2 horizontal focus",
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "desktop_image2_focus_y",
+      "label": "Image 2 vertical focus",
+      "default": 50,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%"
     },
     {
       "type": "checkbox",
