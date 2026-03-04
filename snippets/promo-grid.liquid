@@ -153,6 +153,46 @@
     opacity: 1 !important;
     transform: none !important;
   }
+
+  .flex-grid--{{ section.id }} .promo-grid__bg-image--mobile,
+  .flex-grid--{{ section.id }} .promo-grid__image-wrap--mobile {
+    display: none;
+  }
+
+  .flex-grid--{{ section.id }} .promo-grid__bg-split {
+    display: none;
+    height: 100%;
+    width: 100%;
+  }
+
+  .flex-grid--{{ section.id }} .promo-grid__bg-split-col {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 50%;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .flex-grid--{{ section.id }} .promo-grid__bg-image--has-mobile.promo-grid__bg-image--desktop,
+    .flex-grid--{{ section.id }} .promo-grid__image-wrap--has-mobile.promo-grid__image-wrap--desktop {
+      display: none;
+    }
+
+    .flex-grid--{{ section.id }} .promo-grid__bg-image--has-mobile.promo-grid__bg-image--mobile,
+    .flex-grid--{{ section.id }} .promo-grid__image-wrap--has-mobile.promo-grid__image-wrap--mobile {
+      display: block;
+    }
+  }
+
+  @media only screen and (min-width: 769px) {
+    .flex-grid--{{ section.id }} .promo-grid__bg-layer--desktop-split .promo-grid__bg-split {
+      display: flex;
+    }
+
+    .flex-grid--{{ section.id }} .promo-grid__bg-layer--desktop-split .promo-grid__bg-single {
+      display: none;
+    }
+  }
 {%- endstyle -%}
 
 <div class="promo-grid{% if section.settings.space_above %} promo-grid--space-top{% endif %}{% if section.settings.space_below %} promo-grid--space-bottom{% endif %}">
@@ -280,21 +320,80 @@
                 {%- if block.settings.video_url != '' -%}
                   {%- render 'promo-video', id: block.id, url: block.settings.video_url -%}
                 {%- else -%}
-                  {%- if block.settings.image != blank -%}
+                  {%- liquid
+                    assign advanced_desktop_image = block.settings.image
+                    assign advanced_split_desktop_enabled = false
 
-                    {%- capture image_classes -%}
-                      image-fit promo-grid__bg-image promo-grid__bg-image--{{ block.id }}
-                    {%- endcapture -%}
+                    if block.settings.desktop_image_left != blank and block.settings.desktop_image_right != blank
+                      assign advanced_split_desktop_enabled = true
+                    endif
 
-                    {%- render 'image-element',
-                      img: block.settings.image,
-                      loading: loading,
-                      sizeVariable: block.settings.width,
-                      classes: image_classes,
-                    -%}
-                  {%- else -%}
-                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                  {%- endif -%}
+                    if advanced_desktop_image == blank
+                      if advanced_split_desktop_enabled
+                        assign advanced_desktop_image = block.settings.desktop_image_left
+                      else
+                        assign advanced_desktop_image = block.settings.image_mobile
+                      endif
+                    endif
+
+                    assign advanced_has_mobile_image = false
+                    if block.settings.image_mobile != blank
+                      if block.settings.image != blank or advanced_split_desktop_enabled
+                        assign advanced_has_mobile_image = true
+                      endif
+                    endif
+                  -%}
+
+                  <div class="promo-grid__bg-layer{% if advanced_split_desktop_enabled %} promo-grid__bg-layer--desktop-split{% endif %}">
+                    {%- if advanced_split_desktop_enabled -%}
+                      <div class="promo-grid__bg-split">
+                        <div class="promo-grid__bg-split-col">
+                          {%- render 'image-element',
+                            img: block.settings.desktop_image_left,
+                            loading: loading,
+                            sizeVariable: '50vw',
+                            fallback: '50vw',
+                            classes: 'image-fit promo-grid__bg-image promo-grid__bg-image--desktop-split',
+                          -%}
+                        </div>
+                        <div class="promo-grid__bg-split-col">
+                          {%- render 'image-element',
+                            img: block.settings.desktop_image_right,
+                            loading: true,
+                            sizeVariable: '50vw',
+                            fallback: '50vw',
+                            classes: 'image-fit promo-grid__bg-image promo-grid__bg-image--desktop-split',
+                          -%}
+                        </div>
+                      </div>
+                    {%- endif -%}
+
+                    <div class="promo-grid__bg-single">
+                      {%- if advanced_desktop_image != blank -%}
+                        {%- capture image_classes -%}
+                          image-fit promo-grid__bg-image promo-grid__bg-image--{{ block.id }}{% if advanced_has_mobile_image %} promo-grid__bg-image--desktop promo-grid__bg-image--has-mobile{% endif %}
+                        {%- endcapture -%}
+
+                        {%- render 'image-element',
+                          img: advanced_desktop_image,
+                          loading: loading,
+                          sizeVariable: block.settings.width,
+                          classes: image_classes,
+                        -%}
+
+                        {%- if advanced_has_mobile_image -%}
+                          {%- render 'image-element',
+                            img: block.settings.image_mobile,
+                            loading: true,
+                            sizeVariable: block.settings.width,
+                            classes: 'image-fit promo-grid__bg-image promo-grid__bg-image--mobile promo-grid__bg-image--has-mobile',
+                          -%}
+                        {%- endif -%}
+                      {%- else -%}
+                        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {%- endif -%}
+                    </div>
+                  </div>
                 {%- endif -%}
               </div>
 
@@ -413,6 +512,7 @@
             {%- liquid
               assign block_img = ''
               assign block_text = ''
+              assign block_img_mobile = block.settings.image_mobile
               if block.settings.link contains '/products/'
                 assign product_handle = block.settings.link | remove: '/products/'
                 assign block_img = all_products[product_handle].featured_media.preview_image
@@ -440,12 +540,24 @@
 
               <div class="promo-grid__bg">
                 {%- if block_img != blank -%}
+                  {%- capture simple_image_classes -%}
+                    image-fit{% if block_img_mobile != blank %} promo-grid__bg-image--desktop promo-grid__bg-image--has-mobile{% endif %}
+                  {%- endcapture -%}
                   {%- render 'image-element',
                     img: block_img,
                     loading: loading,
                     sizeVariable: block.settings.width,
-                    classes: 'image-fit',
+                    classes: simple_image_classes,
                   -%}
+
+                  {%- if block_img_mobile != blank -%}
+                    {%- render 'image-element',
+                      img: block_img_mobile,
+                      loading: true,
+                      sizeVariable: block.settings.width,
+                      classes: 'image-fit promo-grid__bg-image--mobile promo-grid__bg-image--has-mobile',
+                    -%}
+                  {%- endif -%}
                 {%- else -%}
                   {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 {%- endif -%}
@@ -469,16 +581,39 @@
               {%- if block.settings.link -%}
                 <a href="{{ block.settings.link }}">
               {%- endif -%}
-                {%- if block.settings.image != blank -%}
-                  <div class="image-wrap" style="height: 0; padding-bottom: {{ 100 | divided_by: block.settings.image.aspect_ratio }}%;">
+                {%- liquid
+                  assign image_block_desktop_image = block.settings.image
+                  if image_block_desktop_image == blank
+                    assign image_block_desktop_image = block.settings.image_mobile
+                  endif
+
+                  assign image_block_has_mobile_image = false
+                  if block.settings.image != blank and block.settings.image_mobile != blank
+                    assign image_block_has_mobile_image = true
+                  endif
+                -%}
+                {%- if image_block_desktop_image != blank -%}
+                  <div class="image-wrap{% if image_block_has_mobile_image %} promo-grid__image-wrap--desktop promo-grid__image-wrap--has-mobile{% endif %}" style="height: 0; padding-bottom: {{ 100 | divided_by: image_block_desktop_image.aspect_ratio }}%;">
                     {%- render 'image-element',
-                      img: block.settings.image,
+                      img: image_block_desktop_image,
                       loading: loading,
                       widths: '360, 540, 720, 900, 1080, 1600',
                       sizeVariable: block.settings.width,
                       role: 'presentation',
                     -%}
                   </div>
+
+                  {%- if image_block_has_mobile_image -%}
+                    <div class="image-wrap promo-grid__image-wrap--mobile promo-grid__image-wrap--has-mobile" style="height: 0; padding-bottom: {{ 100 | divided_by: block.settings.image_mobile.aspect_ratio }}%;">
+                      {%- render 'image-element',
+                        img: block.settings.image_mobile,
+                        loading: true,
+                        widths: '360, 540, 720, 900, 1080, 1600',
+                        sizeVariable: block.settings.width,
+                        role: 'presentation',
+                      -%}
+                    </div>
+                  {%- endif -%}
                 {%- else -%}
                   {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 {%- endif -%}
@@ -493,11 +628,22 @@
             {%- endif -%}
               <div class="promo-grid__container{% if block.settings.framed %} promo-grid__container--framed{% endif %}{% if block.settings.color_tint_opacity > 0 %} promo-grid__container--tint{% endif %}">
                 <div class="type-banner__content text-center">
-                  {%- if block.settings.image != blank -%}
+                  {%- liquid
+                    assign banner_desktop_image = block.settings.image
+                    if banner_desktop_image == blank
+                      assign banner_desktop_image = block.settings.image_mobile
+                    endif
+
+                    assign banner_has_mobile_image = false
+                    if block.settings.image != blank and block.settings.image_mobile != blank
+                      assign banner_has_mobile_image = true
+                    endif
+                  -%}
+                  {%- if banner_desktop_image != blank -%}
                     <div class="type-banner__image">
-                      <div class="image-wrap" style="height: 0; padding-bottom: {{ 100 | divided_by: block.settings.image.aspect_ratio }}%;">
+                      <div class="image-wrap{% if banner_has_mobile_image %} promo-grid__image-wrap--desktop promo-grid__image-wrap--has-mobile{% endif %}" style="height: 0; padding-bottom: {{ 100 | divided_by: banner_desktop_image.aspect_ratio }}%;">
                         {%- render 'image-element',
-                          img: block.settings.image,
+                          img: banner_desktop_image,
                           loading: loading,
                           sizeVariable: '200px',
                           fallback: '45vw',
@@ -505,6 +651,19 @@
                           role: 'presentation',
                         -%}
                       </div>
+
+                      {%- if banner_has_mobile_image -%}
+                        <div class="image-wrap promo-grid__image-wrap--mobile promo-grid__image-wrap--has-mobile" style="height: 0; padding-bottom: {{ 100 | divided_by: block.settings.image_mobile.aspect_ratio }}%;">
+                          {%- render 'image-element',
+                            img: block.settings.image_mobile,
+                            loading: true,
+                            sizeVariable: '200px',
+                            fallback: '45vw',
+                            widths: '180, 360, 460',
+                            role: 'presentation',
+                          -%}
+                        </div>
+                      {%- endif -%}
                     </div>
                   {%- endif -%}
                   <div class="type-banner__text">

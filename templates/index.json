@@ -42,6 +42,7 @@
         "align_text": "left",
         "image_width": "66",
         "layout": "left",
+        "desktop_hero_layout": true,
         "divider": false,
         "top_padding": false,
         "bottom_padding": false,

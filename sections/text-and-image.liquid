@@ -3,6 +3,7 @@
 {%- liquid
   assign image_width = section.settings.image_width
   assign overlap_images = true
+  assign desktop_hero_layout = false
   if section.settings.image == blank or section.settings.image2 == blank
     assign overlap_images = false
   endif
@@ -10,6 +11,10 @@
   if section.settings.image == blank and section.settings.image2 == blank
     assign overlap_images = true
     assign placeholder_images = true
+  endif
+
+  if section.settings.desktop_hero_layout and section.settings.image2 == blank
+    assign desktop_hero_layout = true
   endif
 -%}
 
@@ -20,11 +25,82 @@
   {% if section.settings.bottom_padding == false %}
     #shopify-section-{{ section.id }} .index-section { margin-bottom: 0 !important; }
   {% endif %}
+  {% if desktop_hero_layout %}
+    @media only screen and (min-width: 769px) {
+      #shopify-section-{{ section.id }} .feature-row-wrapper {
+        max-width: none;
+        overflow: visible;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      #shopify-section-{{ section.id }} .feature-row {
+        margin: 0;
+        position: relative;
+      }
+
+      #shopify-section-{{ section.id }} .feature-row__images {
+        flex: 1 1 100%;
+        max-width: none;
+        position: relative;
+        width: 100%;
+      }
+
+      #shopify-section-{{ section.id }} .feature-row__images::after {
+        background: linear-gradient(102deg, var(--colorTextBody) 0%, transparent 72%);
+        content: "";
+        inset: 0;
+        opacity: 0.46;
+        pointer-events: none;
+        position: absolute;
+        z-index: 1;
+      }
+
+      #shopify-section-{{ section.id }} .feature-row__first-image .image-wrap {
+        height: clamp(560px, 74vh, 860px) !important;
+        padding-bottom: 0 !important;
+      }
+
+      #shopify-section-{{ section.id }} .feature-row__first-image .feature-row__image {
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+      }
+
+      #shopify-section-{{ section.id }} .feature-row__text {
+        bottom: clamp(28px, 5.2vw, 74px);
+        color: var(--colorBody);
+        left: clamp(22px, 5.2vw, 84px);
+        max-width: min(48ch, 45vw);
+        min-width: 0;
+        padding: 0;
+        position: absolute;
+        text-align: left;
+        width: auto;
+        z-index: 2;
+      }
+
+      #shopify-section-{{ section.id }} .feature-row__text h2.h1 {
+        font-size: clamp(44px, 7vw, 96px);
+        line-height: 0.9;
+        margin-bottom: var(--oz-space-2);
+      }
+
+      #shopify-section-{{ section.id }} .feature-row__text .rte,
+      #shopify-section-{{ section.id }} .feature-row__text .subheading {
+        color: var(--colorBody);
+      }
+
+      #shopify-section-{{ section.id }} .feature-row__text .btn {
+        margin-top: var(--oz-space-3);
+      }
+    }
+  {% endif %}
 {% endstyle %}
 
 <div class="index-section">
 
-  <div class="page-width feature-row-wrapper feature-row--{{ image_width }}">
+  <div class="page-width feature-row-wrapper feature-row--{{ image_width }}{% if desktop_hero_layout %} feature-row-wrapper--desktop-hero{% endif %}">
     {%- capture image_layout -%}
       <div class="feature-row__item feature-row__images{% if overlap_images %} feature-row__item--overlap-images{% endif %} {% if placeholder_images %}feature-row__item--placeholder-images{% endif %}" data-aos>
           {%- if section.settings.image != blank -%}
@@ -45,6 +121,10 @@
                       assign loading = section.settings.lazyload_images
                     else
                       assign loading = true
+                    endif
+
+                    if desktop_hero_layout
+                      assign loading = false
                     endif
                   -%}
                   {%- render 'image-element',
@@ -368,6 +448,13 @@
           "label": "t:sections.text-and-image.settings.layout.options.right.label"
         }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "desktop_hero_layout",
+      "label": "Use desktop hero layout",
+      "info": "Displays this section as a full-width hero layout on desktop.",
+      "default": false
     },
     {
       "type": "checkbox",
