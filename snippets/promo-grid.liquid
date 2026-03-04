@@ -351,17 +351,22 @@
                         assign advanced_left_desktop_focus = block.settings.desktop_image_left.presentation.focal_point
                       endif
                     endif
-                    assign advanced_left_desktop_image_style = ''
+                    assign advanced_left_desktop_x = 50
+                    assign advanced_left_desktop_y = 50
                     if advanced_left_desktop_focus != blank
                       assign advanced_left_desktop_focus_parts = advanced_left_desktop_focus | split: ' '
-                      assign advanced_left_desktop_focus_x = advanced_left_desktop_focus_parts[0] | default: '50%'
-                      assign advanced_left_desktop_focus_y = advanced_left_desktop_focus_parts[1] | default: '50%'
-                      if block.settings.desktop_focus_bias_left_y != 0
-                        assign advanced_left_desktop_image_style = 'object-position:' | append: advanced_left_desktop_focus_x | append: ' calc(' | append: advanced_left_desktop_focus_y | append: ' + ' | append: block.settings.desktop_focus_bias_left_y | append: '%);'
-                      else
-                        assign advanced_left_desktop_image_style = 'object-position:' | append: advanced_left_desktop_focus | append: ';'
-                      endif
+                      assign advanced_left_desktop_x = advanced_left_desktop_focus_parts[0] | remove: '%' | plus: 0
+                      assign advanced_left_desktop_y = advanced_left_desktop_focus_parts[1] | remove: '%' | plus: 0
                     endif
+                    assign advanced_left_desktop_bias_y = block.settings.desktop_focus_bias_y | plus: block.settings.desktop_focus_bias_left_y
+                    assign advanced_left_desktop_y = advanced_left_desktop_y | plus: advanced_left_desktop_bias_y
+                    if advanced_left_desktop_y > 100
+                      assign advanced_left_desktop_y = 100
+                    endif
+                    if advanced_left_desktop_y < 0
+                      assign advanced_left_desktop_y = 0
+                    endif
+                    assign advanced_left_desktop_image_style = 'object-position:' | append: advanced_left_desktop_x | append: '% ' | append: advanced_left_desktop_y | append: '%;'
 
                     assign advanced_right_desktop_focus = ''
                     if block.settings.desktop_image_right != blank
@@ -371,17 +376,22 @@
                         assign advanced_right_desktop_focus = block.settings.desktop_image_right.presentation.focal_point
                       endif
                     endif
-                    assign advanced_right_desktop_image_style = ''
+                    assign advanced_right_desktop_x = 50
+                    assign advanced_right_desktop_y = 50
                     if advanced_right_desktop_focus != blank
                       assign advanced_right_desktop_focus_parts = advanced_right_desktop_focus | split: ' '
-                      assign advanced_right_desktop_focus_x = advanced_right_desktop_focus_parts[0] | default: '50%'
-                      assign advanced_right_desktop_focus_y = advanced_right_desktop_focus_parts[1] | default: '50%'
-                      if block.settings.desktop_focus_bias_right_y != 0
-                        assign advanced_right_desktop_image_style = 'object-position:' | append: advanced_right_desktop_focus_x | append: ' calc(' | append: advanced_right_desktop_focus_y | append: ' + ' | append: block.settings.desktop_focus_bias_right_y | append: '%);'
-                      else
-                        assign advanced_right_desktop_image_style = 'object-position:' | append: advanced_right_desktop_focus | append: ';'
-                      endif
+                      assign advanced_right_desktop_x = advanced_right_desktop_focus_parts[0] | remove: '%' | plus: 0
+                      assign advanced_right_desktop_y = advanced_right_desktop_focus_parts[1] | remove: '%' | plus: 0
                     endif
+                    assign advanced_right_desktop_bias_y = block.settings.desktop_focus_bias_y | plus: block.settings.desktop_focus_bias_right_y
+                    assign advanced_right_desktop_y = advanced_right_desktop_y | plus: advanced_right_desktop_bias_y
+                    if advanced_right_desktop_y > 100
+                      assign advanced_right_desktop_y = 100
+                    endif
+                    if advanced_right_desktop_y < 0
+                      assign advanced_right_desktop_y = 0
+                    endif
+                    assign advanced_right_desktop_image_style = 'object-position:' | append: advanced_right_desktop_x | append: '% ' | append: advanced_right_desktop_y | append: '%;'
 
                     assign advanced_desktop_focus = ''
                     if advanced_desktop_image != blank
@@ -391,17 +401,21 @@
                         assign advanced_desktop_focus = advanced_desktop_image.presentation.focal_point
                       endif
                     endif
-                    assign advanced_desktop_image_style = ''
+                    assign advanced_desktop_x = 50
+                    assign advanced_desktop_y = 50
                     if advanced_desktop_focus != blank
                       assign advanced_desktop_focus_parts = advanced_desktop_focus | split: ' '
-                      assign advanced_desktop_focus_x = advanced_desktop_focus_parts[0] | default: '50%'
-                      assign advanced_desktop_focus_y = advanced_desktop_focus_parts[1] | default: '50%'
-                      if block.settings.desktop_focus_bias_y != 0
-                        assign advanced_desktop_image_style = 'object-position:' | append: advanced_desktop_focus_x | append: ' calc(' | append: advanced_desktop_focus_y | append: ' + ' | append: block.settings.desktop_focus_bias_y | append: '%);'
-                      else
-                        assign advanced_desktop_image_style = 'object-position:' | append: advanced_desktop_focus | append: ';'
-                      endif
+                      assign advanced_desktop_x = advanced_desktop_focus_parts[0] | remove: '%' | plus: 0
+                      assign advanced_desktop_y = advanced_desktop_focus_parts[1] | remove: '%' | plus: 0
                     endif
+                    assign advanced_desktop_y = advanced_desktop_y | plus: block.settings.desktop_focus_bias_y
+                    if advanced_desktop_y > 100
+                      assign advanced_desktop_y = 100
+                    endif
+                    if advanced_desktop_y < 0
+                      assign advanced_desktop_y = 0
+                    endif
+                    assign advanced_desktop_image_style = 'object-position:' | append: advanced_desktop_x | append: '% ' | append: advanced_desktop_y | append: '%;'
 
                     assign advanced_mobile_focus = ''
                     if block.settings.image_mobile != blank
