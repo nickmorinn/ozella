@@ -28,6 +28,7 @@
     },
     "text_and_image_txEQYz": {
       "type": "text-and-image",
+      "disabled": true,
       "name": "t:sections.text-and-image.presets.image_with_text.name",
       "settings": {
         "image": "shopify://shop_images/E9FF05CD-179E-4F32-B721-84D81806FC75_bf9603da-3c4f-4acc-9a1a-9410cc5cc9b2.jpg",
@@ -46,6 +47,45 @@
         "divider": false,
         "top_padding": false,
         "bottom_padding": false,
+        "lazyload_images": true
+      }
+    },
+    "promo_grid_9NC4JN": {
+      "type": "promo-grid",
+      "blocks": {
+        "advanced_YbPaLx": {
+          "type": "advanced",
+          "settings": {
+            "subheading": "",
+            "heading": "NEW SEASON. NEW KINI.",
+            "textarea": "",
+            "cta_text1": "SHOP SWIM",
+            "cta_link1": "",
+            "cta_text2": "",
+            "cta_link2": "",
+            "image_mobile": "shopify://shop_images/E9FF05CD-179E-4F32-B721-84D81806FC75_bf9603da-3c4f-4acc-9a1a-9410cc5cc9b2.jpg",
+            "desktop_image_left": "shopify://shop_images/E9FF05CD-179E-4F32-B721-84D81806FC75_bf9603da-3c4f-4acc-9a1a-9410cc5cc9b2.jpg",
+            "desktop_image_right": "shopify://shop_images/58E877E4-470A-47DC-8219-C6632B41022F_c2933f30-5ff6-4981-bffc-a91364da265f.jpg",
+            "video_url": "",
+            "width": "100",
+            "height": 600,
+            "text_size": 120,
+            "text_align": "vertical-center horizontal-center",
+            "color_accent": "rgba(0,0,0,0)",
+            "boxed": false,
+            "framed": false
+          }
+        }
+      },
+      "block_order": [
+        "advanced_YbPaLx"
+      ],
+      "name": "t:sections.promo-grid.presets.promotional_grid.name",
+      "settings": {
+        "full_width": true,
+        "gutter_size": 0,
+        "space_above": false,
+        "space_below": false,
         "lazyload_images": true
       }
     },
@@ -185,7 +225,7 @@
             "video_url": "",
             "width": "100",
             "height": 800,
-            "text_size": 170,
+            "text_size": 120,
             "text_align": "vertical-center horizontal-center",
             "color_accent": "#b5d8d8",
             "boxed": false,
@@ -238,6 +278,7 @@
         "align_text": "left",
         "image_width": "50",
         "layout": "right",
+        "desktop_hero_layout": false,
         "divider": false,
         "top_padding": false,
         "bottom_padding": true,
@@ -263,6 +304,7 @@
         "align_text": "left",
         "image_width": "66",
         "layout": "left",
+        "desktop_hero_layout": false,
         "divider": false,
         "top_padding": false,
         "bottom_padding": true,
@@ -327,7 +369,7 @@
             "video_url": "",
             "width": "100",
             "height": 800,
-            "text_size": 170,
+            "text_size": 120,
             "text_align": "vertical-center horizontal-center",
             "color_accent": "#b5d8d8",
             "boxed": false,
@@ -798,6 +840,7 @@
   "order": [
     "hero_video_NnQqke",
     "text_and_image_txEQYz",
+    "promo_grid_9NC4JN",
     "featured_collection_KXwbkR",
     "scrolling_text_tCjAbN",
     "featured_collection_pk3p9x",
