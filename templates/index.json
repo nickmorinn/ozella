@@ -11,6 +11,7 @@
   "sections": {
     "hero_video_NnQqke": {
       "type": "hero-video",
+      "disabled": true,
       "settings": {
         "title": "NEW SEASON.\nNEW KINI.",
         "title_size": 81,
@@ -23,6 +24,28 @@
         "overlay_opacity": 0,
         "section_height": "650px",
         "mobile_height": "500px"
+      }
+    },
+    "text_and_image_txEQYz": {
+      "type": "text-and-image",
+      "name": "t:sections.text-and-image.presets.image_with_text.name",
+      "settings": {
+        "image": "shopify://shop_images/E9FF05CD-179E-4F32-B721-84D81806FC75_bf9603da-3c4f-4acc-9a1a-9410cc5cc9b2.jpg",
+        "image_mask": "none",
+        "image2_mask": "none",
+        "subtitle": "",
+        "title": "NEW SEASON. NEW KINI.",
+        "text": "",
+        "button_label": "Shop Swim",
+        "button_link": "shopify://collections/all",
+        "button_style": "primary",
+        "align_text": "left",
+        "image_width": "66",
+        "layout": "left",
+        "divider": false,
+        "top_padding": false,
+        "bottom_padding": false,
+        "lazyload_images": true
       }
     },
     "featured_collection_KXwbkR": {
@@ -157,7 +180,7 @@
             "cta_link1": "shopify://products/stargirl-bikini-set",
             "cta_text2": "",
             "cta_link2": "",
-            "image": "shopify://shop_images/IMG_5454_1dfa7b75-e711-442f-a686-c69f4f82c8f3.jpg",
+            "image": "shopify://shop_images/women-wearing-white-and-pink-thong-bikini-on-boat-and-beach.webp",
             "video_url": "",
             "width": "100",
             "height": 800,
@@ -773,6 +796,7 @@
   },
   "order": [
     "hero_video_NnQqke",
+    "text_and_image_txEQYz",
     "featured_collection_KXwbkR",
     "scrolling_text_tCjAbN",
     "featured_collection_pk3p9x",
