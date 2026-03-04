@@ -221,8 +221,8 @@
         "advanced_ingbtj": {
           "type": "advanced",
           "settings": {
-            "subheading": "THE ONE EVERYONE WANTS",
-            "heading": "THE STARGIRL",
+            "subheading": "",
+            "heading": "",
             "textarea": "",
             "cta_text1": "SHOP STARGIRL",
             "cta_link1": "shopify://products/stargirl-bikini-set",
@@ -378,10 +378,10 @@
           "type": "advanced",
           "settings": {
             "subheading": "",
-            "heading": "SUMMER UNIFORM",
+            "heading": "",
             "textarea": "",
-            "cta_text1": "SHOP SWIM",
-            "cta_link1": "shopify://collections/all",
+            "cta_text1": "SHOP KAWAII",
+            "cta_link1": "shopify://products/kawaii-bikini-set",
             "cta_text2": "",
             "cta_link2": "",
             "image": "shopify://shop_images/woman-wearing-white-ruffled-thong-bikini-outdoors-in-garden-ozella.webp",
