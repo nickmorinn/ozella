@@ -13,7 +13,7 @@
       "type": "hero-video",
       "disabled": true,
       "settings": {
-        "title": "NEW SEASON.\nNEW KINI.",
+        "title": "",
         "title_size": 81,
         "subheading": "",
         "link_text": "SHOP SWIM",
@@ -35,7 +35,7 @@
         "image_mask": "none",
         "image2_mask": "none",
         "subtitle": "",
-        "title": "NEW SEASON. NEW KINI.",
+        "title": "",
         "text": "",
         "button_label": "Shop Swim",
         "button_link": "shopify://collections/all",
@@ -61,7 +61,7 @@
           "type": "advanced",
           "settings": {
             "subheading": "",
-            "heading": "NEW SEASON. NEW KINI.",
+            "heading": "",
             "textarea": "",
             "cta_text1": "SHOP SWIM",
             "cta_link1": "shopify://collections/swimwear",
@@ -238,7 +238,7 @@
             "height": 800,
             "text_size": 120,
             "text_align": "vertical-center horizontal-center",
-            "color_accent": "#b5d8d8",
+            "color_accent": "rgba(0,0,0,0)",
             "boxed": false,
             "framed": false
           }
@@ -394,7 +394,7 @@
             "height": 800,
             "text_size": 120,
             "text_align": "vertical-center horizontal-center",
-            "color_accent": "#b5d8d8",
+            "color_accent": "rgba(0,0,0,0)",
             "boxed": false,
             "framed": false
           }
