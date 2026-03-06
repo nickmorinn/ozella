@@ -600,17 +600,6 @@
             "alt_text": ""
           }
         },
-        "social_post_10": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/annaagagliano/",
-            "media_type": "image",
-            "image": "shopify://shop_images/IMG_5483.jpg",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_11": {
           "type": "post",
           "settings": {
@@ -789,7 +778,6 @@
         "post_FwBz3k",
         "social_post_05",
         "social_post_06",
-        "social_post_10",
         "social_post_11",
         "social_post_12",
         "social_post_13",
