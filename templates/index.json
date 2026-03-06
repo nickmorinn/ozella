@@ -721,17 +721,6 @@
             "alt_text": ""
           }
         },
-        "social_post_22": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/vipjuliaaa/",
-            "media_type": "image",
-            "image": "shopify://shop_images/F1E1BD92-964C-469B-A0CA-7C674C6459F3.png",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_23": {
           "type": "post",
           "settings": {
@@ -800,7 +789,6 @@
         "social_post_18",
         "social_post_19",
         "social_post_20",
-        "social_post_22",
         "social_post_23",
         "social_post_24",
         "social_post_25",
