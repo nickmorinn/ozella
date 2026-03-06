@@ -611,17 +611,6 @@
             "alt_text": ""
           }
         },
-        "social_post_11": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/k8lyntate",
-            "media_type": "image",
-            "image": "shopify://shop_images/1e4ec2a6-ed12-4895-a4a5-d15bdb5fa8a9_katelyn_weber.png",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_12": {
           "type": "post",
           "settings": {
@@ -790,7 +779,6 @@
         "post_FwBz3k",
         "social_post_05",
         "social_post_06",
-        "social_post_11",
         "social_post_12",
         "social_post_13",
         "social_post_14",
