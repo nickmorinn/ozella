@@ -622,17 +622,6 @@
             "alt_text": ""
           }
         },
-        "social_post_12": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "",
-            "media_type": "image",
-            "image": "shopify://shop_images/img_5096_elle_bank.jpg",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_13": {
           "type": "post",
           "settings": {
@@ -791,7 +780,6 @@
         "post_FwBz3k",
         "social_post_05",
         "social_post_06",
-        "social_post_12",
         "social_post_13",
         "social_post_14",
         "social_post_15",
