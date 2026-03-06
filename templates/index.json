@@ -710,17 +710,6 @@
             "alt_text": ""
           }
         },
-        "social_post_21": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/p/C-qLDmDPtzB/",
-            "media_type": "image",
-            "image": "shopify://shop_images/E858FCB7-08B9-488C-9DE4-EE2E65CB67AF.jpg",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_22": {
           "type": "post",
           "settings": {
@@ -799,7 +788,6 @@
         "social_post_18",
         "social_post_19",
         "social_post_20",
-        "social_post_21",
         "social_post_22",
         "social_post_23",
         "social_post_24",
