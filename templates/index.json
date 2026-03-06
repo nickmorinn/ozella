@@ -666,17 +666,6 @@
             "alt_text": ""
           }
         },
-        "social_post_17": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/gabriellabrooke_/",
-            "media_type": "video",
-            "video": "shopify://files/videos/1a521d967208489d94700aaf5e2bd1a3.MP4",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_18": {
           "type": "post",
           "settings": {
@@ -795,7 +784,6 @@
         "social_post_14",
         "social_post_15",
         "social_post_16",
-        "social_post_17",
         "social_post_18",
         "social_post_19",
         "social_post_20",
