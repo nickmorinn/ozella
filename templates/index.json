@@ -521,17 +521,6 @@
             "alt_text": ""
           }
         },
-        "social_post_04": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/melissaalbaaa?igsh=d2RpOTVyODEwc3Jm",
-            "media_type": "video",
-            "video": "shopify://files/videos/StorySaver.net-melissaalbaaa-Video-1716929948402.MP4",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_05": {
           "type": "post",
           "settings": {
@@ -782,7 +771,6 @@
         "post_cPWFy7",
         "post_FwBz3k",
         "social_post_03",
-        "social_post_04",
         "social_post_05",
         "social_post_06",
         "social_post_07",
