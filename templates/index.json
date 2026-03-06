@@ -655,17 +655,6 @@
             "alt_text": ""
           }
         },
-        "social_post_15": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/caroliinemarra/",
-            "media_type": "image",
-            "image": "shopify://shop_images/IMG_2277.png",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_16": {
           "type": "post",
           "settings": {
@@ -794,7 +783,6 @@
         "social_post_06",
         "social_post_13",
         "social_post_14",
-        "social_post_15",
         "social_post_16",
         "social_post_18",
         "social_post_19",
