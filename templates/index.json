@@ -488,17 +488,6 @@
             "alt_text": ""
           }
         },
-        "post_YBJNKk": {
-          "type": "post",
-          "settings": {
-            "platform": "tiktok",
-            "post_link": "https://www.instagram.com/miaaaa0842",
-            "media_type": "video",
-            "video": "shopify://files/videos/Mia V 1.mp4",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_02": {
           "type": "post",
           "settings": {
@@ -779,7 +768,6 @@
       },
       "block_order": [
         "post_FwBz3k",
-        "post_YBJNKk",
         "social_post_02",
         "social_post_03",
         "social_post_04",
