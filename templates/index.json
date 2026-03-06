@@ -477,6 +477,17 @@
     "1717358326f1e64cf2": {
       "type": "ozella-social-slider",
       "blocks": {
+        "post_dniBNM": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "",
+            "media_type": "image",
+            "image": "shopify://shop_images/heartbreaker-bikini-6-yellow.webp",
+            "caption": "",
+            "alt_text": ""
+          }
+        },
         "post_RgzQMR": {
           "type": "post",
           "settings": {
@@ -767,6 +778,7 @@
         }
       },
       "block_order": [
+        "post_dniBNM",
         "post_RgzQMR",
         "post_QTYR96",
         "post_yL8LtV",
