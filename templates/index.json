@@ -567,17 +567,6 @@
             "alt_text": ""
           }
         },
-        "social_post_07": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/p/DBkQ4kus8lM/",
-            "media_type": "image",
-            "image": "shopify://shop_images/bella-yellow-1.jpg",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_08": {
           "type": "post",
           "settings": {
@@ -786,7 +775,6 @@
         "post_FwBz3k",
         "social_post_05",
         "social_post_06",
-        "social_post_07",
         "social_post_08",
         "social_post_09",
         "social_post_10",
