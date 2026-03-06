@@ -477,6 +477,17 @@
     "1717358326f1e64cf2": {
       "type": "ozella-social-slider",
       "blocks": {
+        "post_yL8LtV": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/katarinaspas?igsh=MXcwNG1vOWFoa2N6bg==",
+            "media_type": "video",
+            "video": "shopify://files/videos/enchanted-selfie-aqua.webm",
+            "caption": "",
+            "alt_text": ""
+          }
+        },
         "post_cPWFy7": {
           "type": "post",
           "settings": {
@@ -767,6 +778,7 @@
         }
       },
       "block_order": [
+        "post_yL8LtV",
         "post_cPWFy7",
         "post_FwBz3k",
         "social_post_03",
