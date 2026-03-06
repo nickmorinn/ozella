@@ -532,17 +532,6 @@
             "alt_text": ""
           }
         },
-        "social_post_03": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/p/C_ToWtGPcIW/",
-            "media_type": "image",
-            "image": "shopify://shop_images/Facetune_08-08-2024-12-42-59.jpg",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_05": {
           "type": "post",
           "settings": {
@@ -783,7 +772,6 @@
         "post_yL8LtV",
         "post_cPWFy7",
         "post_FwBz3k",
-        "social_post_03",
         "social_post_05",
         "social_post_06",
         "social_post_07",
