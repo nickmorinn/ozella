@@ -477,6 +477,17 @@
     "1717358326f1e64cf2": {
       "type": "ozella-social-slider",
       "blocks": {
+        "post_QTYR96": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/melissaalbaaa?igsh=d2RpOTVyODEwc3Jm",
+            "media_type": "video",
+            "video": "shopify://files/videos/kawaii-bikini-onyx.webm",
+            "caption": "",
+            "alt_text": ""
+          }
+        },
         "post_yL8LtV": {
           "type": "post",
           "settings": {
@@ -767,6 +778,7 @@
         }
       },
       "block_order": [
+        "post_QTYR96",
         "post_yL8LtV",
         "post_cPWFy7",
         "post_FwBz3k",
