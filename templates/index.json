@@ -499,17 +499,6 @@
             "alt_text": ""
           }
         },
-        "social_post_02": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/katarinaspas?igsh=MXcwNG1vOWFoa2N6bg==",
-            "media_type": "video",
-            "video": "shopify://files/videos/StorySaver.net-katarinaspas-Video-1721342383169.mov",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_03": {
           "type": "post",
           "settings": {
@@ -780,7 +769,6 @@
       "block_order": [
         "post_cPWFy7",
         "post_FwBz3k",
-        "social_post_02",
         "social_post_03",
         "social_post_04",
         "social_post_05",
