@@ -477,6 +477,17 @@
     "1717358326f1e64cf2": {
       "type": "ozella-social-slider",
       "blocks": {
+        "post_DLyeiw": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/p/C722z7Tup5e/",
+            "media_type": "image",
+            "image": "shopify://shop_images/zuri-black-flower-pattern-1.webp",
+            "caption": "",
+            "alt_text": ""
+          }
+        },
         "post_E36T98": {
           "type": "post",
           "settings": {
@@ -754,17 +765,6 @@
             "alt_text": ""
           }
         },
-        "social_post_25": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/p/C722z7Tup5e/",
-            "media_type": "image",
-            "image": "shopify://shop_images/IMG_3903.jpg",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_26": {
           "type": "post",
           "settings": {
@@ -778,6 +778,7 @@
         }
       },
       "block_order": [
+        "post_DLyeiw",
         "post_E36T98",
         "post_eLDGFD",
         "post_QHanzq",
@@ -803,7 +804,6 @@
         "social_post_19",
         "social_post_20",
         "social_post_24",
-        "social_post_25",
         "social_post_26"
       ],
       "custom_css": [
