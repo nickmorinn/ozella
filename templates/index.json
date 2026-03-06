@@ -477,17 +477,6 @@
     "1717358326f1e64cf2": {
       "type": "ozella-social-slider",
       "blocks": {
-        "social_post_01": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/paigeydahling/",
-            "media_type": "video",
-            "video": "shopify://files/videos/Paige Casey.mp4",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "post_YBJNKk": {
           "type": "post",
           "settings": {
@@ -778,7 +767,6 @@
         }
       },
       "block_order": [
-        "social_post_01",
         "post_YBJNKk",
         "social_post_02",
         "social_post_03",
