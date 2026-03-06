@@ -477,6 +477,17 @@
     "1717358326f1e64cf2": {
       "type": "ozella-social-slider",
       "blocks": {
+        "post_cPWFy7": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/miaaaa0842",
+            "media_type": "video",
+            "video": "shopify://files/videos/mia-v-1.webm",
+            "caption": "",
+            "alt_text": ""
+          }
+        },
         "post_FwBz3k": {
           "type": "post",
           "settings": {
@@ -767,6 +778,7 @@
         }
       },
       "block_order": [
+        "post_cPWFy7",
         "post_FwBz3k",
         "social_post_02",
         "social_post_03",
