@@ -477,6 +477,17 @@
     "1717358326f1e64cf2": {
       "type": "ozella-social-slider",
       "blocks": {
+        "post_E36T98": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "",
+            "media_type": "image",
+            "image": "shopify://shop_images/stargirl-bikini-set-rose.webp",
+            "caption": "",
+            "alt_text": ""
+          }
+        },
         "post_eLDGFD": {
           "type": "post",
           "settings": {
@@ -767,6 +778,7 @@
         }
       },
       "block_order": [
+        "post_E36T98",
         "post_eLDGFD",
         "post_QHanzq",
         "post_PyqpqH",
