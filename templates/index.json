@@ -477,6 +477,17 @@
     "1717358326f1e64cf2": {
       "type": "ozella-social-slider",
       "blocks": {
+        "post_j8JNgU": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/annaagagliano/",
+            "media_type": "image",
+            "image": "shopify://shop_images/enchanted-bikini-annaagagliano8.webp",
+            "caption": "",
+            "alt_text": ""
+          }
+        },
         "post_6A8gxw": {
           "type": "post",
           "settings": {
@@ -767,6 +778,7 @@
         }
       },
       "block_order": [
+        "post_j8JNgU",
         "post_6A8gxw",
         "post_gx3ANc",
         "post_LRyAb6",
