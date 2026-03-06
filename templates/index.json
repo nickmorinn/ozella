@@ -477,6 +477,17 @@
     "1717358326f1e64cf2": {
       "type": "ozella-social-slider",
       "blocks": {
+        "post_eLDGFD": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/vipjuliaaa/",
+            "media_type": "image",
+            "image": "shopify://shop_images/zeni-silver-mirror-3.webp",
+            "caption": "",
+            "alt_text": ""
+          }
+        },
         "post_QHanzq": {
           "type": "post",
           "settings": {
@@ -767,6 +778,7 @@
         }
       },
       "block_order": [
+        "post_eLDGFD",
         "post_QHanzq",
         "post_PyqpqH",
         "post_hcb7WN",
