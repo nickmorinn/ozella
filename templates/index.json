@@ -477,6 +477,17 @@
     "1717358326f1e64cf2": {
       "type": "ozella-social-slider",
       "blocks": {
+        "post_RgzQMR": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/gabriellabrooke_/",
+            "media_type": "video",
+            "video": "shopify://files/videos/gabby-star-girl-white.webm",
+            "caption": "",
+            "alt_text": ""
+          }
+        },
         "post_QTYR96": {
           "type": "post",
           "settings": {
@@ -767,6 +778,7 @@
         }
       },
       "block_order": [
+        "post_RgzQMR",
         "post_QTYR96",
         "post_yL8LtV",
         "post_cPWFy7",
