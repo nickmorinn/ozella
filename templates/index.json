@@ -732,17 +732,6 @@
             "alt_text": ""
           }
         },
-        "social_post_23": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://ozellaswim.com/products/stargirl-bikini-set?variant=52252563145003",
-            "media_type": "image",
-            "image": "shopify://shop_images/IMG_3297_357ae643-114f-457b-bd38-e13b0f860dfb.heic",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_24": {
           "type": "post",
           "settings": {
@@ -801,7 +790,6 @@
         "social_post_18",
         "social_post_19",
         "social_post_20",
-        "social_post_23",
         "social_post_24",
         "social_post_25",
         "social_post_26"
