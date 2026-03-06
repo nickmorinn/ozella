@@ -578,17 +578,6 @@
             "alt_text": ""
           }
         },
-        "social_post_08": {
-          "type": "post",
-          "settings": {
-            "platform": "instagram",
-            "post_link": "https://www.instagram.com/isisrosealdaine/",
-            "media_type": "image",
-            "image": "shopify://shop_images/woman-wearing-light-blue-string-tie-thong-bikini-on-boat.jpg",
-            "caption": "",
-            "alt_text": ""
-          }
-        },
         "social_post_09": {
           "type": "post",
           "settings": {
@@ -787,7 +776,6 @@
         "post_FwBz3k",
         "social_post_05",
         "social_post_06",
-        "social_post_08",
         "social_post_09",
         "social_post_10",
         "social_post_11",
