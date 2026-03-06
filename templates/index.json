@@ -477,6 +477,17 @@
     "1717358326f1e64cf2": {
       "type": "ozella-social-slider",
       "blocks": {
+        "post_bdHKeg": {
+          "type": "post",
+          "settings": {
+            "platform": "instagram",
+            "post_link": "https://www.instagram.com/k8lyntate",
+            "media_type": "image",
+            "image": "shopify://shop_images/lila-enchanted-black-2.webp",
+            "caption": "",
+            "alt_text": ""
+          }
+        },
         "post_j8JNgU": {
           "type": "post",
           "settings": {
@@ -767,6 +778,7 @@
         }
       },
       "block_order": [
+        "post_bdHKeg",
         "post_j8JNgU",
         "post_6A8gxw",
         "post_gx3ANc",
