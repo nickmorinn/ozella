@@ -47,7 +47,14 @@
     {% if product.selected_or_first_available_variant.image != blank %}
       {% assign is_active = true %}
       {% capture image_content %}
-        {{ product.selected_or_first_available_variant.image | image_url: width: 2400 | image_tag:  alt: media.alt }}
+        {{
+          product.selected_or_first_available_variant.image
+          | image_url: width: 4000
+          | image_tag:
+            alt: media.alt,
+            widths: '900, 1200, 1600, 2000, 2400, 2800, 3200, 4000',
+            sizes: '(min-width: 1200px) 50vw, 100vw'
+        }}
       {% endcapture %}
 
       <div class="media-gallery__slide media-gallery__slide--active" data-media-id="{{ product.selected_or_first_available_variant.image.id }}" data-media-type="image">
@@ -71,7 +78,15 @@
             {% when 'image' %}
 
                 {% capture image_content %}
-                  {{ media | image_url: width: 2400 | image_tag: loading: 'lazy', alt: media.alt }}
+                  {{
+                    media
+                    | image_url: width: 4000
+                    | image_tag:
+                      loading: 'lazy',
+                      alt: media.alt,
+                      widths: '900, 1200, 1600, 2000, 2400, 2800, 3200, 4000',
+                      sizes: '(min-width: 1200px) 50vw, 100vw'
+                  }}
                 {% endcapture %}
                 {% render 'overlay.lightbox', slot: image_content, group: group %}
 
@@ -101,7 +116,14 @@
         {% assign media = product.selected_or_first_available_variant.image %}
         {% assign is_active = true %}
         {% capture image_content %}
-          {{ product.selected_or_first_available_variant.image | image_url: width: 2400 | image_tag:  alt: media.alt }}
+          {{
+            product.selected_or_first_available_variant.image
+            | image_url: width: 4000
+            | image_tag:
+              alt: media.alt,
+              widths: '900, 1200, 1600, 2000, 2400, 2800, 3200, 4000',
+              sizes: '(min-width: 1200px) 50vw, 100vw'
+          }}
         {% endcapture %}
 
         <button
@@ -112,7 +134,7 @@
         >
           <div class="media-gallery__thumb-image">
 
-            {{ media | image_url: width: 240 | image_tag }}
+            {{ media | image_url: width: 320 | image_tag }}
           </div>
         </button>
       {% endif %}
@@ -144,7 +166,7 @@
                 </span>
               {%- endif -%}
 
-              {{ media.preview_image | image_url: width: 240 | image_tag }}
+              {{ media.preview_image | image_url: width: 320 | image_tag }}
             </div>
           </button>
         {% endunless %}
