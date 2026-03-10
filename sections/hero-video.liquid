@@ -151,11 +151,10 @@
 
   .video-parent-section.hero--{{ section.id }}.loaded .hero__title .animation-contents,
   .loaded .video-parent-section.hero--{{ section.id }} .hero__title .animation-contents {
-    animation-name: hero-title-reveal-{{ section.id }} !important;
-    animation-duration: 1.3s !important;
-    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
-    animation-delay: 0.25s !important;
-    animation-fill-mode: both !important;
+    animation: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .video-parent-section.hero--{{ section.id }}.loaded .hero__subtitle .animation-contents,
