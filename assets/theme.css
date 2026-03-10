@@ -8954,7 +8954,10 @@ html[dir=rtl] .social-sharing__title{
   }
 
 .loaded .slideshow__slide.is-selected .hero__title .animation-contents,.loaded[data-aos=hero__animation] .hero__title .animation-contents{
-    animation:hero-title-reveal 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    animation:none;
+    filter:none;
+    opacity:1;
+    transform:none;
   }
 
 .loaded .slideshow__slide.is-selected .hero__subtitle .animation-contents,.loaded .slideshow__slide.is-selected .hero__top-subtitle .animation-contents,.loaded[data-aos=hero__animation] .hero__subtitle .animation-contents,.loaded[data-aos=hero__animation] .hero__top-subtitle .animation-contents{
