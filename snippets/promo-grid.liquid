@@ -440,6 +440,7 @@
                             loading: loading,
                             sizeVariable: '50vw',
                             fallback: '50vw',
+                            widths: '360, 540, 720, 900, 1080, 1600, 2000, 2400',
                             classes: 'image-fit promo-grid__bg-image promo-grid__bg-image--desktop-split',
                             style: advanced_left_desktop_image_style,
                           -%}
@@ -450,6 +451,7 @@
                             loading: true,
                             sizeVariable: '50vw',
                             fallback: '50vw',
+                            widths: '360, 540, 720, 900, 1080, 1600, 2000, 2400',
                             classes: 'image-fit promo-grid__bg-image promo-grid__bg-image--desktop-split',
                             style: advanced_right_desktop_image_style,
                           -%}
@@ -467,6 +469,7 @@
                           img: advanced_desktop_image,
                           loading: loading,
                           sizeVariable: block.settings.width,
+                          widths: '360, 540, 720, 900, 1080, 1600, 2000, 2400',
                           classes: image_classes,
                           style: advanced_desktop_image_style,
                         -%}
@@ -476,6 +479,7 @@
                             img: block.settings.image_mobile,
                             loading: true,
                             sizeVariable: block.settings.width,
+                            widths: '360, 540, 720, 900, 1080, 1600, 2000, 2400',
                             classes: 'image-fit promo-grid__bg-image promo-grid__bg-image--mobile promo-grid__bg-image--has-mobile',
                             style: advanced_mobile_image_style,
                           -%}
@@ -570,7 +574,7 @@
                           {%- render 'image-element',
                             img: collection_image_1,
                             loading: loading,
-                            widths: '360, 540, 720, 900, 1080, 1600',
+                            widths: '360, 540, 720, 900, 1080, 1600, 2000, 2400',
                             sizeVariable: sizeVariable,
                             fallback: fallback,
                           -%}
@@ -584,7 +588,7 @@
                           {%- render 'image-element',
                             img: collection_image_2,
                             loading: loading,
-                            widths: '360, 540, 720, 900, 1080, 1600',
+                            widths: '360, 540, 720, 900, 1080, 1600, 2000, 2400',
                             sizeVariable: sizeVariable,
                             fallback: fallback,
                           -%}
@@ -688,7 +692,7 @@
                     {%- render 'image-element',
                       img: image_block_desktop_image,
                       loading: loading,
-                      widths: '360, 540, 720, 900, 1080, 1600',
+                      widths: '360, 540, 720, 900, 1080, 1600, 2000, 2400',
                       sizeVariable: block.settings.width,
                       role: 'presentation',
                     -%}
@@ -699,7 +703,7 @@
                       {%- render 'image-element',
                         img: block.settings.image_mobile,
                         loading: true,
-                        widths: '360, 540, 720, 900, 1080, 1600',
+                        widths: '360, 540, 720, 900, 1080, 1600, 2000, 2400',
                         sizeVariable: block.settings.width,
                         role: 'presentation',
                       -%}
@@ -841,7 +845,7 @@
                                   loading: loading,
                                   sizeVariable: sizeVariable,
                                   fallback: fallback,
-                                  widths: '360, 540, 720, 900, 1080, 1600',
+                                  widths: '360, 540, 720, 900, 1080, 1600, 2000, 2400',
                                 -%}
                               </a>
                             </div>
