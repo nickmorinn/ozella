@@ -1920,6 +1920,11 @@
     }
 
     @media only screen and (min-width: 769px) {
+    .template-product .product-section {
+      --oz-pdp-meta-shift: 0px;
+      --oz-pdp-sticky-offset: 92px;
+    }
+
     .template-product .product-single__sticky {
       position: static;
       top: auto;
@@ -1941,10 +1946,10 @@
       width: 64%;
     }
 
-    .template-product .page-content--product .grid > .grid__item:not(.product-single__sticky) {
+    .template-product .page-content--product .grid > .grid__item.product-single__meta-column {
       align-self: flex-start;
       position: sticky;
-      top: 92px;
+      top: var(--oz-pdp-sticky-offset);
       width: 36%;
     }
 
@@ -2005,8 +2010,18 @@
       line-height: 1.12;
     }
 
-    .sticky-header .template-product .page-content--product .grid > .grid__item:not(.product-single__sticky) {
-      top: 92px;
+    .sticky-header .template-product .page-content--product .grid > .grid__item.product-single__meta-column {
+      top: var(--oz-pdp-sticky-offset);
+    }
+
+    .template-product .product-section--desktop-media-boundary .page-content--product .grid > .grid__item.product-single__meta-column {
+      position: relative;
+      top: auto;
+    }
+
+    .template-product .product-section--desktop-media-boundary .product-single__meta {
+      transform: translate3d(0, var(--oz-pdp-meta-shift), 0);
+      will-change: transform;
     }
 
     .template-product .product__main-photos {
@@ -2046,6 +2061,10 @@
       top: auto !important;
       transform: none !important;
       width: 100% !important;
+    }
+
+    .template-product .product-slideshow.flickity-enabled .flickity-slider .product-main-slide--inline-video {
+      display: none !important;
     }
 
     .template-product .product-main-slide .image-wrap:not([data-product-media-type-model]) {
@@ -2343,6 +2362,17 @@
     }
 
     @media only screen and (min-width: 769px) {
+      .grid-product__tag.grid-product__tag--custom {
+        background-color: var(--colorTextBody) !important;
+        color: #fff !important;
+        font-family: var(--typeAccentPrimary), var(--typeAccentFallback) !important;
+        font-size: calc(var(--typeBaseSize) * 0.65) !important;
+        letter-spacing: 0.06em !important;
+        line-height: 1 !important;
+        padding: 6px 5px 6px 7px !important;
+        text-transform: uppercase !important;
+      }
+
       .template-collection .grid-product__tag,
       .template-collection .grid-product__tag--custom,
       .template-collection .grid-product__tag--sold-out,

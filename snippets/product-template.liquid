@@ -101,7 +101,7 @@
           </div>
         {%- endif -%}
 
-        <div class="grid__item {{ product_description_width }}">
+        <div class="grid__item {{ product_description_width }} product-single__meta-column">
 
           <div class="product-single__meta">
             <div class="product-block product-block--header">
@@ -127,7 +127,10 @@
               {%- endcapture -%}
               {%- assign product_status_label = product_status_label | strip -%}
               {%- if product_status_label != blank -%}
-                <div class="product-single__tag">
+                <div
+                  class="product-single__tag"
+                  style="align-items:center;background-color:var(--colorTextBody);color:#fff;display:inline-flex;font-family:var(--typeAccentPrimary), var(--typeAccentFallback);font-size:12px;letter-spacing:0.06em;line-height:1;margin:0 0 10px;padding:6px 10px;text-transform:uppercase;"
+                >
                   {{ product_status_label }}
                 </div>
               {%- endif -%}
@@ -554,12 +557,99 @@
                   });
                 }
 
+                var syncDesktopMediaBoundedMeta = function() {};
+
+                function setupDesktopMediaBoundedMeta() {
+                  var mediaColumn = sectionEl.querySelector('.grid__item.product-single__sticky');
+                  var metaColumn = sectionEl.querySelector('.product-single__meta-column');
+                  var meta = metaColumn ? metaColumn.querySelector('.product-single__meta') : null;
+
+                  if (!mediaColumn || !metaColumn || !meta || !window.matchMedia) return;
+
+                  var desktopQuery = window.matchMedia('(min-width: 769px)');
+                  var resizeObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(scheduleUpdate) : null;
+                  var isTicking = false;
+
+                  function getStickyOffset() {
+                    var offset = parseFloat(window.getComputedStyle(sectionEl).getPropertyValue('--oz-pdp-sticky-offset'));
+                    return isNaN(offset) ? 92 : offset;
+                  }
+
+                  function applyShift(shift) {
+                    meta.style.setProperty('--oz-pdp-meta-shift', Math.max(0, Math.round(shift)) + 'px');
+                  }
+
+                  function reset() {
+                    sectionEl.classList.remove('product-section--desktop-media-boundary');
+                    meta.style.removeProperty('--oz-pdp-meta-shift');
+                  }
+
+                  function update() {
+                    isTicking = false;
+
+                    if (!desktopQuery.matches) {
+                      reset();
+                      return;
+                    }
+
+                    sectionEl.classList.add('product-section--desktop-media-boundary');
+
+                    var mediaHeight = mediaColumn.offsetHeight;
+                    var metaHeight = meta.offsetHeight;
+
+                    if (!mediaHeight || !metaHeight || metaHeight >= mediaHeight) {
+                      applyShift(0);
+                      return;
+                    }
+
+                    var scrollY = window.scrollY || window.pageYOffset;
+                    var stickyOffset = getStickyOffset();
+                    var mediaTop = mediaColumn.getBoundingClientRect().top + scrollY;
+                    var metaTop = metaColumn.getBoundingClientRect().top + scrollY;
+                    var maxShift = Math.max(0, mediaTop + mediaHeight - metaHeight - metaTop);
+                    var nextShift = Math.max(0, Math.min(scrollY + stickyOffset - metaTop, maxShift));
+
+                    applyShift(nextShift);
+                  }
+
+                  function scheduleUpdate() {
+                    if (isTicking) return;
+                    isTicking = true;
+                    window.requestAnimationFrame(update);
+                  }
+
+                  syncDesktopMediaBoundedMeta = scheduleUpdate;
+
+                  window.addEventListener('scroll', scheduleUpdate, { passive: true });
+                  window.addEventListener('resize', scheduleUpdate);
+
+                  if (typeof desktopQuery.addEventListener === 'function') {
+                    desktopQuery.addEventListener('change', scheduleUpdate);
+                  } else if (typeof desktopQuery.addListener === 'function') {
+                    desktopQuery.addListener(scheduleUpdate);
+                  }
+
+                  if (resizeObserver) {
+                    resizeObserver.observe(mediaColumn);
+                    resizeObserver.observe(meta);
+                  }
+
+                  mediaColumn.querySelectorAll('img').forEach(function(image) {
+                    if (image.complete) return;
+                    image.addEventListener('load', scheduleUpdate, { once: true });
+                  });
+
+                  scheduleUpdate();
+                }
+
                 function refreshAppBlocks() {
                   toggleEmptyJudgeMeWidgets();
                   styleKlaviyoBackInStockButtons();
+                  syncDesktopMediaBoundedMeta();
                 }
 
                 refreshAppBlocks();
+                setupDesktopMediaBoundedMeta();
 
                 var observer = new MutationObserver(refreshAppBlocks);
                 observer.observe(document.body, {

@@ -22,7 +22,10 @@
 {%- endcapture -%}
 {%- assign product_status_label = product_status_label | strip -%}
 {%- if product_status_label != blank -%}
-  <div class="product-single__tag">
+  <div
+    class="product-single__tag"
+    style="align-items:center;background-color:var(--colorTextBody);color:#fff;display:inline-flex;font-family:var(--typeAccentPrimary), var(--typeAccentFallback);font-size:12px;letter-spacing:0.06em;line-height:1;margin:0 0 10px;padding:6px 10px;text-transform:uppercase;"
+  >
     {{ product_status_label }}
   </div>
 {%- endif -%}
