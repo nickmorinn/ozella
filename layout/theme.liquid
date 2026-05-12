@@ -128,14 +128,11 @@
       --element-text-line-height--body: {{ settings.type_base_line_height | default: 1.4 }};
 
       /* Heading Font Styles */
-      --element-text-font-family--heading: "Contempora Sans";
+      --element-text-font-family--heading: "Noka Semibold";
       --element-text-font-family-fallback--heading: {{ settings.type_header_font_family.family }}, {{ settings.type_header_font_family.fallback_families }};
-      --element-text-font-weight--heading: {{ settings.type_header_font_family.weight }};
+      --element-text-font-weight--heading: 600;
       --element-text-letter-spacing--heading: {{ settings.type_header_spacing | default: '25' | divided_by: 1000.00 | append: 'em' }};
-      
-      {% if settings.type_header_capitalize %}
       --element-text-text-transform--heading: uppercase;
-      {% endif %} 
       
       
       /* Heading Font Sizes */
