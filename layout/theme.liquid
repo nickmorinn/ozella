@@ -372,14 +372,59 @@
   </style>
 
   <script src="{{ 'vendor-scripts-v11.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'lenis.min.js' | asset_url }}" defer="defer"></script>
 
   {%- if shop.enabled_currencies.size > 1 -%}
     <link rel="stylesheet" href="{{ 'country-flags.css' | asset_url }}">
   {%- endif -%}
 
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'smooth-scroll.js' | asset_url }}" defer="defer"></script>
+  <script>
+    window.__ozellaLenisAsset = {{ 'lenis.min.js' | asset_url | json }};
+    window.__ozellaSmoothScrollAsset = {{ 'smooth-scroll.js' | asset_url | json }};
+
+    (function () {
+      var loaded = false;
+      var desktopOnly = window.matchMedia('(min-width: 769px)');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function animationsDisabled() {
+        return document.body && document.body.dataset.disableAnimations === 'true';
+      }
+
+      function shouldLoad() {
+        return (
+          !(window.Shopify && window.Shopify.designMode) &&
+          desktopOnly.matches &&
+          !reduceMotion.matches &&
+          !animationsDisabled()
+        );
+      }
+
+      function loadSmoothScroll() {
+        if (loaded || !shouldLoad()) return;
+
+        loaded = true;
+        var script = document.createElement('script');
+        script.src = window.__ozellaSmoothScrollAsset;
+        script.defer = true;
+        document.head.appendChild(script);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadSmoothScroll, { once: true });
+      } else {
+        loadSmoothScroll();
+      }
+
+      if (typeof desktopOnly.addEventListener === 'function') {
+        desktopOnly.addEventListener('change', loadSmoothScroll);
+        reduceMotion.addEventListener('change', loadSmoothScroll);
+      } else {
+        desktopOnly.addListener(loadSmoothScroll);
+        reduceMotion.addListener(loadSmoothScroll);
+      }
+    })();
+  </script>
 
   {%- if request.page_type contains 'customers/' -%}
     <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>

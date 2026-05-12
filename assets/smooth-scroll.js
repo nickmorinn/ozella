@@ -4,6 +4,7 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var desktopOnly = window.matchMedia('(min-width: 769px)');
   var lenis = null;
+  var lenisLoading = null;
   var rafId = 0;
 
   function animationsDisabled() {
@@ -15,9 +16,25 @@
       !(window.Shopify && window.Shopify.designMode) &&
       !reduceMotion.matches &&
       desktopOnly.matches &&
-      !animationsDisabled() &&
-      typeof window.Lenis === 'function'
+      !animationsDisabled()
     );
+  }
+
+  function loadLenis() {
+    if (typeof window.Lenis === 'function') return Promise.resolve();
+    if (lenisLoading) return lenisLoading;
+    if (!window.__ozellaLenisAsset) return Promise.reject(new Error('Missing Lenis asset URL'));
+
+    lenisLoading = new Promise(function (resolve, reject) {
+      var script = document.createElement('script');
+      script.src = window.__ozellaLenisAsset;
+      script.defer = true;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+
+    return lenisLoading;
   }
 
   function onRaf(time) {
@@ -41,7 +58,7 @@
   }
 
   function start() {
-    if (lenis || !shouldEnable()) return;
+    if (lenis || !shouldEnable() || typeof window.Lenis !== 'function') return;
 
     lenis = new window.Lenis({
       duration: 0.85,
@@ -63,7 +80,9 @@
 
   function reevaluate() {
     if (shouldEnable()) {
-      start();
+      loadLenis().then(function () {
+        if (shouldEnable()) start();
+      }).catch(function () {});
     } else {
       stop();
     }
