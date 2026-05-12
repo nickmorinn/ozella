@@ -156,8 +156,14 @@
 
     .flex-grid--{{ section.id }} .promo-grid__container:hover .promo-grid__text .rte--strong,
     .flex-grid--{{ section.id }} .promo-grid__container:focus-within .promo-grid__text .rte--strong {
-      letter-spacing: inherit;
-      text-shadow: none;
+      letter-spacing: var(--typeHeaderSpacing) !important;
+      text-shadow: none !important;
+      transform: none !important;
+    }
+
+    .flex-grid--{{ section.id }} .promo-grid__container:hover .promo-grid__text .rte--block:not(.rte--strong),
+    .flex-grid--{{ section.id }} .promo-grid__container:focus-within .promo-grid__text .rte--block:not(.rte--strong) {
+      opacity: 1;
       transform: none;
     }
   }
