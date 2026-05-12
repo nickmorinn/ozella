@@ -1648,10 +1648,10 @@
     .template-product .jdgm-rev-widg__title {
     font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback);
     font-weight: var(--typeHeaderWeight);
-    font-size: calc(var(--typeHeaderSize) * 0.62);
+    font-size: clamp(28px, calc(var(--typeHeaderSize) * 0.68), 34px);
     line-height: var(--typeHeaderLineHeight);
     letter-spacing: var(--typeHeaderSpacing);
-    text-transform: none;
+    text-transform: uppercase;
     }
 
     .template-product .jdgm-sort-dropdown {
@@ -2858,23 +2858,46 @@
       margin-top: var(--oz-space-2);
     }
 
+    .template-product .product-single__meta .product-single__tag {
+      margin: 0 0 var(--oz-space-2) !important;
+    }
+
+    .template-product .product-single__meta .product-block--header {
+      margin-bottom: var(--oz-space-2) !important;
+    }
+
+    .template-product .product-single__meta .product-single__title {
+      font-size: clamp(30px, calc(var(--typeHeaderSize) * 0.75), 36px) !important;
+      line-height: 1 !important;
+      margin-bottom: var(--oz-space-2) !important;
+    }
+
+    .template-product .product-single__meta [data-product-blocks] > .shopify-app-block:first-child {
+      margin-bottom: var(--oz-space-1) !important;
+    }
+
+    .template-product .product-single__meta [data-product-blocks] > .shopify-app-block:first-child + .product-block--price {
+      margin-top: 0 !important;
+    }
+
+    .template-product .product-single__meta .jdgm-prev-badge,
+    .template-product .product-single__meta .jdgm-widget .jdgm-prev-badge {
+      line-height: 1 !important;
+    }
+
     .template-product .jdgm-rev-widg__title {
       font-family: var(--typeHeaderPrimary), var(--typeHeaderFallback) !important;
-      font-size: calc(var(--typeHeaderSize) * 0.62) !important;
+      font-size: clamp(28px, calc(var(--typeHeaderSize) * 0.68), 34px) !important;
       font-weight: var(--typeHeaderWeight) !important;
       letter-spacing: var(--typeHeaderSpacing) !important;
       line-height: var(--typeHeaderLineHeight) !important;
-      text-transform: none !important;
+      text-transform: uppercase !important;
     }
 
     @media only screen and (min-width: 769px) {
       .template-product .jdgm-rev-widg__title {
-        font-size: calc(var(--typeHeaderSize) * 0.65) !important;
+        font-size: clamp(30px, calc(var(--typeHeaderSize) * 0.72), 36px) !important;
       }
-    }
-
-    [data-type_header_capitalize=true] .template-product .jdgm-rev-widg__title {
-      text-transform: uppercase !important;
     }
 
     .template-product .jdgm-rev__title,
