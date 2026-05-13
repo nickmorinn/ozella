@@ -26,6 +26,10 @@
 
 {% capture variant_selector %}
   {%- unless product.has_only_default_variant -%}
+    {% liquid
+      assign color_option_markup = ''
+      assign other_option_markup = ''
+    %}
     {% for option in product.options_with_values %}
       {%- liquid
         assign is_color_option = false
@@ -48,123 +52,133 @@
         endfor
       -%}
 
-      {% case variant_selector_type %}
-        {% when 'radio' %}
-          {% capture option_name %}
-            <p class="flex-pdp-variant-picker__option-label{% if is_color_option %} is-color{% endif %}{% if is_size_option %} is-size{% endif %}">
-              <span class="flex-pdp-variant-picker__option-name">{{ option.name }}</span>
-              {% if is_color_option %}
-                <span class="flex-pdp-variant-picker__option-separator"> - </span>
-                <span class="flex-pdp-variant-picker__option-value">{{ product.selected_or_first_available_variant.options[forloop.index0] }}</span>
-              {% endif %}
-            </p>
-          {% endcapture %}
+      {% capture option_markup %}
+        {% case variant_selector_type %}
+          {% when 'radio' %}
+            {% capture option_name %}
+              <p class="flex-pdp-variant-picker__option-label{% if is_color_option %} is-color{% endif %}{% if is_size_option %} is-size{% endif %}">
+                <span class="flex-pdp-variant-picker__option-name">{{ option.name }}</span>
+                {% if is_color_option %}
+                  <span class="flex-pdp-variant-picker__option-separator"> - </span>
+                  <span class="flex-pdp-variant-picker__option-value">{{ product.selected_or_first_available_variant.options[forloop.index0] }}</span>
+                {% endif %}
+              </p>
+            {% endcapture %}
 
-          {% capture option_values %}
-            {% for value in option.values %}
-              {%- liquid
-                assign classlist = 'flex-pdp-variant-picker__value'
-                if is_color_option
-                  assign classlist = classlist | append: ' flex-pdp-variant-picker__value--color'
-                endif
-                if is_size_option
-                  assign classlist = classlist | append: ' flex-pdp-variant-picker__value--size'
-                endif
-                if value.selected
-                  assign classlist = classlist | append: ' is-selected'
-                endif
-                unless value.available
-                  assign classlist = classlist | append: ' disabled'
-                endunless
-              -%}
+            {% capture option_values %}
+              {% for value in option.values %}
+                {%- liquid
+                  assign classlist = 'flex-pdp-variant-picker__value'
+                  if is_color_option
+                    assign classlist = classlist | append: ' flex-pdp-variant-picker__value--color'
+                  endif
+                  if is_size_option
+                    assign classlist = classlist | append: ' flex-pdp-variant-picker__value--size'
+                  endif
+                  if value.selected
+                    assign classlist = classlist | append: ' is-selected'
+                  endif
+                  unless value.available
+                    assign classlist = classlist | append: ' disabled'
+                  endunless
+                -%}
 
-              {%- capture input_id -%}
-                {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
-              {%- endcapture -%}
+                {%- capture input_id -%}
+                  {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
+                {%- endcapture -%}
 
-              {% assign input_value = value | escape %}
+                {% assign input_value = value | escape %}
 
-              {%- capture input_label -%}
-                {% if value.swatch %}
-                  {% assign swatch_disabled = false %}
-                  {% if value.available == false %}
-                    {% assign swatch_disabled = true %}
-                  {% endif %}
+                {%- capture input_label -%}
+                  {% if value.swatch %}
+                    {% assign swatch_disabled = false %}
+                    {% if value.available == false %}
+                      {% assign swatch_disabled = true %}
+                    {% endif %}
 
-                  {%- render 'element.text', text: value, visually_hidden: true -%}
-                  {%- render 'element.swatch', swatch: value.swatch, large: true, selected: value.selected, disabled: swatch_disabled, classlist: 'flex-pdp-variant-picker__swatch' -%}
-                {% else %}
-                  {% if value.selected %}
-                    {%- render 'element.button', as: 'span', text: value, size: 'sm', classlist: 'flex-pdp-variant-picker__value-button is-selected', style: '--element-button-color-primary: var(--color-primary); --element-button-color-secondary: var(--color-secondary);' -%}
+                    {%- render 'element.text', text: value, visually_hidden: true -%}
+                    {%- render 'element.swatch', swatch: value.swatch, large: true, selected: value.selected, disabled: swatch_disabled, classlist: 'flex-pdp-variant-picker__swatch' -%}
                   {% else %}
-                    {%- render 'element.button', as: 'span', text: value, inverted: true, size: 'sm', classlist: 'flex-pdp-variant-picker__value-button', style: '--element-button-color-primary: var(--color-primary); --element-button-color-secondary: var(--color-secondary);' -%}
+                    {% if value.selected %}
+                      {%- render 'element.button', as: 'span', text: value, size: 'sm', classlist: 'flex-pdp-variant-picker__value-button is-selected', style: '--element-button-color-primary: var(--color-primary); --element-button-color-secondary: var(--color-secondary);' -%}
+                    {% else %}
+                      {%- render 'element.button', as: 'span', text: value, inverted: true, size: 'sm', classlist: 'flex-pdp-variant-picker__value-button', style: '--element-button-color-primary: var(--color-primary); --element-button-color-secondary: var(--color-secondary);' -%}
+                    {% endif %}
                   {% endif %}
-                {% endif %}
-              {%- endcapture -%}
+                {%- endcapture -%}
 
-              {%- capture input_attributes -%}
-                {% render 'product.hot-reload.radio-attributes', value: value %}
-              {%- endcapture -%}
+                {%- capture input_attributes -%}
+                  {% render 'product.hot-reload.radio-attributes', value: value %}
+                {%- endcapture -%}
 
-              {%- render 'element.radio',
-                id: input_id,
+                {%- render 'element.radio',
+                  id: input_id,
+                  name: option.name,
+                  value: input_value,
+                  slot: input_label,
+                  checked: value.selected,
+                  display_icon: false,
+                  classlist: classlist,
+                  attributes: input_attributes
+                -%}
+              {% endfor %}
+            {% endcapture %}
+
+            {% capture option_stack %}
+              {{ option_name }}
+              {% render 'layout.stack', horizontal: true, gap: 'xs', wrap: 'wrap', slot: option_values, classlist: 'flex-pdp-variant-picker__values' %}
+            {% endcapture %}
+
+            {% capture option_classlist %}flex-pdp-variant-picker__option{% if is_color_option %} flex-pdp-variant-picker__option--color{% endif %}{% if is_size_option %} flex-pdp-variant-picker__option--size{% endif %}{% endcapture %}
+            {% render 'layout.stack', gap: 'xs', horizontal: false, slot: option_stack, classlist: option_classlist %}
+          {% when 'select' %}
+            {%- capture input_id -%}
+              {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
+            {%- endcapture -%}
+
+            {% capture options %}
+              {% for value in option.values %}
+                {%- capture option_input_attributes -%}
+                  {% if value.available == false %}
+                    disabled
+                  {% endif %}
+                  {% if value.selected %}
+                    selected
+                  {% endif %}
+                  {% render 'product.hot-reload.select-attributes', value: value, element: 'option' %}
+                {%- endcapture -%}
+
+                <option value="{{ value | escape }}" {{ option_input_attributes }}>{{ value }}</option>
+              {% endfor %}
+            {% endcapture %}
+
+            {% capture select_attributes %}
+              {% render 'product.hot-reload.select-attributes', element: 'select' %}
+            {% endcapture %}
+
+            {% capture option_stack %}
+              {% render 'element.text', as: 'label', variant: 'body-sm', text: option.name, classlist: 'flex-pdp-variant-picker__option-label', style: 'font-weight: 600;' %}
+              {% render 'element.select',
                 name: option.name,
-                value: input_value,
-                slot: input_label,
-                checked: value.selected,
-                display_icon: false,
-                classlist: classlist,
-                attributes: input_attributes
-              -%}
-            {% endfor %}
-          {% endcapture %}
+                slot: options,
+                id: input_id,
+                placeholder: option.selected_value,
+                attributes: select_attributes
+              %}
+            {% endcapture %}
 
-          {% capture option_stack %}
-            {{ option_name }}
-            {% render 'layout.stack', horizontal: true, gap: 'xs', wrap: 'wrap', slot: option_values, classlist: 'flex-pdp-variant-picker__values' %}
-          {% endcapture %}
+            {% render 'layout.stack', gap: 'xs', horizontal: false, slot: option_stack, classlist: 'flex-pdp-variant-picker__option' %}
+        {% endcase %}
+      {% endcapture %}
 
-          {% capture option_classlist %}flex-pdp-variant-picker__option{% if is_color_option %} flex-pdp-variant-picker__option--color{% endif %}{% if is_size_option %} flex-pdp-variant-picker__option--size{% endif %}{% endcapture %}
-          {% render 'layout.stack', gap: 'xs', horizontal: false, slot: option_stack, classlist: option_classlist %}
-        {% when 'select' %}
-          {%- capture input_id -%}
-            {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
-          {%- endcapture -%}
-
-          {% capture options %}
-            {% for value in option.values %}
-              {%- capture option_input_attributes -%}
-                {% if value.available == false %}
-                  disabled
-                {% endif %}
-                {% if value.selected %}
-                  selected
-                {% endif %}
-                {% render 'product.hot-reload.select-attributes', value: value, element: 'option' %}
-              {%- endcapture -%}
-
-              <option value="{{ value | escape }}" {{ option_input_attributes }}>{{ value }}</option>
-            {% endfor %}
-          {% endcapture %}
-
-          {% capture select_attributes %}
-            {% render 'product.hot-reload.select-attributes', element: 'select' %}
-          {% endcapture %}
-
-          {% capture option_stack %}
-            {% render 'element.text', as: 'label', variant: 'body-sm', text: option.name, classlist: 'flex-pdp-variant-picker__option-label', style: 'font-weight: 600;' %}
-            {% render 'element.select',
-              name: option.name,
-              slot: options,
-              id: input_id,
-              placeholder: option.selected_value,
-              attributes: select_attributes
-            %}
-          {% endcapture %}
-
-          {% render 'layout.stack', gap: 'xs', horizontal: false, slot: option_stack, classlist: 'flex-pdp-variant-picker__option' %}
-      {% endcase %}
+      {% if is_color_option %}
+        {% assign color_option_markup = color_option_markup | append: option_markup %}
+      {% else %}
+        {% assign other_option_markup = other_option_markup | append: option_markup %}
+      {% endif %}
     {% endfor %}
+    {{ color_option_markup }}
+    {{ other_option_markup }}
   {%- endunless -%}
 {% endcapture %}
 

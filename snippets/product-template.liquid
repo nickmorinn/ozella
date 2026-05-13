@@ -294,47 +294,71 @@
                   {%- when 'variant_picker' -%}
                     <div class="product-block" {% if block.settings.product_dynamic_variants_enable %}data-dynamic-variants-enabled{% endif %} {{ block.shopify_attributes }}>
                       {%- unless product.has_only_default_variant -%}
+                        {%- liquid
+                          assign color_option_markup = ''
+                          assign other_option_markup = ''
+                        -%}
                         {%- for option in product.options_with_values -%}
                           {%- liquid
+                            assign is_color_option_order = false
+                            assign downcased_option = option.name | downcase
+                            if downcased_option contains 'color' or downcased_option contains 'colour'
+                              assign is_color_option_order = true
+                            endif
+
                             if block.settings.color_swatches
                               assign is_color = false
                               assign color_option_index = 0
                               assign swatch_trigger = 'products.general.color_swatch_trigger' | t | downcase
                               assign color_option_index = forloop.index0
-                              assign downcased_option = option.name | downcase
                               if downcased_option contains swatch_trigger
                                 assign is_color = true
+                                assign is_color_option_order = true
                               elsif swatch_trigger == 'color' and downcased_option contains 'colour'
                                 assign is_color = true
+                                assign is_color_option_order = true
                               endif
+                            else
+                              assign is_color = false
+                              assign color_option_index = 0
                             endif
                           -%}
 
-                          {%- if block.settings.picker_type == 'button' -%}
-                            {%- render 'variant-button',
-                              block: block,
-                              product: product,
-                              form_id: form_id,
-                              section_id: section_id,
-                              option: option,
-                              forloop: forloop,
-                              variant_labels: block.settings.variant_labels,
-                              is_color: is_color,
-                              color_option_index: color_option_index,
-                              connect_to_sizechart: connect_to_sizechart,
-                              sizechart_index: sizechart_index
-                            -%}
+                          {%- capture option_markup -%}
+                            {%- if block.settings.picker_type == 'button' -%}
+                              {%- render 'variant-button',
+                                block: block,
+                                product: product,
+                                form_id: form_id,
+                                section_id: section_id,
+                                option: option,
+                                forloop: forloop,
+                                variant_labels: block.settings.variant_labels,
+                                is_color: is_color,
+                                color_option_index: color_option_index,
+                                connect_to_sizechart: connect_to_sizechart,
+                                sizechart_index: sizechart_index
+                              -%}
+                            {%- else -%}
+                              {%- render 'variant-dropdown',
+                                product: product,
+                                form_id: form_id,
+                                section_id: section_id,
+                                option: option,
+                                forloop: forloop,
+                                variant_labels: block.settings.variant_labels
+                              -%}
+                            {%- endif -%}
+                          {%- endcapture -%}
+
+                          {%- if is_color_option_order -%}
+                            {%- assign color_option_markup = color_option_markup | append: option_markup -%}
                           {%- else -%}
-                            {%- render 'variant-dropdown',
-                              product: product,
-                              form_id: form_id,
-                              section_id: section_id,
-                              option: option,
-                              forloop: forloop,
-                              variant_labels: block.settings.variant_labels
-                            -%}
+                            {%- assign other_option_markup = other_option_markup | append: option_markup -%}
                           {%- endif -%}
                         {%- endfor -%}
+                        {{ color_option_markup }}
+                        {{ other_option_markup }}
                       {%- endunless -%}
                     </div>
                   {%- when 'buy_buttons' -%}

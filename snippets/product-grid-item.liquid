@@ -142,10 +142,43 @@ Arguments
       endif
 
       assign preview_image = product.featured_media.preview_image
+      assign found_featured_color_image = false
 
-      if use_featured_variant and featured_variant.featured_media != blank
+      if use_featured_variant and featured_color_label != blank
+        assign featured_color_set_name = 'color'
+        assign swatch_trigger = 'products.general.color_swatch_trigger' | t | downcase
+
+        for option in product.options_with_values
+          assign option_name = option.name | downcase
+          if option_name contains swatch_trigger
+            assign featured_color_set_name = option.name | handleize
+            break
+          elsif swatch_trigger == 'color' and option_name contains 'colour'
+            assign featured_color_set_name = option.name | handleize
+            break
+          endif
+        endfor
+
+        assign featured_color_value = featured_color_label | handleize
+        assign featured_color_group = featured_color_set_name | append: '_' | append: featured_color_value
+
+        for media in product.media
+          assign media_group = ''
+          if media.alt contains '#'
+            assign media_group = media.alt | split: '#' | last | downcase
+          endif
+
+          if media_group == featured_color_group
+            assign preview_image = media.preview_image
+            assign found_featured_color_image = true
+            break
+          endif
+        endfor
+      endif
+
+      if found_featured_color_image == false and use_featured_variant and featured_variant.featured_media != blank
         assign preview_image = featured_variant.featured_media.preview_image
-      elsif use_featured_variant and featured_variant.image != blank
+      elsif found_featured_color_image == false and use_featured_variant and featured_variant.image != blank
         assign preview_image = featured_variant.image
       endif
     -%}
