@@ -435,6 +435,37 @@
     <script>theme.settings.email = {{ shop.email | json }}</script>
     <script src="https://api.archetypethemes.co/design-mode.js" defer="defer"></script>
   {% endif %}
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ClothingStore",
+      "@id": "https://ozellaswim.com/#organization",
+      "name": "Ozella Swim",
+      "url": "https://ozellaswim.com/",
+      "logo": "https://ozellaswim.com/cdn/shop/files/logo-softer.svg?v=1771405020&width=100", 
+      "description": "Buy Cheeky & Thong Bikinis for Women.",
+      "sameAs": [
+        "https://www.instagram.com/ozellaswim",
+        "https://www.pinterest.com/ozellaswim",
+        "https://www.tiktok.com/@ozellaswim"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ozellaswim.com/#website",
+      "url": "https://ozellaswim.com/",
+      "name": "Ozella Swim",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ozellaswim.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+}
+</script>
 </head>
 
 {%- liquid
