@@ -20,19 +20,54 @@
         "social_sharing_blog": true
       }
     },
-    "blog-posts": {
-      "type": "blog-posts",
+    "featured_collections_aHdXCA": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_E8hMfM": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-heartbreaker-collection",
+            "title": "",
+            "focal_point": "center center"
+          }
+        },
+        "collection_9dRYDB": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-stargirl-collection",
+            "title": "",
+            "focal_point": "center center"
+          }
+        },
+        "collection_wHina9": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-stella-luna-collection",
+            "title": "",
+            "focal_point": "center center"
+          }
+        },
+        "collection_XaRWDc": {
+          "type": "collection",
+          "settings": {
+            "collection": "the-enchanted-collection",
+            "title": "",
+            "focal_point": "center center"
+          }
+        }
+      },
+      "block_order": [
+        "collection_E8hMfM",
+        "collection_9dRYDB",
+        "collection_wHina9",
+        "collection_XaRWDc"
+      ],
+      "name": "t:sections.featured-collections.presets.collection_list.name",
       "settings": {
-        "title": "You may also like",
-        "blog": "swimwear",
-        "post_limit": 3,
-        "blog_show_tags": false,
-        "blog_show_date": true,
-        "blog_show_comments": false,
-        "blog_show_author": false,
-        "view_all": true,
-        "blog_image_size": "wide",
-        "divider": false
+        "title": "You may Also Like",
+        "divider": false,
+        "per_row": 4,
+        "enable_gutter": true
       }
     },
     "featured_product_whqQFm": {
@@ -90,7 +125,7 @@
   },
   "order": [
     "main",
-    "blog-posts",
+    "featured_collections_aHdXCA",
     "featured_product_whqQFm"
   ]
 }
