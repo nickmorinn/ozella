@@ -23,6 +23,7 @@
       "blocks": {
         "collection_description": {
           "type": "collection_description",
+          "disabled": true,
           "settings": {}
         },
         "subcollections": {
@@ -51,10 +52,12 @@
         ".grid {padding-bottom: 20px;}"
       ],
       "settings": {
+        "enable_filtering_and_sorting": false,
         "enable_sidebar": true,
         "collapsed": false,
         "filter_style": "sidebar",
         "enable_color_swatches": true,
+        "enable_swatch_labels": true,
         "enable_sort": true
       }
     }
