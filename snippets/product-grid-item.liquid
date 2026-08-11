@@ -51,6 +51,9 @@ Arguments
     assign swatches_enabled = false
 
     assign card_url = featured_variant.url
+    if featured_variant.available == false and product.available
+      assign card_url = product.selected_or_first_available_variant.url
+    endif
     assign card_available = featured_variant.available
     assign card_price = featured_variant.price
     assign card_compare_at_price = featured_variant.compare_at_price
