@@ -269,18 +269,20 @@
                       {%- endfor -%}
                     {%- endunless -%}
 
-                    {%- render 'product-grid-item',
-                      product: product,
-                      featured_variant: featured_color_variant,
-                      featured_color_label: color_value,
-                      hide_swatches: true,
-                      collection: collection,
-                      per_row: per_row,
-                      quick_shop_enable: settings.quick_shop_enable,
-                      fallback: fallback,
-                    -%}
                     {%- assign rendered_colors = rendered_colors | append: color_token -%}
-                    {%- assign rendered_item_count = rendered_item_count | plus: 1 -%}
+                    {%- if featured_color_variant.available -%}
+                      {%- render 'product-grid-item',
+                        product: product,
+                        featured_variant: featured_color_variant,
+                        featured_color_label: color_value,
+                        hide_swatches: true,
+                        collection: collection,
+                        per_row: per_row,
+                        quick_shop_enable: settings.quick_shop_enable,
+                        fallback: fallback,
+                      -%}
+                      {%- assign rendered_item_count = rendered_item_count | plus: 1 -%}
+                    {%- endif -%}
                   {%- endunless -%}
                 {%- endfor -%}
               {%- endif -%}

@@ -1,136 +1,25 @@
 {%- if block.settings.logo -%}
-  {%- style -%}
-    .footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"] {
-      --footer-logo-progress: 0;
-      display: block;
-    }
-
-    .js .footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"] .image-element {
-      opacity: 1;
-      transform: translate3d(0, calc((1 - var(--footer-logo-progress, 0)) * 54px), 0);
-      transition: transform 1.35s cubic-bezier(0.22, 1, 0.36, 1);
-      will-change: transform;
-    }
-
-    .js .footer__item--{{ block.id }} image-element[data-footer-logo-visible="true"] .image-element {
-      --footer-logo-progress: 1;
-    }
-
-    .js .footer__item--{{ block.id }} image-element[data-footer-logo-visible="false"] .image-element {
-      --footer-logo-progress: 0;
-    }
-
-    [data-animate_images=false] .footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"] .image-element,
-    [data-disable-animations=true] .footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"] .image-element {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"] .image-element {
-        opacity: 1;
-        transform: none;
-        transition: none;
-      }
-    }
-  {%- endstyle -%}
   <div class="footer__logo">
     <a href="{{ routes.root_url }}">
       {%- assign width = block.settings.logo.width | default: 2400 | at_most: 2400 -%}
       {%- assign height = width | divided_by: block.settings.logo.aspect_ratio | round -%}
+      {%- assign logo_alt = block.settings.logo.alt | default: shop.name -%}
       {%- capture sizes -%}(min-width: 769px) min(96vw, 1320px), 92vw{%- endcapture -%}
       {%- capture widths -%}480, 720, 960, 1200, 1440, 1800, 2200, 2400{%- endcapture -%}
       {%- capture style -%}width:100%;height:auto;max-width:100%;max-height:none;{%- endcapture -%}
 
-      {%- render 'image-element',
-        img: block.settings.logo,
-        img_width: width,
-        img_height: height,
-        sizes: sizes,
-        widths: widths,
-        classes: 'footer__logo-image',
-        style: style,
-        alt: block.settings.logo.alt | default: shop.name,
-        animation: 'footer-logo-scroll-up',
-      -%}
+      {{ block.settings.logo
+        | image_url: width: width
+        | image_tag:
+          loading: 'lazy',
+          width: width,
+          height: height,
+          sizes: sizes,
+          widths: widths,
+          class: 'footer__logo-image',
+          style: style,
+          alt: logo_alt
+      }}
     </a>
   </div>
-  <script>
-    (function() {
-      var init = function() {
-        var logo = document.querySelector('.footer__item--{{ block.id }} image-element[data-aos="footer-logo-scroll-up"]');
-        var logoBlock = document.querySelector('.footer__item--{{ block.id }}');
-        if (!logo || !logoBlock) return;
-        if (logo.dataset.footerLogoInit === 'true') return;
-        logo.dataset.footerLogoInit = 'true';
-
-        var setVisible = function(visible) {
-          logo.setAttribute('data-footer-logo-visible', visible ? 'true' : 'false');
-        };
-
-        var animationsDisabled = document.body && (document.body.dataset.disableAnimations === 'true' || document.body.dataset.animateImages === 'false');
-        if (animationsDisabled) {
-          setVisible(true);
-          return;
-        }
-
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          setVisible(true);
-          return;
-        }
-
-        var inViewNow = function() {
-          var rect = logoBlock.getBoundingClientRect();
-          var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-          return rect.top < viewportHeight * 0.9 && rect.bottom > viewportHeight * 0.08;
-        };
-
-        setVisible(inViewNow());
-
-        if ('IntersectionObserver' in window) {
-          var observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-              if (!entry.isIntersecting) {
-                setVisible(false);
-                return;
-              }
-
-              setVisible(inViewNow());
-            });
-          }, {
-            threshold: [0, 0.08, 0.2, 0.45],
-            rootMargin: '0px 0px -10% 0px'
-          });
-
-          observer.observe(logoBlock);
-          return;
-        }
-
-        var rafId = 0;
-        var checkVisibility = function() {
-          rafId = 0;
-          var rect = logoBlock.getBoundingClientRect();
-          var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-          var inView = rect.top < viewportHeight * 0.9 && rect.bottom > viewportHeight * 0.08;
-          setVisible(inView);
-        };
-
-        var requestCheck = function() {
-          if (rafId) return;
-          rafId = window.requestAnimationFrame(checkVisibility);
-        };
-
-        requestCheck();
-        window.addEventListener('scroll', requestCheck, { passive: true });
-        window.addEventListener('resize', requestCheck);
-      };
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init, { once: true });
-      } else {
-        init();
-      }
-    })();
-  </script>
 {%- endif -%}
