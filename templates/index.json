@@ -88,6 +88,9 @@
         "advanced_YbPaLx"
       ],
       "name": "t:sections.promo-grid.presets.promotional_grid.name",
+      "custom_css": [
+        ".promo-grid {--oz-home-layout-revision: 9748ba9;}"
+      ],
       "settings": {
         "full_width": true,
         "gutter_size": 0,
@@ -880,5 +883,4 @@
     "1717358326f1e64cf2",
     "57d144b4-c05f-4c17-80d1-6f48e8243989"
   ]
-
 }
