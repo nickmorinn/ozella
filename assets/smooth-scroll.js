@@ -1,0 +1,1 @@
+/* Smooth scrolling removed. Ozella uses native browser scrolling. */
