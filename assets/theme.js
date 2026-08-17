@@ -5558,12 +5558,20 @@ theme.recentlyViewed = {
         var trigger = evt.currentTarget;
         var index;
 
-        // Prefer the clicked slide index so any visible image can open zoom
-        // even when only one slide is marked .is-selected by Flickity.
+        // Image sets keep their original product media indexes even though
+        // PhotoSwipe only receives the active set. Find the clicked image in
+        // that active list so every tile opens its matching zoom image.
         if (trigger && typeof trigger.closest === 'function') {
           var slide = trigger.closest('.product-main-slide');
-          if (slide && slide.hasAttribute('data-index')) {
-            index = parseInt(slide.getAttribute('data-index'), 10) + 1;
+          var clickedImage = trigger.matches(selectors.images)
+            ? trigger
+            : slide && slide.querySelector(selectors.images);
+
+          if (clickedImage) {
+            var imageIndex = Array.prototype.indexOf.call(this.images, clickedImage);
+            if (imageIndex > -1) {
+              index = imageIndex + 1;
+            }
           }
         }
 

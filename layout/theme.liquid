@@ -340,6 +340,12 @@
       overscroll-behavior-y: none;
     }
 
+    @media only screen and (min-width: 769px) {
+      html {
+        background-color: {{ settings.color_body_bg }};
+      }
+    }
+
     body {
       background-color: var(--colorBody);
       display: flex;
